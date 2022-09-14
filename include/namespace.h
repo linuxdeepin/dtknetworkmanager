@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-#define DDEMO_NAMESPACE Dtk::Demo
+#define DNETWORKMANAGER_NAMESPACE Dtk::NetworkManager
 
-#define DDEMO_USE_NAMESPACE using namespace DDEMO_NAMESPACE;
+#define DNETWORKMANAGER_USE_NAMESPACE using namespace DNETWORKMANAGER_NAMESPACE;
 
-#define DDEMO_BEGIN_NAMESPACE namespace Dtk { namespace Demo {
-#define DDEMO_END_NAMESPACE }}
+#define DNETWORKMANAGER_BEGIN_NAMESPACE namespace Dtk { namespace NetworkManager {
+#define DNETWORKMANAGER_END_NAMESPACE }}
