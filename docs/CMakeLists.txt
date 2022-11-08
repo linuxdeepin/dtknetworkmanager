@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
 #
 # SPDX-License-Identifier: LGPL-3.0-or-later
-#${CMAKE_INSTALL_DATAROOTDIR}/qt5/doc
 
 set (QCH_INSTALL_DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/qt5/doc CACHE STRING "QCH install location")
 set (DOXYGEN_GENERATE_HTML "YES" CACHE STRING "Doxygen HTML output")
@@ -13,20 +12,20 @@ set (DOXYGEN_EXTRACT_STATIC YES)
 set (DOXYGEN_OUTPUT_LANGUAGE "Chinese")
 set (DOXYGEN_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/docs/)
 set (DOXYGEN_QHG_LOCATION "qhelpgenerator")
-set (DOXYGEN_QHP_NAMESPACE "org.deepin.dde.${CMAKE_PROJECT_NAME}")
-set (DOXYGEN_QCH_FILE "${CMAKE_PROJECT_NAME}.qch")
+set (DOXYGEN_QHP_NAMESPACE "org.deepin.dtk.accounts")
+set (DOXYGEN_QCH_FILE "${BIN_NAME}.qch")
 set (DOXYGEN_QHP_VIRTUAL_FOLDER ${CMAKE_PROJECT_NAME})
 set (DOXYGEN_HTML_EXTRA_STYLESHEET "" CACHE STRING "Doxygen custom stylesheet for HTML output")
 set (DOXYGEN_TAGFILES "qtcore.tags=qthelp://doc.qt.io/qt-5/" CACHE STRING "Doxygen tag files")
 set (DOXYGEN_MACRO_EXPANSION "YES")
 set (DOXYGEN_EXPAND_ONLY_PREDEF "YES")
 set (DOXYGEN_PREDEFINED
-    "\"DDEMO_BEGIN_NAMESPACE=namespace Dtk { namespace Demo {\""
-    "\"DDEMO_END_NAMESPACE=}}\""
-    "\"DDEMO_USE_NAMESPACE=using namespace Dtk::Demo;\""
+    "\"DNETWORKMANAGER_BEGIN_NAMESPACE=namespace Dtk::NetworkManager{\""
+    "\"DNETWORKMANAGER_END_NAMESPACE=}\""
+    "\"DNETWORKMANAGER_USE_NAMESPACE=using namespace Dtk::NetworkManager;\""
 )
 
-doxygen_add_docs (doxygen
+doxygen_add_docs (doxygen_dtkaccounts
     ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_CURRENT_SOURCE_DIR}/../docs
     ALL
@@ -34,4 +33,4 @@ doxygen_add_docs (doxygen
     COMMENT "Generate documentation via Doxygen"
 )
 
-install (FILES ${CMAKE_CURRENT_BINARY_DIR}/html/${CMAKE_PROJECT_NAME}.qch DESTINATION ${QCH_INSTALL_DESTINATION})
+install (FILES ${CMAKE_CURRENT_BINARY_DIR}/html/${BIN_NAME}.qch DESTINATION ${QCH_INSTALL_DESTINATION})

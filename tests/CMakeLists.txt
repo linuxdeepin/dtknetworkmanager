@@ -29,19 +29,13 @@ add_executable(${BIN_NAME}
     ${DFAKE_INTERFACE_DBUS_XML}
 )
 
-find_package(PkgConfig REQUIRED)
-pkg_search_module(RSVG2 REQUIRED librsvg-2.0)
-
 target_include_directories(${BIN_NAME} PUBLIC
     Qt${QT_VERSION_MAJOR}::Core
-    Qt${QT_VERSION_MAJOR}::Gui
     Qt${QT_VERSION_MAJOR}::DBus
-    ${RSVG2_INCLUDE_DIRS}
 )
 
 target_link_libraries(${BIN_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
-    Qt${QT_VERSION_MAJOR}::Gui
     Qt${QT_VERSION_MAJOR}::DBus
     ${RSVG2_LIBRARIES}
     -lpthread
