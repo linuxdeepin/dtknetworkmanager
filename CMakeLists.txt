@@ -11,8 +11,8 @@ set(BIN_NAME dtknetworkmanager)
 
 project(${BIN_NAME}
     LANGUAGES CXX
-    HOMEPAGE_URL https://github.com/linuxdeepin/dtk-template
-    DESCRIPTION "dtk library template"
+    HOMEPAGE_URL https://github.com/linuxdeepin/dtknetworkmanager
+    DESCRIPTION "NetworkManager DBus interface binding for Qt"
     VERSION ${VERSION}
 )
 
@@ -33,14 +33,12 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif ()
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(BUILD_TESTING ON)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fsanitize=address -fno-omit-frame-pointer")
-else ()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
+    # set(BUILD_TESTING ON)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer")
 endif ()
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Gui DBus)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core DBus)
 
 add_subdirectory(src)
 
