@@ -5,4 +5,4 @@
 #ifndef DNETWORKMANAGER_H
 #define DNETWORKMANAGER_H
 
-#endif  // DNETWORKMANAGER_H
+#endif
