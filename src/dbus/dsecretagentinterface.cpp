@@ -29,7 +29,7 @@ QDBusPendingReply<SettingDesc> DSecretAgentInterface::getSecrets(const SettingDe
                                                                  const QByteArray &connectionPath,
                                                                  const QByteArray &settingName,
                                                                  const QList<QByteArray> &hints,
-                                                                 const NMSecretAgentGetSecretsFlags flag) const
+                                                                 const quint32 flag) const
 {
     return m_inter->asyncCallWithArgumentList("GetSecret",
                                               {QVariant::fromValue(connection),
@@ -41,7 +41,7 @@ QDBusPendingReply<SettingDesc> DSecretAgentInterface::getSecrets(const SettingDe
                                                        ret.append(hints[i]);
                                                    return ret;
                                                }()),
-                                               QVariant::fromValue(static_cast<quint64>(flag))});
+                                               QVariant::fromValue(flag)});
 }
 
 QDBusPendingReply<void> DSecretAgentInterface::cancelGetSecrets(const QByteArray &connectionPath,

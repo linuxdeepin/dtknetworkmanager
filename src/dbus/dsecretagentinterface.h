@@ -28,7 +28,7 @@ public slots:
                                               const QByteArray &connectionPath,
                                               const QByteArray &settingName,
                                               const QList<QByteArray> &hints,
-                                              const NMSecretAgentGetSecretsFlags flag) const;
+                                              const quint32 flag) const;
     QDBusPendingReply<void> cancelGetSecrets(const QByteArray &connectionPath, const QByteArray &settingName) const;
     QDBusPendingReply<void> saveSecrets(const SettingDesc &connection, const QByteArray &connectionPath) const;
     QDBusPendingReply<void> deleteSecrets(const SettingDesc &connection, const QByteArray &connectionPath) const;

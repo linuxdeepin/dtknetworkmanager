@@ -20,6 +20,17 @@ class DActiveConnectionInterface;
 
 // custom enum
 
+enum class NMState : quint8 {
+    NMStateUnknown = 0,
+    NMStateAsleep = 10,
+    NMStateDisconnected = 20,
+    NMStateDisconnecting = 30,
+    NMStateConnecting = 40,
+    NMStateConnectedLocal = 50,
+    NMStateConnectedSite = 60,
+    NMStateConnectedGlobal = 70
+};
+
 enum class NMConnectivityState : quint8 {
     NMConnectivityUnknown = 0,
     NMConnectivityNone,
@@ -154,6 +165,76 @@ enum class NMDeviceState : quint8 {
     NMDeviceStateFailed = 120
 };
 
+enum class NMDeviceStateReason : quint8 {
+    NMDeviceStateReasonNone = 0,
+    NMDeviceStateReasonUnknown,
+    NMDeviceStateReasonNowManaged,
+    NMDeviceStateReasonNowUnmanaged,
+    NMDeviceStateReasonConfigFailed,
+    NMDeviceStateReasonIPConfigUnavailable,
+    NMDeviceStateReasonIPConfigExpired,
+    NMDeviceStateReasonNoSecret,
+    NMDeviceStateReasonSupplicantDisconnected,
+    NMDeviceStateReasonSupplicantConfigFailed,
+    NMDeviceStateReasonSupplicantFailed,
+    NMDeviceStateReasonSupplicantTimeout,
+    NMDeviceStateReasonPPPStartFailed,
+    NMDeviceStateReasonPPPDisconnect,
+    NMDeviceStateReasonPPPFailed,
+    NMDeviceStateReasonDHCPStartFailed,
+    NMDeviceStateReasonDHCPError,
+    NMDeviceStateReasonDHCPFailed,
+    NMDeviceStateReasonSharedStartFailed,
+    NMDeviceStateReasonSharedFailed,
+    NMDeviceStateReasonAutoIPStartFailed,
+    NMDeviceStateReasonAutoIPError,
+    NMDeviceStateReasonAutoIPFailed,
+    NMDeviceStateReasonModemBusy,
+    NMDeviceStateReasonModemNoDialTone,
+    NMDeviceStateReasonModemNoCarrier,
+    NMDeviceStateReasonModemDialTimeout,
+    NMDeviceStateReasonModemDialFailed,
+    NMDeviceStateReasonModemInitFailed,
+    NMDeviceStateReasonGSMAPNFailed,
+    NMDeviceStateReasonGSMRegistrationNotSearching,
+    NMDeviceStateReasonGSMRegistrationDenied,
+    NMDeviceStateReasonGSMRegistrationTimeout,
+    NMDeviceStateReasonGSMRegistrationFailed,
+    NMDeviceStateReasonGSMPINCheckFailed,
+    NMDeviceStateReasonFirmwareMissing,
+    NMDeviceStateReasonRemoved,
+    NMDeviceStateReasonSleeping,
+    NMDeviceStateReasonConnectionRemoved,
+    NMDeviceStateReasonUserRequested,
+    NMDeviceStateReasonCarrier,
+    NMDeviceStateReasonConnectionAssumed,
+    NMDeviceStateReasonSupplicantAvailable,
+    NMDeviceStateReasonModemNotFound,
+    NMDeviceStateReasonBTFailed,
+    NMDeviceStateReasonGSMSIMPINRequired,
+    NMDeviceStateReasonGSMSIMPUKRequired,
+    NMDeviceStateReasonGSMSIMWrong,
+    NMDeviceStateReasonInfinibandMode,
+    NMDeviceStateReasonDependencyFailed,
+    NMDeviceStateReasonBR2684Failed,
+    NMDeviceStateReasonModemManagerUnavailable,
+    NMDeviceStateReasonSSIDNotFound,
+    NMDeviceStateReasonSecondaryConnectionFailed,
+    NMDeviceStateReasonDCBFCoEFailed,
+    NMDeviceStateReasonTeamdControlFailed,
+    NMDeviceStateReasonModemFailed,
+    NMDeviceStateReasonModemAvailable,
+    NMDeviceStateReasonGSMSIMPINIncorrect,
+    NMDeviceStateReasonNewActivation,
+    NMDeviceStateReasonParentChanged,
+    NMDeviceStateReasonParentManagedChanged,
+    NMDeviceStateReasonOVSDBFailed,
+    NMDeviceStateReasonIPAddressDuplicate,
+    NMDeviceStateReasonIPMethodUnsupported,
+    NMDeviceStateReasonSRIOVConfigurationFailed,
+    NMDeviceStateReasonPeerNotFound
+};
+
 enum class NM80211Mode : quint8 { NM80211ModeUnknown, NM80211ModeAdHoc, NM80211ModeInfra, NM80211ModeAP };
 
 enum class NMDeviceWiFiCapabilities : quint16 {
@@ -187,8 +268,8 @@ enum class NMSecretAgentGetSecretsFlags : quint32 {
 
 struct NewConn
 {
-    QScopedPointer<DConnectionSetting> setting;
-    QScopedPointer<DActiveConnectionInterface> conn;
+    quint64 settingId;
+    quint64 activeConnId;
 };
 
 struct SystemProxyAddr
