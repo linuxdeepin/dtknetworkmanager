@@ -70,7 +70,7 @@ public slots:
     QDBusPendingReply<void> disconnect() const;
 
 signals:
-    void StateChanged(const quint32 newSatate, const quint32 oldState, const quint32 reason);
+    void stateChanged(const quint32 newSatate, const quint32 oldState, const quint32 reason);
     void availableConnectionsChanged(const QList<QDBusObjectPath> &conns);
     void autoconnectChanged(const bool enabled);
     void managedChanged(const bool enabled);
@@ -84,7 +84,6 @@ signals:
     void udiChanged(const QString &udi);
     void deviceTypeChanged(const quint32 type);
     void interfaceFlagsChanged(const quint32 flags);
-    void stateChanged(const quint32 state);
     void refreshRateMsChanged(const quint32 rate);
     void rxBytesChanged(const quint32 bytes);
     void txBytesChanged(const quint32 bytes);

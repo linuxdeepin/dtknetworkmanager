@@ -32,7 +32,8 @@ public:
     Q_PROPERTY(QDBusObjectPath specificObject READ specificObject NOTIFY specificObjectChanged)
     Q_PROPERTY(QString id READ id NOTIFY idChanged)
     Q_PROPERTY(QString uuid READ uuid NOTIFY uuidChanged)
-    Q_PROPERTY(quint32 state READ state NOTIFY StateChanged)
+    Q_PROPERTY(QString type READ type NOTIFY typeChanged)
+    Q_PROPERTY(quint32 state READ state NOTIFY stateChanged)
 
     QList<QDBusObjectPath> devices() const;
     bool vpn() const;
@@ -43,6 +44,7 @@ public:
     QDBusObjectPath IP6Config() const;
     QDBusObjectPath specificObject() const;
     QString id() const;
+    QString type() const;
     QString uuid() const;
     quint32 state() const;
 
@@ -57,7 +59,8 @@ signals:
     void specificObjectChanged(const QDBusObjectPath &specObj);
     void idChanged(const QString &id);
     void uuidChanged(const QString &uuid);
-    void StateChanged(const quint32 state, const quint32 reason);
+    void typeChanged(const QString &type);
+    void stateChanged(const quint32 state, const quint32 reason);
 
 private:
     DDBusInterface *m_inter{nullptr};

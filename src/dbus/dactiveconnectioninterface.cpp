@@ -75,6 +75,11 @@ QString DActiveConnectionInterface::uuid() const
     return qdbus_cast<QString>(m_inter->property("Uuid"));
 };
 
+QString DActiveConnectionInterface::type() const
+{
+    return qdbus_cast<QString>(m_inter->property("Type"));
+};
+
 quint32 DActiveConnectionInterface::state() const
 {
     return qdbus_cast<quint32>(m_inter->property("State"));
