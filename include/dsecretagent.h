@@ -39,7 +39,7 @@ private:
     Q_DECLARE_PRIVATE(DSecretAgent)
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(DSecretAgent::SecretFlags);
+Q_DECLARE_OPERATORS_FOR_FLAGS(DSecretAgent::SecretFlags)
 
 DNETWORKMANAGER_END_NAMESPACE
 

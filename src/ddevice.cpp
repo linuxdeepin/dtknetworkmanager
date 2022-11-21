@@ -2,7 +2,6 @@
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-#include "ddevice.h"
 #include "ddevice_p.h"
 #include "dnmutils.h"
 
@@ -12,10 +11,12 @@ using DCORE_NAMESPACE::DUnexpected;
 using DCORE_NAMESPACE::emplace_tag;
 
 DDevicePrivate::DDevicePrivate(const quint64 deviceId, DDevice *parent)
-    : QObject(parent)
+    : m_device(new DDeviceInterface("/org/freedesktop/NetworkManager/Devices/" + QByteArray::number(deviceId), this))
+    , q_ptr(parent)
 {
-    m_device = new DDeviceInterface("/org/freedesktop/NetworkManager/ActiveConnection/" + QByteArray::number(deviceId), this);
 }
+
+DDevicePrivate::~DDevicePrivate() = default;
 
 DDevice::DDevice(const quint64 deviceId, QObject *parent)
     : QObject(parent)
@@ -87,6 +88,8 @@ DDevice::DDevice(const quint64 deviceId, QObject *parent)
 
     connect(d->m_device, &DDeviceInterface::txBytesChanged, this, &DDevice::txBytesChanged);
 }
+
+DDevice::~DDevice() = default;
 
 QList<quint64> DDevice::availableConnections() const
 {

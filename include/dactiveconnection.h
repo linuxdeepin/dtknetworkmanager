@@ -16,7 +16,7 @@ class DActiveConnection : public QObject
     Q_OBJECT
 public:
     explicit DActiveConnection(const quint64 activeConnId, QObject *parent = nullptr);
-    ~DActiveConnection() = default;
+    ~DActiveConnection() override;
 
     Q_PROPERTY(QList<quint64> devices READ devices NOTIFY devicesChanged)
     Q_PROPERTY(bool vpn READ vpn NOTIFY vpnChanged)
@@ -58,8 +58,10 @@ signals:
     void UUIDChanged(const QByteArray &UUID);
     void connectionStateChanged(const NMActiveConnectionState state, const NMActiveConnectionStateReason reason);
 
-private:
+protected:
     QScopedPointer<DActiveConnectionPrivate> d_ptr;
+
+private:
     Q_DECLARE_PRIVATE(DActiveConnection)
 };
 

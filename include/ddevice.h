@@ -17,9 +17,6 @@ using DCORE_NAMESPACE::DExpected;
 class DDevice : public QObject
 {
     Q_OBJECT
-public:
-    explicit DDevice(const quint64 deviceId, QObject *parent = nullptr);
-    ~DDevice() = default;
 
     Q_PROPERTY(QList<quint64> availableConnections READ availableConnections NOTIFY availableConnectionsChanged)
     Q_PROPERTY(bool autoconnect READ autoconnect WRITE setAutoconnect NOTIFY autoconnectChanged)
@@ -38,6 +35,10 @@ public:
     Q_PROPERTY(quint32 refreshRateMs READ refreshRateMs WRITE setRefreshRateMs NOTIFY refreshRateMsChanged)
     Q_PROPERTY(quint32 rxBytes READ rxBytes NOTIFY rxBytesChanged)
     Q_PROPERTY(quint32 txBytes READ txBytes NOTIFY txBytesChanged)
+
+public:
+    explicit DDevice(const quint64 deviceId, QObject *parent = nullptr);
+    ~DDevice() override;
 
     QList<quint64> availableConnections() const;
     bool autoconnect() const;
@@ -82,8 +83,10 @@ signals:
     void rxBytesChanged(const quint32 bytes);
     void txBytesChanged(const quint32 bytes);
 
-private:
+protected:
     QScopedPointer<DDevicePrivate> d_ptr;
+
+private:
     Q_DECLARE_PRIVATE(DDevice)
 };
 

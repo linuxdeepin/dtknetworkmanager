@@ -5,18 +5,17 @@
 #ifndef DACTIVECONNECTION_P_H
 #define DACTIVECONNECTION_P_H
 
+#include "dactiveconnection.h"
 #include "dbus/dactiveconnectioninterface.h"
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
-
-class DActiveConnection;
 
 class DActiveConnectionPrivate : public QObject
 {
     Q_OBJECT
 public:
     explicit DActiveConnectionPrivate(const quint64 activeConnId, DActiveConnection *parent = nullptr);
-    ~DActiveConnectionPrivate() = default;
+    ~DActiveConnectionPrivate() override;
 
     DActiveConnection *q_ptr{nullptr};
     DActiveConnectionInterface *m_activeConn{nullptr};
