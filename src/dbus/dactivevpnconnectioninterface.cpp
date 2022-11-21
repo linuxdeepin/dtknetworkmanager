@@ -7,7 +7,7 @@
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
-DActiveVPNConnectionInterface::DActiveVPNConnectionInterface(const QByteArray &path, QObject *parent)
+DActiveVpnConnectionInterface::DActiveVpnConnectionInterface(const QByteArray &path, QObject *parent)
     : DActiveConnectionInterface(path, parent)
 {
 #ifdef USE_FAKE_INTERFACE
@@ -25,12 +25,12 @@ DActiveVPNConnectionInterface::DActiveVPNConnectionInterface(const QByteArray &p
     m_vpninter = new DDBusInterface(Service, path, Interface, Connection, this);
 }
 
-quint32 DActiveVPNConnectionInterface::vpnState() const
+quint32 DActiveVpnConnectionInterface::vpnState() const
 {
     return qdbus_cast<quint32>(m_vpninter->property("VpnState"));
 };
 
-QString DActiveVPNConnectionInterface::banner() const
+QString DActiveVpnConnectionInterface::banner() const
 {
     return qdbus_cast<QString>(m_vpninter->property("Banner"));
 }

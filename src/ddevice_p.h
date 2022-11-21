@@ -5,21 +5,20 @@
 #ifndef DDEVICEPRIVATE_P_H
 #define DDEVICEPRIVATE_P_H
 
+#include "ddevice.h"
 #include "dbus/ddeviceInterface.h"
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
-
-class DDevice;
 
 class DDevicePrivate : public QObject
 {
     Q_OBJECT
 public:
     explicit DDevicePrivate(const quint64 deviceId, DDevice *parent = nullptr);
-    ~DDevicePrivate() = default;
+    ~DDevicePrivate() override;
 
-    DDevice *q_ptr{nullptr};
     DDeviceInterface *m_device{nullptr};
+    DDevice *q_ptr{nullptr};
     Q_DECLARE_PUBLIC(DDevice)
 };
 

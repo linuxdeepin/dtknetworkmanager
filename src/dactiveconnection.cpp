@@ -2,7 +2,6 @@
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-#include "dactiveconnection.h"
 #include "dactiveconnection_p.h"
 #include "dnmutils.h"
 
@@ -10,10 +9,12 @@ DNETWORKMANAGER_BEGIN_NAMESPACE
 
 DActiveConnectionPrivate::DActiveConnectionPrivate(const quint64 activeConnId, DActiveConnection *parent)
     : q_ptr(parent)
+    , m_activeConn(new DActiveConnectionInterface(
+          "/org/freedesktop/NetworkManager/ActiveConnection/" + QByteArray::number(activeConnId), this))
 {
-    m_activeConn = new DActiveConnectionInterface(
-        "/org/freedesktop/NetworkManager/ActiveConnection/" + QByteArray::number(activeConnId), this);
 }
+
+DActiveConnectionPrivate::~DActiveConnectionPrivate() = default;
 
 DActiveConnection::DActiveConnection(const quint64 activeConnId, QObject *parent)
     : QObject(parent)
@@ -57,6 +58,8 @@ DActiveConnection::DActiveConnection(const quint64 activeConnId, QObject *parent
                                           static_cast<NMActiveConnectionStateReason>(reason));
     });
 }
+
+DActiveConnection::~DActiveConnection() = default;
 
 QList<quint64> DActiveConnection::devices() const
 {

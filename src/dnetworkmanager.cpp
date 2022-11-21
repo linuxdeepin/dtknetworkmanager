@@ -5,6 +5,13 @@
 #include "dnetworkmanager.h"
 #include "dnetworkmanager_p.h"
 #include "dnmutils.h"
+#include "dadsldevice.h"
+#include "dgenericdevice.h"
+#include "dwireddevice.h"
+#include "dwirelessdevice.h"
+#include "dtundevice.h"
+#include "dactivevpnconnection.h"
+#include <QDBusMessage>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -90,7 +97,7 @@ bool DNetworkManager::wirelessHardwareEnabled() const
     return d->m_manager->wirelessHardwareEnabled();
 }
 
-QList<quint64> DNetworkManager::activeConnections() const
+QList<quint64> DNetworkManager::getActiveConnectionsIdList() const
 {
     Q_D(const DNetworkManager);
     QList<quint64> ret;
@@ -123,7 +130,7 @@ NMConnectivityState DNetworkManager::connectivity() const
     return static_cast<NMConnectivityState>(d->m_manager->connectivity());
 }
 
-DExpected<QList<quint64>> DNetworkManager::devices() const
+DExpected<QList<quint64>> DNetworkManager::getDeviceIdList() const
 {
     Q_D(const DNetworkManager);
     auto reply = d->m_manager->getDevices();
@@ -199,6 +206,56 @@ DExpected<NMConnectivityState> DNetworkManager::checkConnectivity() const
     if (!reply.isValid())
         return DUnexpected{emplace_tag::USE_EMPLACE, reply.error().type(), reply.error().message()};
     return static_cast<NMConnectivityState>(reply.value());
+}
+
+DExpected<QSharedPointer<DDevice>> DNetworkManager::getDeviceObject(const quint64 id) const
+{
+    const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
+    const QString &Path = QStringLiteral("/org/freedesktop/NetworkManager/Devices/");
+    const QString &Interface = QStringLiteral("org.freedesktop.Dbus.Properties");
+    auto msg = QDBusMessage::createMethodCall(Service, Path + QString::number(id), Interface, "Get");
+    msg << "org.freedesktop.NetworkManager.Device"
+        << "DeviceType";
+    QDBusPendingReply<QVariant> type = QDBusConnection::systemBus().asyncCall(msg);
+    NMDeviceType realType;
+    if (type.value().isValid())
+        realType = static_cast<NMDeviceType>(qdbus_cast<quint32>(type));
+    else
+        return DUnexpected{emplace_tag::USE_EMPLACE, type.error().type(), type.error().message()};
+    switch (realType) {
+        case NMDeviceType::NMDeviceTypeADSL:
+            return QSharedPointer<DAdslDevice>(new DAdslDevice(id));
+        case NMDeviceType::NMDeviceTypeGeneric:
+            return QSharedPointer<DGenericDevice>(new DGenericDevice(id));
+        case NMDeviceType::NMDeviceTypeTun:
+            return QSharedPointer<DTunDevice>(new DTunDevice(id));
+        case NMDeviceType::NMDeviceTypeEthernet:
+            return QSharedPointer<DWiredDevice>(new DWiredDevice(id));
+        case NMDeviceType::NMDeviceTypeWiFi:
+            return QSharedPointer<DWirelessDevice>(new DWirelessDevice(id));
+        default:
+            return DUnexpected{emplace_tag::USE_EMPLACE, -1, "unsupported device"};
+    }
+    Q_UNREACHABLE();
+}
+
+DExpected<QSharedPointer<DActiveConnection>> DNetworkManager::getActiveConnectionObject(const quint64 id) const
+{
+    const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
+    const QString &Path = QStringLiteral("/org/freedesktop/NetworkManager/ActiveConnection/");
+    const QString &Interface = QStringLiteral("org.freedesktop.Dbus.Properties");
+    auto msg = QDBusMessage::createMethodCall(Service, Path + QString::number(id), Interface, "Get");
+    msg << "org.freedesktop.NetworkManager.Connection.Active"
+        << "Vpn";
+    QDBusPendingReply<QVariant> type = QDBusConnection::systemBus().asyncCall(msg);
+    bool isVpn{false};
+    if (type.value().isValid())
+        isVpn = qdbus_cast<bool>(type);
+    else
+        return DUnexpected{emplace_tag::USE_EMPLACE, type.error().type(), type.error().message()};
+    if (isVpn)
+        return QSharedPointer<DActiveConnection>(new DActiveVpnConnection(id));
+    return QSharedPointer<DActiveConnection>(new DActiveConnection(id));
 }
 
 DNETWORKMANAGER_END_NAMESPACE

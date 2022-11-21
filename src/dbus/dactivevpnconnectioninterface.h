@@ -11,12 +11,12 @@ DNETWORKMANAGER_BEGIN_NAMESPACE
 
 using DTK_CORE_NAMESPACE::DDBusInterface;
 
-class DActiveVPNConnectionInterface : public DActiveConnectionInterface
+class DActiveVpnConnectionInterface : public DActiveConnectionInterface
 {
     Q_OBJECT
 public:
-    explicit DActiveVPNConnectionInterface(const QByteArray &path, QObject *parent = nullptr);
-    ~DActiveVPNConnectionInterface() = default;
+    explicit DActiveVpnConnectionInterface(const QByteArray &path, QObject *parent = nullptr);
+    ~DActiveVpnConnectionInterface() = default;
 
     Q_PROPERTY(quint32 vpnState READ vpnState NOTIFY VpnStateChanged)
     Q_PROPERTY(QString banner READ banner NOTIFY bannerChanged)

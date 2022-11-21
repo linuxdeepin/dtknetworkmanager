@@ -9,8 +9,8 @@ DNETWORKMANAGER_BEGIN_NAMESPACE
 
 DAccessPointPrivate::DAccessPointPrivate(const quint64 apId, DAccessPoint *parent)
     : q_ptr(parent)
+    , m_ap(new DAccessPointInterface("/org/freedesktop/NetworkManager/AccessPoint/" + QByteArray::number(apId), this))
 {
-    m_ap = new DAccessPointInterface("/org/freedesktop/NetworkManager/AccessPoint/" + QByteArray::number(apId), this);
 }
 
 DAccessPoint::DAccessPoint(const quint64 apId, QObject *parent)
