@@ -27,6 +27,10 @@ public slots:
     QDBusPendingReply<QDBusObjectPath> getConnectionByUUID(const QByteArray &UUID) const;
     QDBusPendingReply<QDBusObjectPath> addConnection(const SettingDesc &conn) const;
 
+signals:
+    void ConnectionRemoved(const QDBusObjectPath &path);
+    void NewConnection(const QDBusObjectPath &path);
+
 private:
     DDBusInterface *m_inter{nullptr};
 };

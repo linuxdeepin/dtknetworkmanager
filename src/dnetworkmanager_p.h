@@ -23,4 +23,5 @@ public:
     Q_DECLARE_PUBLIC(DNetworkManager)
 };
 DNETWORKMANAGER_END_NAMESPACE
+
 #endif
