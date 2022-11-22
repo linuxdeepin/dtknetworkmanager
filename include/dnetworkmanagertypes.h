@@ -15,9 +15,6 @@ DNETWORKMANAGER_BEGIN_NAMESPACE
 using Config = QMap<QString, QVariant>;
 using SettingDesc = QMap<QString, Config>;
 
-class DConnectionSetting;
-class DActiveConnectionInterface;
-
 // custom enum
 
 enum class NMState : quint8 {
@@ -105,7 +102,7 @@ enum class NMSettingsConnectionFlags : quint8 {
     NMSettingsConnectionFlagVolatile = 4
 };
 
-enum class AppProxyType : quint8 { AppProxyTypeHTTP = 0, AppProxyTypeSocks4, AppProxyTypeSocks5 };
+enum class ProxyType : quint8 { ProxyTypeHTTP = 0, ProxyTypeSocks4, ProxyTypeSocks5 };
 
 enum class SystemProxyMethod : quint8 { SystemProxyMethodNone = 0, SystemProxyMethodManual, SystemProxyMethodAuto };
 
@@ -281,7 +278,7 @@ struct SystemProxyAddr
 struct AppProxySet
 {
     quint32 port;
-    AppProxyType type;
+    ProxyType type;
     QByteArray ip;
     QByteArray password;
     QString user;

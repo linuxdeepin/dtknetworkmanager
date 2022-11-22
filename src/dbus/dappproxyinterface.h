@@ -22,11 +22,11 @@ public:
     explicit DAppProxyInterface(QObject *parent = nullptr);
     ~DAppProxyInterface() = default;
 
-    Q_PROPERTY(QString IP READ IP NOTIFY IPChanged)
-    Q_PROPERTY(QString password READ password NOTIFY passwordChanged)
-    Q_PROPERTY(QString type READ type NOTIFY typeChanged)
-    Q_PROPERTY(QString user READ user NOTIFY userChanged)
-    Q_PROPERTY(quint32 port READ port NOTIFY portChanged)
+    Q_PROPERTY(QString IP READ IP)
+    Q_PROPERTY(QString password READ password)
+    Q_PROPERTY(QString type READ type)
+    Q_PROPERTY(QString user READ user)
+    Q_PROPERTY(quint32 port READ port)
 
     QString IP() const;
     QString password() const;
@@ -37,13 +37,6 @@ public:
 public slots:
     QDBusPendingReply<void>
     set(const QString &type, const QString &ip, const quint32 port, const QString &user, const QString &password) const;
-
-signals:
-    void IPChanged(const QString &ip);
-    void passwordChanged(const QString &password);
-    void typeChanged(const QString &type);
-    void userChanged(const QString &user);
-    void portChanged(const quint32 port);
 
 private:
     DDBusInterface *m_inter{nullptr};

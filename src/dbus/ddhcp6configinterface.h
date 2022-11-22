@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-#ifndef DDHCP4CONFIG_H
-#define DDHCP4CONFIG_H
+#ifndef DDHCP6CONFIGINTERFACE_H
+#define DDHCP6CONFIGINTERFACE_H
 
 #include "dnetworkmanager_global.h"
 #include "dnetworkmanagertypes.h"
