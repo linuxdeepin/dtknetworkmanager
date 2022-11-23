@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-#ifndef DIPCONFLICTCHECK_H
-#define DIPCONFLICTCHECK_H
+#ifndef DIPCONFLICTCHECKINTERFACE_H
+#define DIPCONFLICTCHECKINTERFACE_H
 
 #include "dnetworkmanager_global.h"
 #include "dnetworkmanagertypes.h"
