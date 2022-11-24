@@ -4,10 +4,6 @@
 
 set(BIN_NAME ut-dtknetworkmanager)
 
-#add_definitions(-DUSE_MOCK_INTERFACE)
-
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-access-control -fno-inline -Wno-pmf-conversions")
-
 include(./dbus/fakeInterface.cmake)
 
 file(GLOB_RECURSE INCLUDE_FILES "../include/*.h")
@@ -26,7 +22,6 @@ add_executable(${BIN_NAME}
     ${INCLUDE_FILES}
     ${SRCS}
     ${TEST_FILES}
-    ${DFAKE_INTERFACE_DBUS_XML}
 )
 
 target_include_directories(${BIN_NAME} PUBLIC
@@ -37,10 +32,6 @@ target_include_directories(${BIN_NAME} PUBLIC
 target_link_libraries(${BIN_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::DBus
-    ${RSVG2_LIBRARIES}
-    -lpthread
-    -lgcov
-    -lgtest
 )
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")

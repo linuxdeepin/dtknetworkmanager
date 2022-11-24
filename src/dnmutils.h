@@ -67,6 +67,29 @@ inline const char *enumToProxyMethod(const SystemProxyMethod method)
     Q_UNREACHABLE();
 }
 
+inline QString macAddressToString(const QByteArray &ba)
+{
+    QStringList mac;
+    for (int i = 0; i < ba.size(); ++i)
+        mac << QString("%1").arg((quint8)ba[i], 2, 16, QLatin1Char('0')).toUpper();
+    return mac.join(":");
+}
+
+inline QByteArray stringToMacAddress(const QString &s)
+{
+    const QStringList macStringList = s.split(':');
+    QByteArray ba;
+    if (!s.isEmpty()) {
+        ba.resize(6);
+        int i = 0;
+
+        for (const QString &macPart : macStringList) {
+            ba[i++] = macPart.toUInt(nullptr, 16);
+        }
+    }
+    return ba;
+}
+
 DNETWORKMANAGER_END_NAMESPACE
 
 #endif
