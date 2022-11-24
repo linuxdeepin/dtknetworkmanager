@@ -16,7 +16,7 @@ class DConnectionSettingPrivate : public QObject
     Q_OBJECT
 public:
     explicit DConnectionSettingPrivate(const quint64 id, DConnectionSetting *parent = nullptr);
-    ~DConnectionSettingPrivate() = default;
+    ~DConnectionSettingPrivate() override = default;
 
     DConnectionSetting *q_ptr{nullptr};
     DConnectionSettingInterface *m_setting{nullptr};

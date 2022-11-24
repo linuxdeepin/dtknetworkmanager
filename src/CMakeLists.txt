@@ -2,8 +2,10 @@
 #
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
-file(GLOB_RECURSE INCLUDE_FILES "../include/*.h")
+file(GLOB_RECURSE INCLUDE_FILES "../include/*.h" "../include/settings/*.h")
 file(GLOB_RECURSE SRCS
+    "./settingsSrc/*.h"
+    "./settingsSrc/*.cpp"
     "./*.h"
     "./*.cpp"
 )
@@ -24,6 +26,7 @@ target_include_directories(${BIN_NAME} PUBLIC
     Qt${QT_VERSION_MAJOR}::DBus
     ${DtkCore_INCLUDE_DIRS}
     ../include
+    ../include/settings
     ./dbus
 )
 
@@ -31,6 +34,8 @@ target_link_libraries(${BIN_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::DBus
     ${DtkCore_LIBRARIES}
+    PkgConfig::Gio
+    PkgConfig::NetworkManager
 )
 
 install(FILES ${INCLUDE_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${BIN_NAME})

@@ -261,6 +261,8 @@ enum class NMSecretAgentGetSecretsFlags : quint32 {
     NMSecretAgentGetSecretsFlagNoError = 0x40000000
 };
 
+enum class NMMetered { MeteredUnknown = 0, MeteredYes, MeteredNo, MeteredGuessYes, MeteredGuessNo };
+
 // custom structure
 
 struct NewConn
@@ -285,5 +287,8 @@ struct AppProxySet
 };
 
 DNETWORKMANAGER_END_NAMESPACE
+
+Q_DECLARE_METATYPE(DTK_DNETWORKMANAGER_NAMESPACE::Config);
+Q_DECLARE_METATYPE(DTK_DNETWORKMANAGER_NAMESPACE::SettingDesc);
 
 #endif
