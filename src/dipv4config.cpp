@@ -23,7 +23,7 @@ DIPv4Config::DIPv4Config(const quint64 id, QObject *parent)
     connect(d->m_ipv4, &DIPv4ConfigInterface::nameserverDataChanged, this, &DIPv4Config::nameserverDataChanged);
 
     connect(d->m_ipv4, &DIPv4ConfigInterface::gatewayChanged, this, [this](const QString &gateway) {
-        emit this->gatewayChanged(gateway.toUtf8());
+        emit this->gatewayChanged(QHostAddress(gateway));
     });
 }
 
@@ -39,10 +39,10 @@ QList<Config> DIPv4Config::nameserverData() const
     return d->m_ipv4->nameserverData();
 }
 
-QByteArray DIPv4Config::gateway() const
+QHostAddress DIPv4Config::gateway() const
 {
     Q_D(const DIPv4Config);
-    return d->m_ipv4->gateway().toUtf8();
+    return QHostAddress(d->m_ipv4->gateway());
 }
 
 DNETWORKMANAGER_END_NAMESPACE

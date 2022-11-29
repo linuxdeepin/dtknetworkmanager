@@ -27,9 +27,9 @@ QList<Config> DIPv6ConfigInterface::addressData() const
     return qdbus_cast<QList<Config>>(m_inter->property("AddressData"));
 }
 
-QList<QString> DIPv6ConfigInterface::nameservers() const
+QList<QByteArray> DIPv6ConfigInterface::nameservers() const
 {
-    return qdbus_cast<QList<QString>>(m_inter->property("Nameservers"));
+    return qdbus_cast<QList<QByteArray>>(m_inter->property("Nameservers"));
 }
 
 QString DIPv6ConfigInterface::gateway() const

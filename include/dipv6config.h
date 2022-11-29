@@ -6,6 +6,7 @@
 #define DIPV6CONFIG_H
 
 #include "dnetworkmanagertypes.h"
+#include <QHostAddress>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -19,17 +20,17 @@ public:
     ~DIPv6Config() = default;
 
     Q_PROPERTY(QList<Config> addressData READ addressData NOTIFY addressDataChanged)
-    Q_PROPERTY(QList<QByteArray> nameservers READ nameservers NOTIFY nameserversChanged)
-    Q_PROPERTY(QByteArray gateway READ gateway NOTIFY gatewayChanged)
+    Q_PROPERTY(QList<QHostAddress> nameservers READ nameservers NOTIFY nameserversChanged)
+    Q_PROPERTY(QHostAddress gateway READ gateway NOTIFY gatewayChanged)
 
     QList<Config> addressData() const;
-    QList<QByteArray> nameservers() const;
-    QByteArray gateway() const;
+    QList<QHostAddress> nameservers() const;
+    QHostAddress gateway() const;
 
 signals:
     void addressDataChanged(const QList<Config> &addrs) const;
-    void nameserversChanged(const QList<QByteArray> &nameserver) const;
-    void gatewayChanged(const QByteArray &gateway);
+    void nameserversChanged(const QList<QHostAddress> &nameserver) const;
+    void gatewayChanged(const QHostAddress &gateway);
 
 private:
     QScopedPointer<DIPv6ConfigPrivate> d_ptr;

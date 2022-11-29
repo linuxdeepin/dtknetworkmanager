@@ -24,16 +24,16 @@ public:
     ~DIPv6ConfigInterface() = default;
 
     Q_PROPERTY(QList<Config> addressData READ addressData NOTIFY addressDataChanged)
-    Q_PROPERTY(QList<QString> nameservers READ nameservers NOTIFY nameserversChanged)
+    Q_PROPERTY(QList<QByteArray> nameservers READ nameservers NOTIFY nameserversChanged)
     Q_PROPERTY(QString gateway READ gateway NOTIFY gatewayChanged)
 
     QList<Config> addressData() const;
-    QList<QString> nameservers() const;
+    QList<QByteArray> nameservers() const;
     QString gateway() const;
 
 signals:
     void addressDataChanged(const QList<Config> &addressData);
-    void nameserversChanged(const QList<QString> &nameservers);
+    void nameserversChanged(const QList<QByteArray> &nameservers);
     void gatewayChanged(const QString &gateway);
 
 private:
