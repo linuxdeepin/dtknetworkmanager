@@ -20,15 +20,20 @@ DIPv6Config::DIPv6Config(const quint64 id, QObject *parent)
     Q_D(const DIPv6Config);
     connect(d->m_ipv6, &DIPv6ConfigInterface::addressDataChanged, this, &DIPv6Config::addressDataChanged);
 
-    connect(d->m_ipv6, &DIPv6ConfigInterface::nameserversChanged, this, [this](const QList<QString> &nameservers) {
-        QList<QByteArray> ret;
-        for (const auto &it : nameservers)
-            ret.append(it.toUtf8());
+    connect(d->m_ipv6, &DIPv6ConfigInterface::nameserversChanged, this, [this](const QList<QByteArray> &nameservers) {
+        QList<QHostAddress> ret;
+        for (const QByteArray &nameserver : nameservers) {
+            Q_IPV6ADDR address;
+            for (int i = 0; i < 16; i++) {
+                address[i] = static_cast<quint8>(nameserver[i]);
+            }
+            ret.append(QHostAddress(address));
+        }
         emit this->nameserversChanged(ret);
     });
 
     connect(d->m_ipv6, &DIPv6ConfigInterface::gatewayChanged, this, [this](const QString &gateway) {
-        emit this->gatewayChanged(gateway.toUtf8());
+        emit this->gatewayChanged(QHostAddress(gateway));
     });
 }
 
@@ -38,19 +43,24 @@ QList<Config> DIPv6Config::addressData() const
     return d->m_ipv6->addressData();
 }
 
-QList<QByteArray> DIPv6Config::nameservers() const
+QList<QHostAddress> DIPv6Config::nameservers() const
 {
     Q_D(const DIPv6Config);
-    QList<QByteArray> ret;
-    for (const auto &it : d->m_ipv6->nameservers())
-        ret.append(it.toUtf8());
+    QList<QHostAddress> ret;
+    for (const QByteArray &nameserver : d->m_ipv6->nameservers()) {
+        Q_IPV6ADDR address;
+        for (int i = 0; i < 16; i++) {
+            address[i] = static_cast<quint8>(nameserver[i]);
+        }
+        ret.append(QHostAddress(address));
+    }
     return ret;
 }
 
-QByteArray DIPv6Config::gateway() const
+QHostAddress DIPv6Config::gateway() const
 {
     Q_D(const DIPv6Config);
-    return d->m_ipv6->gateway().toUtf8();
+    return QHostAddress(d->m_ipv6->gateway());
 }
 
 DNETWORKMANAGER_END_NAMESPACE

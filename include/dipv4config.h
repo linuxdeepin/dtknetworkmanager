@@ -6,6 +6,7 @@
 #define DIPV4CONFIG_H
 
 #include "dnetworkmanagertypes.h"
+#include <QHostAddress>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -20,16 +21,16 @@ public:
 
     Q_PROPERTY(QList<Config> addressData READ addressData NOTIFY addressDataChanged)
     Q_PROPERTY(QList<Config> nameserverData READ nameserverData NOTIFY nameserverDataChanged)
-    Q_PROPERTY(QByteArray gateway READ gateway NOTIFY gatewayChanged)
+    Q_PROPERTY(QHostAddress gateway READ gateway NOTIFY gatewayChanged)
 
     QList<Config> addressData() const;
     QList<Config> nameserverData() const;
-    QByteArray gateway() const;
+    QHostAddress gateway() const;
 
 signals:
     void addressDataChanged(const QList<Config> &addrs) const;
     void nameserverDataChanged(const QList<Config> &nameserverData) const;
-    void gatewayChanged(const QByteArray &gateway);
+    void gatewayChanged(const QHostAddress &gateway);
 
 private:
     QScopedPointer<DIPv4ConfigPrivate> d_ptr;

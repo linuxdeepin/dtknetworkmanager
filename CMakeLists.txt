@@ -42,7 +42,7 @@ pkg_search_module(NetworkManager REQUIRED IMPORTED_TARGET libnm>=1.4.0)
 pkg_search_module(Gio REQUIRED IMPORTED_TARGET gio-2.0)
 find_package(DtkCore REQUIRED)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core DBus)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core DBus Network)
 
 add_subdirectory(src)
 
