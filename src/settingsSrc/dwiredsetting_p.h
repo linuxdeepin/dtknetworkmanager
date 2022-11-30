@@ -24,7 +24,6 @@ public:
     DWiredSetting::S390Nettype m_s390NetType;
     DWiredSetting::WakeOnLanFlags m_wakeOnLan;
     QByteArray m_macAddress;
-    QByteArray m_clonedMacAddress;
     QString m_name;
     QString m_generateMacAddressMask;
     QString m_wakeOnLanPassword;

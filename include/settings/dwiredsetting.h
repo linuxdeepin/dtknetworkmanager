@@ -74,9 +74,6 @@ public:
     void setMacAddress(const QByteArray &address);
     QByteArray macAddress() const;
 
-    void setClonedMacAddress(const QByteArray &address);
-    QByteArray clonedMacAddress() const;
-
     void setMacAddressBlacklist(const QStringList &list);
     QStringList macAddressBlacklist() const;
 

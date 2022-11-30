@@ -37,7 +37,6 @@ DWiredSetting::DWiredSetting(const QSharedPointer<DWiredSetting> &other)
     setAutoNegotiate(other->autoNegotiate());
     setGenerateMacAddressMask(other->generateMacAddressMask());
     setMacAddress(other->macAddress());
-    setClonedMacAddress(other->clonedMacAddress());
     setMacAddressBlacklist(other->macAddressBlacklist());
     setMtu(other->mtu());
     setS390Subchannels(other->s390Subchannels());
@@ -137,20 +136,6 @@ QByteArray NetworkManager::DWiredSetting::macAddress() const
     Q_D(const DWiredSetting);
 
     return d->m_macAddress;
-}
-
-void NetworkManager::DWiredSetting::setClonedMacAddress(const QByteArray &address)
-{
-    Q_D(DWiredSetting);
-
-    d->m_clonedMacAddress = address;
-}
-
-QByteArray NetworkManager::DWiredSetting::clonedMacAddress() const
-{
-    Q_D(const DWiredSetting);
-
-    return d->m_clonedMacAddress;
 }
 
 void NetworkManager::DWiredSetting::setMacAddressBlacklist(const QStringList &list)
@@ -307,10 +292,6 @@ void NetworkManager::DWiredSetting::fromMap(const QVariantMap &setting)
         setMacAddress(setting.value(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS)).toByteArray());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_WIRED_CLONED_MAC_ADDRESS))) {
-        setClonedMacAddress(setting.value(QLatin1String(NM_SETTING_WIRED_CLONED_MAC_ADDRESS)).toByteArray());
-    }
-
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST))) {
         setMacAddressBlacklist(setting.value(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST)).toStringList());
     }
@@ -405,9 +386,6 @@ QVariantMap NetworkManager::DWiredSetting::toMap() const
 
     if (!macAddress().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS), macAddress());
-    }
-    if (!clonedMacAddress().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_WIRED_CLONED_MAC_ADDRESS), clonedMacAddress());
     }
     if (!macAddressBlacklist().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST), macAddressBlacklist());

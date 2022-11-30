@@ -40,7 +40,6 @@ DSecurity8021xSetting::DSecurity8021xSetting(const QSharedPointer<DSecurity8021x
     setPacFile(other->pacFile());
     setCaCertificate(other->caCertificate());
     setCaPath(other->caPath());
-    setSubjectMatch(other->subjectMatch());
     setAltSubjectMatches(other->altSubjectMatches());
     setClientCertificate(other->clientCertificate());
     setPhase1PeapVersion(other->phase1PeapVersion());
@@ -50,7 +49,7 @@ DSecurity8021xSetting::DSecurity8021xSetting(const QSharedPointer<DSecurity8021x
     setPhase2AuthEapMethod(other->phase2AuthEapMethod());
     setPhase2CaCertificate(other->phase2CaCertificate());
     setPhase2CaPath(other->phase2CaPath());
-    setPhase2SubjectMatch(other->phase2SubjectMatch());
+    setPhase2DomainSuffixMatch(other->phase2DomainSuffixMatch());
     setPhase2AltSubjectMatches(other->phase2AltSubjectMatches());
     setPassword(other->password());
     setPasswordFlags(other->passwordFlags());
@@ -168,20 +167,6 @@ QString DSecurity8021xSetting::caPath() const
     Q_D(const DSecurity8021xSetting);
 
     return d->m_caPath;
-}
-
-void DSecurity8021xSetting::setSubjectMatch(const QString &substring)
-{
-    Q_D(DSecurity8021xSetting);
-
-    d->m_subjectMatch = substring;
-}
-
-QString DSecurity8021xSetting::subjectMatch() const
-{
-    Q_D(const DSecurity8021xSetting);
-
-    return d->m_subjectMatch;
 }
 
 void DSecurity8021xSetting::setAltSubjectMatches(const QStringList &strings)
@@ -310,18 +295,18 @@ QString DSecurity8021xSetting::phase2CaPath() const
     return d->m_phase2CaPath;
 }
 
-void DSecurity8021xSetting::setPhase2SubjectMatch(const QString &substring)
+void DSecurity8021xSetting::setPhase2DomainSuffixMatch(const QString &match)
 {
     Q_D(DSecurity8021xSetting);
 
-    d->m_phase2SubjectMatch = substring;
+    d->m_phase2DomainSuffixMatch = match;
 }
 
-QString DSecurity8021xSetting::phase2SubjectMatch() const
+QString DSecurity8021xSetting::phase2DomainSuffixMatch() const
 {
     Q_D(const DSecurity8021xSetting);
 
-    return d->m_phase2SubjectMatch;
+    return d->m_phase2DomainSuffixMatch;
 }
 
 void DSecurity8021xSetting::setPhase2AltSubjectMatches(const QStringList &strings)
@@ -663,10 +648,6 @@ void DSecurity8021xSetting::fromMap(const QVariantMap &setting)
         setCaPath(setting.value(QLatin1String(NM_SETTING_802_1X_CA_PATH)).toString());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_802_1X_SUBJECT_MATCH))) {
-        setSubjectMatch(setting.value(QLatin1String(NM_SETTING_802_1X_SUBJECT_MATCH)).toString());
-    }
-
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_ALTSUBJECT_MATCHES))) {
         setAltSubjectMatches(setting.value(QLatin1String(NM_SETTING_802_1X_ALTSUBJECT_MATCHES)).toStringList());
     }
@@ -753,8 +734,8 @@ void DSecurity8021xSetting::fromMap(const QVariantMap &setting)
         setPhase2CaPath(setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_PATH)).toString());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_SUBJECT_MATCH))) {
-        setPhase2SubjectMatch(setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_SUBJECT_MATCH)).toString());
+    if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_DOMAIN_SUFFIX_MATCH))) {
+        setPhase2DomainSuffixMatch(setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_DOMAIN_SUFFIX_MATCH)).toString());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_ALTSUBJECT_MATCHES))) {
@@ -873,10 +854,6 @@ QVariantMap DSecurity8021xSetting::toMap() const
 
     if (!caPath().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_802_1X_CA_PATH), caPath());
-    }
-
-    if (!subjectMatch().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_SUBJECT_MATCH), subjectMatch());
     }
 
     if (!altSubjectMatches().isEmpty()) {
@@ -1005,8 +982,8 @@ QVariantMap DSecurity8021xSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_PATH), phase2CaPath());
     }
 
-    if (!phase2SubjectMatch().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_SUBJECT_MATCH), phase2SubjectMatch());
+    if (!phase2DomainSuffixMatch().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_DOMAIN_SUFFIX_MATCH), phase2DomainSuffixMatch());
     }
 
     if (!phase2AltSubjectMatches().isEmpty()) {
