@@ -93,9 +93,6 @@ public:
     void setCaPath(const QString &path);
     QString caPath() const;
 
-    void setSubjectMatch(const QString &substring);
-    QString subjectMatch() const;
-
     void setAltSubjectMatches(const QStringList &strings);
     QStringList altSubjectMatches() const;
 
@@ -123,8 +120,8 @@ public:
     void setPhase2CaPath(const QString &path);
     QString phase2CaPath() const;
 
-    void setPhase2SubjectMatch(const QString &substring);
-    QString phase2SubjectMatch() const;
+    void setPhase2DomainSuffixMatch(const QString &substring);
+    QString phase2DomainSuffixMatch() const;
 
     void setPhase2AltSubjectMatches(const QStringList &strings);
     QStringList phase2AltSubjectMatches() const;

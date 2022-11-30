@@ -40,9 +40,8 @@ public:
     QString m_privateKeyPassword;
     QString m_password;
     QString m_phase2CaPath;
-    QString m_phase2SubjectMatch;
+    QString m_phase2DomainSuffixMatch;
     QString m_caPath;
-    QString m_subjectMatch;
     QString m_name;
     QString m_identity;
     QString m_anonymousIdentity;
