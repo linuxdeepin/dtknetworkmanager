@@ -40,9 +40,4 @@ void DGenericSetting::fromMap(const QVariantMap &map)
     Q_UNUSED(map)
 }
 
-QStringList DGenericSetting::needSecrets(bool request) const
-{
-    return this->DNMSetting::needSecrets(request);
-}
-
 DNETWORKMANAGER_END_NAMESPACE

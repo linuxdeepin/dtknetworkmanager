@@ -21,14 +21,15 @@ public:
 
     QString name() const override;
 
+    QVariantMap toMap() const override;
+
+    void fromMap(const QVariantMap &map) override;
+
 protected:
     QScopedPointer<DGenericSettingPrivate> d_ptr;
 
 private:
     Q_DECLARE_PRIVATE(DGenericSetting)
-    QVariantMap toMap() const override;
-    void fromMap(const QVariantMap &map) override;
-    QStringList needSecrets(bool request = false) const override;
 };
 
 DNETWORKMANAGER_END_NAMESPACE

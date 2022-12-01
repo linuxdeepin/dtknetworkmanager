@@ -90,8 +90,12 @@ public:
     void setInit(bool init);
 
     virtual QStringList needSecrets(bool request = false) const;
+
     virtual QVariantMap secretsToMap() const;
     virtual void mapToSecrets(const QVariantMap &secrets);
+
+    virtual void stringMapTosecrets(const QMap<QString, QString> &map);
+    virtual QMap<QString, QString> secretsToStringMap() const;
 
 protected:
     QScopedPointer<DNMSettingPrivate> d_ptr;

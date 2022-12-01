@@ -263,6 +263,16 @@ enum class NMSecretAgentGetSecretsFlags : quint32 {
 
 enum class NMMetered { MeteredUnknown = 0, MeteredYes, MeteredNo, MeteredGuessYes, MeteredGuessNo };
 
+enum class NMConfigMethod {
+    Automatic,
+    LinkLocal,
+    Manual,
+    Disabled,
+    Ipv4Shared,
+    Ipv6Dhcp,
+    Ipv6Ignored,
+};
+
 // custom structure
 
 struct NewConn
