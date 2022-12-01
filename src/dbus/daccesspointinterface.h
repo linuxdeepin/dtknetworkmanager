@@ -24,7 +24,7 @@ class DAccessPointInterface : public QObject
     Q_OBJECT
 public:
     explicit DAccessPointInterface(const QByteArray &path, QObject *parent = nullptr);
-    ~DAccessPointInterface() = default;
+    ~DAccessPointInterface() override = default;
 
     Q_PROPERTY(QString SSID READ SSID NOTIFY SSIDChanged)
     Q_PROPERTY(quint8 strength READ strength NOTIFY strengthChanged)

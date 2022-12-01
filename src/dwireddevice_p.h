@@ -16,7 +16,7 @@ class DWiredDevicePrivate : public DDevicePrivate
     Q_OBJECT
 public:
     explicit DWiredDevicePrivate(const quint64 id, DWiredDevice *parent = nullptr);
-    ~DWiredDevicePrivate() = default;
+    ~DWiredDevicePrivate() override = default;
 
     DWiredDeviceInterface *m_wired{nullptr};
     Q_DECLARE_PUBLIC(DWiredDevice)

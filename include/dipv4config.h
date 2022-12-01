@@ -17,7 +17,7 @@ class DIPv4Config : public QObject
     Q_OBJECT
 public:
     explicit DIPv4Config(const quint64 id, QObject *parent = nullptr);
-    ~DIPv4Config() = default;
+    ~DIPv4Config() override = default;
 
     Q_PROPERTY(QList<Config> addressData READ addressData NOTIFY addressDataChanged)
     Q_PROPERTY(QList<Config> nameserverData READ nameserverData NOTIFY nameserverDataChanged)

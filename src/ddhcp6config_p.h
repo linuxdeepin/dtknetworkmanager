@@ -15,7 +15,7 @@ class DDHCP6ConfigPrivate : public QObject
     Q_OBJECT
 public:
     explicit DDHCP6ConfigPrivate(const quint64 id, DDHCP6Config *parent = nullptr);
-    ~DDHCP6ConfigPrivate() = default;
+    ~DDHCP6ConfigPrivate() override = default;
 
     DDHCP6Config *q_ptr{nullptr};
     DDHCP6ConfigInterface *m_dhcp6{nullptr};

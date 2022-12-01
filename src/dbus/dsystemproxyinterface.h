@@ -20,7 +20,7 @@ class DSystemProxyInterface : public QObject
     Q_OBJECT
 public:
     explicit DSystemProxyInterface(QObject *parent = nullptr);
-    ~DSystemProxyInterface() = default;
+    ~DSystemProxyInterface() override = default;
 
 public slots:
     QDBusPendingReply<QString> getAutoProxy() const;

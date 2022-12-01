@@ -15,7 +15,7 @@ class DDHCP4ConfigPrivate : public QObject
     Q_OBJECT
 public:
     explicit DDHCP4ConfigPrivate(const quint64 id, DDHCP4Config *parent = nullptr);
-    ~DDHCP4ConfigPrivate() = default;
+    ~DDHCP4ConfigPrivate() override = default;
 
     DDHCP4Config *q_ptr{nullptr};
     DDHCP4ConfigInterface *m_dhcp4{nullptr};

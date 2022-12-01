@@ -20,7 +20,7 @@ class DSecretAgent : public QObject
     Q_OBJECT
 public:
     explicit DSecretAgent(QObject *parent = nullptr);
-    ~DSecretAgent() = default;
+    ~DSecretAgent() override = default;
 
     Q_DECLARE_FLAGS(SecretFlags, NMSecretAgentGetSecretsFlags);
 

@@ -29,7 +29,7 @@ public:
     Q_DECLARE_FLAGS(NMWifiCap, NMDeviceWiFiCapabilities);
 
     explicit DWirelessDevice(const quint64 id, QObject *parent = nullptr);
-    ~DWirelessDevice() = default;
+    ~DWirelessDevice() override = default;
 
     QList<quint64> accessPoints() const;
     QByteArray HwAddress() const;

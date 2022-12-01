@@ -20,7 +20,7 @@ class DActiveConnectionInterface : public QObject
     Q_OBJECT
 public:
     explicit DActiveConnectionInterface(const QByteArray &Path, QObject *parent = nullptr);
-    ~DActiveConnectionInterface() = default;
+    ~DActiveConnectionInterface() override = default;
 
     Q_PROPERTY(QList<QDBusObjectPath> devices READ devices NOTIFY devicesChanged)
     Q_PROPERTY(bool vpn READ vpn NOTIFY vpnChanged)

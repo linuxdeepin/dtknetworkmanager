@@ -15,7 +15,7 @@ class DIPv6ConfigPrivate : public QObject
     Q_OBJECT
 public:
     explicit DIPv6ConfigPrivate(const quint64 id, DIPv6Config *parent = nullptr);
-    ~DIPv6ConfigPrivate() = default;
+    ~DIPv6ConfigPrivate() override = default;
 
     DIPv6Config *q_ptr{nullptr};
     DIPv6ConfigInterface *m_ipv6{nullptr};

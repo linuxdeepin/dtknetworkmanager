@@ -21,7 +21,7 @@ class DAgentManagerInterface : public QObject
     Q_OBJECT
 public:
     explicit DAgentManagerInterface(QObject *parent = nullptr);
-    ~DAgentManagerInterface() = default;
+    ~DAgentManagerInterface() override = default;
 
 public slots:
 

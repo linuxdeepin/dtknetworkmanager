@@ -16,7 +16,7 @@ class DAccessPointPrivate : public QObject
     Q_OBJECT
 public:
     explicit DAccessPointPrivate(const quint64 apId, DAccessPoint *parent = nullptr);
-    ~DAccessPointPrivate() = default;
+    ~DAccessPointPrivate() override = default;
 
     DAccessPoint *q_ptr{nullptr};
     DAccessPointInterface *m_ap{nullptr};

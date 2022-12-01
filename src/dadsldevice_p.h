@@ -16,7 +16,7 @@ class DAdslDevicePrivate : public DDevicePrivate
     Q_OBJECT
 public:
     explicit DAdslDevicePrivate(const quint64 id, DAdslDevice *parent = nullptr);
-    ~DAdslDevicePrivate() = default;
+    ~DAdslDevicePrivate() override = default;
 
     DAdslDeviceInterface *m_adsl{nullptr};
     Q_DECLARE_PUBLIC(DAdslDevice)

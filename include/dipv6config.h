@@ -17,7 +17,7 @@ class DIPv6Config : public QObject
     Q_OBJECT
 public:
     explicit DIPv6Config(const quint64 id, QObject *parent = nullptr);
-    ~DIPv6Config() = default;
+    ~DIPv6Config() override = default;
 
     Q_PROPERTY(QList<Config> addressData READ addressData NOTIFY addressDataChanged)
     Q_PROPERTY(QList<QHostAddress> nameservers READ nameservers NOTIFY nameserversChanged)

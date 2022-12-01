@@ -15,7 +15,7 @@ class DAppProxyPrivate : public QObject
     Q_OBJECT
 public:
     explicit DAppProxyPrivate(DAppProxy *parent = nullptr);
-    ~DAppProxyPrivate() = default;
+    ~DAppProxyPrivate() override = default;
 
     DAppProxy *q_ptr{nullptr};
     DAppProxyInterface *m_appProxy{nullptr};

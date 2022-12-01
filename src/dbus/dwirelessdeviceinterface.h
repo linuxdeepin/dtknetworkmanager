@@ -16,7 +16,7 @@ class DWirelessDeviceInterface : public DDeviceInterface
     Q_OBJECT
 public:
     explicit DWirelessDeviceInterface(const QByteArray &path, QObject *parent = nullptr);
-    ~DWirelessDeviceInterface() = default;
+    ~DWirelessDeviceInterface() override = default;
 
     Q_PROPERTY(QList<QDBusObjectPath> accessPoints READ accessPoints NOTIFY accessPointsChanged)
     Q_PROPERTY(QString HwAddress READ HwAddress NOTIFY HwAddressChanged)

@@ -16,7 +16,7 @@ class DActiveVpnConnectionPrivate : public DActiveConnectionPrivate
     Q_OBJECT
 public:
     explicit DActiveVpnConnectionPrivate(const quint64 id, DActiveVpnConnection *parent);
-    ~DActiveVpnConnectionPrivate() = default;
+    ~DActiveVpnConnectionPrivate() override = default;
 
     DActiveVpnConnectionInterface *m_vpn{nullptr};
     Q_DECLARE_PUBLIC(DActiveVpnConnection)
