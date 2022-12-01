@@ -21,7 +21,7 @@ class DSecretAgentInterface : public QObject
     Q_OBJECT
 public:
     explicit DSecretAgentInterface(QObject *parent = nullptr);
-    ~DSecretAgentInterface() = default;
+    ~DSecretAgentInterface() override = default;
 
 public slots:
     QDBusPendingReply<SettingDesc> getSecrets(const SettingDesc &connection,

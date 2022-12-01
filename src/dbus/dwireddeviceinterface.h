@@ -16,7 +16,7 @@ class DWiredDeviceInterface : public DDeviceInterface
     Q_OBJECT
 public:
     explicit DWiredDeviceInterface(const QByteArray &path, QObject *parent = nullptr);
-    ~DWiredDeviceInterface() = default;
+    ~DWiredDeviceInterface() override = default;
 
     Q_PROPERTY(QString HwAddress READ HwAddress NOTIFY HwAddressChanged)
     Q_PROPERTY(QString permHwAddress READ permHwAddress NOTIFY permHwAddressChanged)

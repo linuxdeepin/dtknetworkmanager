@@ -21,7 +21,7 @@ class DIPv6ConfigInterface : public QObject
     Q_OBJECT
 public:
     explicit DIPv6ConfigInterface(const QByteArray &path, QObject *parent = nullptr);
-    ~DIPv6ConfigInterface() = default;
+    ~DIPv6ConfigInterface() override = default;
 
     Q_PROPERTY(QList<Config> addressData READ addressData NOTIFY addressDataChanged)
     Q_PROPERTY(QList<QByteArray> nameservers READ nameservers NOTIFY nameserversChanged)

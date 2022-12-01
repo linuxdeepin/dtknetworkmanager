@@ -15,7 +15,7 @@ class DSettingsManagerPrivate : public QObject
     Q_OBJECT
 public:
     explicit DSettingsManagerPrivate(DSettingsManager *parent = nullptr);
-    ~DSettingsManagerPrivate() = default;
+    ~DSettingsManagerPrivate() override = default;
 
     DSettingsManager *q_ptr{nullptr};
     DSettingsManagerInterface *m_settings{nullptr};

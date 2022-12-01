@@ -16,7 +16,7 @@ class DTunDevicePrivate : public DDevicePrivate
     Q_OBJECT
 public:
     explicit DTunDevicePrivate(const quint64, DTunDevice *parent = nullptr);
-    ~DTunDevicePrivate() = default;
+    ~DTunDevicePrivate() override = default;
 
     DTunDeviceInterface *m_tun{nullptr};
     Q_DECLARE_PUBLIC(DTunDevice)

@@ -22,7 +22,7 @@ class DNetworkManager : public QObject
     Q_OBJECT
 public:
     explicit DNetworkManager(QObject *parent = nullptr);
-    ~DNetworkManager() = default;
+    ~DNetworkManager() override = default;
 
     Q_PROPERTY(bool networkingEnabled READ networkingEnabled NOTIFY networkingEnabledChanged)
     Q_PROPERTY(bool wirelessEnabled READ wirelessEnabled WRITE setWirelessEnabled NOTIFY wirelessEnabledChanged)

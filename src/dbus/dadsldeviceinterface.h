@@ -16,7 +16,7 @@ class DAdslDeviceInterface : public DDeviceInterface
     Q_OBJECT
 public:
     explicit DAdslDeviceInterface(const QByteArray &path, QObject *parent = nullptr);
-    ~DAdslDeviceInterface() = default;
+    ~DAdslDeviceInterface() override = default;
 
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
     bool carrier() const;

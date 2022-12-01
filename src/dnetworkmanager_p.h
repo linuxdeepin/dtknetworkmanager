@@ -16,7 +16,7 @@ class DNetworkManagerPrivate : public QObject
     Q_OBJECT
 public:
     explicit DNetworkManagerPrivate(DNetworkManager *parent = nullptr);
-    ~DNetworkManagerPrivate() = default;
+    ~DNetworkManagerPrivate() override = default;
 
     DNetworkManager *q_ptr{nullptr};
     DNetworkManagerInterface *m_manager{nullptr};

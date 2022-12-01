@@ -15,7 +15,7 @@ class DSystemProxyPrivate : public QObject
     Q_OBJECT
 public:
     explicit DSystemProxyPrivate(DSystemProxy *parent = nullptr);
-    ~DSystemProxyPrivate() = default;
+    ~DSystemProxyPrivate() override = default;
 
     DSystemProxy *q_ptr{nullptr};
     DSystemProxyInterface *m_sysProxy{nullptr};

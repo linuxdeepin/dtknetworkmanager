@@ -16,7 +16,7 @@ class DDHCP4Config : public QObject
     Q_OBJECT
 public:
     explicit DDHCP4Config(const quint64 id, QObject *parent = nullptr);
-    ~DDHCP4Config() = default;
+    ~DDHCP4Config() override = default;
     Q_PROPERTY(Config options READ options NOTIFY optionsChanged)
 
     Config options() const;

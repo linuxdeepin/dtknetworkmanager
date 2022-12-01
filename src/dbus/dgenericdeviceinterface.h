@@ -16,7 +16,7 @@ class DGenericDeviceInterface : public DDeviceInterface
     Q_OBJECT
 public:
     explicit DGenericDeviceInterface(const QByteArray &path, QObject *parent = nullptr);
-    ~DGenericDeviceInterface() = default;
+    ~DGenericDeviceInterface() override = default;
 
     Q_PROPERTY(QString HwAddress READ HwAddress NOTIFY HwAddressChanged)
     Q_PROPERTY(QString typeDescription READ typeDescription NOTIFY typeDescriptionChanged)

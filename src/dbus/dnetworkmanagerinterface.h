@@ -24,7 +24,7 @@ class DNetworkManagerInterface : public QObject
     Q_OBJECT
 public:
     explicit DNetworkManagerInterface(QObject *parent = nullptr);
-    ~DNetworkManagerInterface() = default;
+    ~DNetworkManagerInterface() override = default;
 
     Q_PROPERTY(bool networkingEnabled READ networkingEnabled NOTIFY networkingEnabledChanged)
     Q_PROPERTY(bool wirelessEnabled READ wirelessEnabled WRITE setWirelessEnabled NOTIFY wirelessEnabledChanged)

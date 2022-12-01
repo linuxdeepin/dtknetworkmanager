@@ -21,7 +21,7 @@ class DWiredDevice : public DDevice
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 public:
     explicit DWiredDevice(const quint64 id, QObject *parent = nullptr);
-    ~DWiredDevice() = default;
+    ~DWiredDevice() override = default;
 
     QByteArray HwAddress() const;
     QByteArray permHwAddress() const;

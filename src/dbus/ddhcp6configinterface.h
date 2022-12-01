@@ -20,7 +20,7 @@ class DDHCP6ConfigInterface : public QObject
     Q_OBJECT
 public:
     explicit DDHCP6ConfigInterface(const QByteArray &path, QObject *parent = nullptr);
-    ~DDHCP6ConfigInterface() = default;
+    ~DDHCP6ConfigInterface() override = default;
 
     Q_PROPERTY(Config options READ options NOTIFY optionsChanged)
 

@@ -20,7 +20,7 @@ class DIPConflictCheckInterface : public QObject
     Q_OBJECT
 public:
     explicit DIPConflictCheckInterface(QObject *parent = nullptr);
-    ~DIPConflictCheckInterface() = default;
+    ~DIPConflictCheckInterface() override = default;
 
 public slots:
     QDBusPendingReply<QString> requestIPConflictCheck(const QByteArray &ip, const QByteArray &ifc) const;

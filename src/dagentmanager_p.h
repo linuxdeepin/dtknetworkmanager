@@ -16,7 +16,7 @@ class DAgentManagerPrivate : public QObject
     Q_OBJECT
 public:
     explicit DAgentManagerPrivate(DAgentManager *parent = nullptr);
-    ~DAgentManagerPrivate() = default;
+    ~DAgentManagerPrivate() override = default;
 
     DAgentManager *q_ptr{nullptr};
     DAgentManagerInterface *m_agent{nullptr};

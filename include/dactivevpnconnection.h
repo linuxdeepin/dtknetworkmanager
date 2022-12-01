@@ -16,7 +16,7 @@ class DActiveVpnConnection : public DActiveConnection
     Q_OBJECT
 public:
     explicit DActiveVpnConnection(const quint64 activeConnId, QObject *parent = nullptr);
-    ~DActiveVpnConnection() = default;
+    ~DActiveVpnConnection() override = default;
 
     Q_PROPERTY(NMVpnConnectionState vpnState READ vpnState NOTIFY VpnStateChanged)
     Q_PROPERTY(QString banner READ banner NOTIFY bannerChanged)

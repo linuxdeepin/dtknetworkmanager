@@ -16,7 +16,7 @@ class DSecretAgentPrivate : public QObject
     Q_OBJECT
 public:
     explicit DSecretAgentPrivate(DSecretAgent *parent);
-    ~DSecretAgentPrivate() = default;
+    ~DSecretAgentPrivate() override = default;
 
     DSecretAgent *q_ptr{nullptr};
     DSecretAgentInterface *m_secret{nullptr};

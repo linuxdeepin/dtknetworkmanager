@@ -16,7 +16,7 @@ class DWirelessDevicePrivate : public DDevicePrivate
     Q_OBJECT
 public:
     explicit DWirelessDevicePrivate(const quint64, DWirelessDevice *parent = nullptr);
-    ~DWirelessDevicePrivate() = default;
+    ~DWirelessDevicePrivate() override = default;
 
     DWirelessDeviceInterface *m_wireless{nullptr};
     Q_DECLARE_PUBLIC(DWirelessDevice)

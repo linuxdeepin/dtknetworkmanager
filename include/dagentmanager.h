@@ -19,7 +19,7 @@ class DAgentManager : public QObject
     Q_OBJECT
 public:
     explicit DAgentManager(QObject *parent = nullptr);
-    ~DAgentManager() = default;
+    ~DAgentManager() override = default;
 
 public slots:
     DExpected<void> registerAgent(const QByteArray &identifier) const;

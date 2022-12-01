@@ -20,7 +20,7 @@ class DIPConflictCheck : public QObject
     Q_OBJECT
 public:
     explicit DIPConflictCheck(QObject *parent = nullptr);
-    ~DIPConflictCheck() = default;
+    ~DIPConflictCheck() override = default;
 
 public slots:
     DExpected<QByteArray> requestIPConflictCheck(const QByteArray &ip, const QByteArray &ifc) const;

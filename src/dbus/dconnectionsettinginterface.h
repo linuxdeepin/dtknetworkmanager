@@ -21,7 +21,7 @@ class DConnectionSettingInterface : public QObject
     Q_OBJECT
 public:
     explicit DConnectionSettingInterface(const QByteArray &path, QObject *parent = nullptr);
-    ~DConnectionSettingInterface() = default;
+    ~DConnectionSettingInterface() override = default;
 
     Q_PROPERTY(bool unsaved READ unsaved NOTIFY unsavedChanged)
     Q_PROPERTY(QString filename READ filename NOTIFY filenameChanged)

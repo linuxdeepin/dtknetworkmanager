@@ -15,7 +15,7 @@ class DIPv4ConfigPrivate : public QObject
     Q_OBJECT
 public:
     explicit DIPv4ConfigPrivate(const quint64 id, DIPv4Config *parent = nullptr);
-    ~DIPv4ConfigPrivate() = default;
+    ~DIPv4ConfigPrivate() override = default;
 
     DIPv4Config *q_ptr{nullptr};
     DIPv4ConfigInterface *m_ipv4{nullptr};

@@ -24,7 +24,7 @@ class DDeviceInterface : public QObject
     Q_OBJECT
 public:
     explicit DDeviceInterface(const QByteArray &path, QObject *parent = nullptr);
-    ~DDeviceInterface() = default;
+    ~DDeviceInterface() override = default;
 
     Q_PROPERTY(QList<QDBusObjectPath> availableConnections READ availableConnections NOTIFY availableConnectionsChanged)
     Q_PROPERTY(bool autoconnect READ autoconnect WRITE setAutoconnect NOTIFY autoconnectChanged)

@@ -20,7 +20,7 @@ class DSettingsManager : public QObject
 
 public:
     explicit DSettingsManager(QObject *parent = nullptr);
-    ~DSettingsManager() = default;
+    ~DSettingsManager() override = default;
 
 public slots:
     DExpected<QList<quint64>> listConnections() const;

@@ -17,7 +17,7 @@ class DTunDevice : public DDevice
     Q_PROPERTY(QByteArray HwAddress READ HwAddress NOTIFY HwAddressChanged)
 public:
     explicit DTunDevice(const quint64 id, QObject *parent = nullptr);
-    ~DTunDevice() = default;
+    ~DTunDevice() override = default;
 
     QByteArray HwAddress() const;
 

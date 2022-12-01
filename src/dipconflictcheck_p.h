@@ -16,7 +16,7 @@ class DIPConflictCheckPrivate : public QObject
     Q_OBJECT
 public:
     explicit DIPConflictCheckPrivate(DIPConflictCheck *parent = nullptr);
-    ~DIPConflictCheckPrivate() = default;
+    ~DIPConflictCheckPrivate() override = default;
 
     DIPConflictCheck *q_ptr{nullptr};
     DIPConflictCheckInterface *m_check{nullptr};

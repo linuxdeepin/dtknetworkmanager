@@ -17,7 +17,7 @@ class DAdslDevice : public DDevice
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 public:
     explicit DAdslDevice(const quint64 id, QObject *parent = nullptr);
-    ~DAdslDevice() = default;
+    ~DAdslDevice() override = default;
 
     bool carrier() const;
 

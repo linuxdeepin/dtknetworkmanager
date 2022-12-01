@@ -18,7 +18,7 @@ class DGenericDevice : public DDevice
     Q_PROPERTY(QString typeDescription READ typeDescription NOTIFY typeDescriptionChanged)
 public:
     explicit DGenericDevice(const quint64 id, QObject *parent = nullptr);
-    ~DGenericDevice() = default;
+    ~DGenericDevice() override = default;
 
     QByteArray HwAddress() const;
     QString typeDescription() const;

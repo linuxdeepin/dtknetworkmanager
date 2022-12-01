@@ -16,7 +16,7 @@ class DTunDeviceInterface : public DDeviceInterface
     Q_OBJECT
 public:
     explicit DTunDeviceInterface(const QByteArray &path, QObject *parent = nullptr);
-    ~DTunDeviceInterface() = default;
+    ~DTunDeviceInterface() override = default;
 
     Q_PROPERTY(QString HwAddress READ HwAddress NOTIFY HwAddressChanged)
 

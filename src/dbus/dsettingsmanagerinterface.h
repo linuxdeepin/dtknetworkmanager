@@ -20,7 +20,7 @@ class DSettingsManagerInterface : public QObject
     Q_OBJECT
 public:
     explicit DSettingsManagerInterface(QObject *parent = nullptr);
-    ~DSettingsManagerInterface() = default;
+    ~DSettingsManagerInterface() override = default;
 
 public slots:
     QDBusPendingReply<QList<QDBusObjectPath>> listConnections() const;

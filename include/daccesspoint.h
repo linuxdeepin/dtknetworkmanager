@@ -20,7 +20,7 @@ public:
     Q_DECLARE_FLAGS(NMAPSec, NM80211ApSecurityFlags);
 
     explicit DAccessPoint(const quint64 apId, QObject *parent = nullptr);
-    ~DAccessPoint() = default;
+    ~DAccessPoint() override = default;
 
     Q_PROPERTY(QString SSID READ SSID NOTIFY SSIDChanged)
     Q_PROPERTY(quint8 strength READ strength NOTIFY strengthChanged)

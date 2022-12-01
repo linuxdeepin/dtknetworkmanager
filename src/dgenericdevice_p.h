@@ -16,7 +16,7 @@ class DGenericDevicePrivate : public DDevicePrivate
     Q_OBJECT
 public:
     explicit DGenericDevicePrivate(const quint64, DGenericDevice *parent = nullptr);
-    ~DGenericDevicePrivate() = default;
+    ~DGenericDevicePrivate() override = default;
 
     DGenericDeviceInterface *m_generic{nullptr};
     Q_DECLARE_PUBLIC(DGenericDevice)
