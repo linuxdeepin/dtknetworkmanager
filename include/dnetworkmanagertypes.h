@@ -92,14 +92,19 @@ enum class NM80211ApSecurityFlags : quint16 {
     NM80211ApSecGroupTKIP = 0x40,
     NM80211ApSecGroupCCMP = 0x80,
     NM80211ApSecKeyMgmtPsk = 0x100,
-    NM80211ApSecKeyMgmt8021X = 0x200
+    NM80211ApSecKeyMgmt8021X = 0x200,
+    NM80211ApSecKeyMgmtSAE = 0x400,
+    NM80211ApSecKeyMgmtOWE = 0x800,
+    NM80211ApSecKeyMgmtOWETM = 0x1000,
+    NM80211ApSecKeyMgmtEAPSuiteB192 = 0x2000
 };
 
 enum class NMSettingsConnectionFlags : quint8 {
     NMSettingsConnectionFlagNone = 0,
     NMSettingsConnectionFlagFlagUnsaved,
     NMSettingsConnectionFlagNMGenerated,
-    NMSettingsConnectionFlagVolatile = 4
+    NMSettingsConnectionFlagVolatile = 4,
+    NMSettingsConnectionFlagExternal = 8
 };
 
 enum class ProxyType : quint8 { ProxyTypeHTTP = 0, ProxyTypeSocks4, ProxyTypeSocks5 };
@@ -108,35 +113,37 @@ enum class SystemProxyMethod : quint8 { SystemProxyMethodNone = 0, SystemProxyMe
 
 enum class NMDeviceType : quint8 {
     NMDeviceTypeUnknown = 0,
-    NMDeviceTypeGeneric,
-    NMDeviceTypeEthernet,
-    NMDeviceTypeWiFi,
-    NMDeviceTypeUnused1,
-    NMDeviceTypeUnused2,
-    NMDeviceTypeBT,
-    NMDeviceTypeOLPCMesh,
-    NMDeviceTypeWiMAX,
-    NMDeviceTypeModem,
-    NMDeviceTypeInfiniBand,
-    NMDeviceTypeBond,
-    NMDeviceTypeVLAN,
-    NMDeviceTypeADSL,
-    NMDeviceTypeBridge,
-    NMDeviceTypeTeam,
-    NMDeviceTypeTun,
-    NMDeviceTypeIPTunnel,
-    NMDeviceTypeMACVLAN,
-    NMDeviceTypeVXLAN,
-    NMDeviceTypeVEth,
-    NMDeviceTypeMACSec,
-    NMDeviceTypeDummy,
-    NMDeviceTypePPP,
-    NMDeviceTypeOVSInterface,
-    NMDeviceTypeOVSPort,
-    NMDeviceTypeOVSBridge,
-    NMDeviceTypeWPAN,
-    NMDeviceType6LoWPAN,
-    NMDeviceTypeWireGuard
+    NMDeviceTypeGeneric = 14,
+    NMDeviceTypeEthernet = 1,
+    NMDeviceTypeWiFi = 2,
+    NMDeviceTypeUnused1 = 3,
+    NMDeviceTypeUnused2 = 4,
+    NMDeviceTypeBT = 5,
+    NMDeviceTypeOLPCMesh = 6,
+    NMDeviceTypeWiMAX = 7,
+    NMDeviceTypeModem = 8,
+    NMDeviceTypeInfiniBand = 9,
+    NMDeviceTypeBond = 10,
+    NMDeviceTypeVLAN = 11,
+    NMDeviceTypeADSL = 12,
+    NMDeviceTypeBridge = 13,
+    NMDeviceTypeTeam = 15,
+    NMDeviceTypeTun = 16,
+    NMDeviceTypeIPTunnel = 17,
+    NMDeviceTypeMACVLAN = 18,
+    NMDeviceTypeVXLAN = 19,
+    NMDeviceTypeVETH = 20,
+    NMDeviceTypeMACsec = 21,
+    NMDeviceTypeDummy = 22,
+    NMDeviceTypePPP = 23,
+    NMDeviceTypeOVSInterface = 24,
+    NMDeviceTypeOVSPort = 25,
+    NMDeviceTypeOVSBridge = 26,
+    NMDeviceTypeWPAN = 27,
+    NMDeviceType6LoWPAN = 28,
+    NMDeviceTypeWireGuard = 29,
+    NMDeviceTypeWiFiP2P = 30,
+    NMDeviceTypeVRF = 31
 };
 
 enum class NMDeviceInterfaceFlags : quint32 {
