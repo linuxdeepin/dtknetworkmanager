@@ -16,7 +16,7 @@ class DWiredSetting : public DNMSetting
 {
 public:
     enum class PortType {
-        UnknownPort = 0,
+        Unknown = 0,
         Tp,
         Aui,
         Bnc,
@@ -24,7 +24,7 @@ public:
     };
 
     enum class DuplexType {
-        UnknownDuplexType = 0,
+        Unknown = 0,
         Half,
         Full,
     };
@@ -37,14 +37,14 @@ public:
     };
 
     enum class WakeOnLanFlag {
-        WakeOnLanPhy = 1 << 1,
-        WakeOnLanUnicast = 1 << 2,
-        WakeOnLanMulticast = 1 << 3,
-        WakeOnLanBroadcast = 1 << 4,
-        WakeOnLanArp = 1 << 5,
-        WakeOnLanMagic = 1 << 6,
-        WakeOnLanDefault = 1 << 0,
-        WakeOnLanIgnore = 1 << 15,
+        Phy = 1 << 1,
+        Unicast = 1 << 2,
+        Multicast = 1 << 3,
+        Broadcast = 1 << 4,
+        Arp = 1 << 5,
+        Magic = 1 << 6,
+        Default = 1 << 0,
+        Ignore = 1 << 15,
     };
 
     Q_DECLARE_FLAGS(WakeOnLanFlags, WakeOnLanFlag)

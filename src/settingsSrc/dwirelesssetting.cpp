@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 #include "dwirelesssetting_p.h"
-#include "dnmutils.h"
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -15,8 +14,8 @@ DWirelessSettingPrivate::DWirelessSettingPrivate()
     , m_mtu(0)
     , m_mode(DWirelessSetting::NetworkMode::Infrastructure)
     , m_band(DWirelessSetting::FrequencyBand::Automatic)
-    , m_macAddressRandomization(DWirelessSetting::MacAddressRandomization::MacAddressRandomizationDefault)
-    , m_powersave(DWirelessSetting::PowerSave::PowerSaveDefault)
+    , m_macAddressRandomization(DWirelessSetting::MacAddressRandomization::Default)
+    , m_powersave(DWirelessSetting::PowerSave::Default)
     , m_name(NM_SETTING_WIRELESS_SETTING_NAME)
 {
 }
