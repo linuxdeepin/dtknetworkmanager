@@ -25,7 +25,7 @@ set (DOXYGEN_PREDEFINED
     "\"DNETWORKMANAGER_USE_NAMESPACE=using namespace Dtk::NetworkManager;\""
 )
 
-doxygen_add_docs (doxygen_dtkaccounts
+doxygen_add_docs (doxygen
     ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_CURRENT_SOURCE_DIR}/../docs
     ALL
