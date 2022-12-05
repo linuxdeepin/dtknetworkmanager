@@ -29,16 +29,16 @@ public:
     };
 
     enum class PowerSave {
-        PowerSaveDefault = 0,
-        PowerSaveIgnore,
-        PowerSaveDisable,
-        PowerSaveEnable,
+        Default = 0,
+        Ignore,
+        Disable,
+        Enable,
     };
 
     enum class MacAddressRandomization {
-        MacAddressRandomizationDefault = 0,
-        MacAddressRandomizationNever,
-        MacAddressRandomizationAlways,
+        Default = 0,
+        Never,
+        Always,
     };
 
     DWirelessSetting();

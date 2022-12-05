@@ -15,55 +15,55 @@ class DSecurity8021xSetting : public DNMSetting
 {
 public:
     enum class EapMethod {
-        EapMethodUnknown = 0,
-        EapMethodLeap,
-        EapMethodMd5,
-        EapMethodTls,
-        EapMethodPeap,
-        EapMethodTtls,
-        EapMethodSim,
-        EapMethodFast,
-        EapMethodPwd,
+        Unknown = 0,
+        Leap,
+        Md5,
+        Tls,
+        Peap,
+        Ttls,
+        Sim,
+        Fast,
+        Pwd,
     };
 
     enum class PeapVersion {
-        PeapVersionUnknown = -1,
-        PeapVersionZero,
-        PeapVersionOne,
+        Unknown = -1,
+        Zero,
+        One,
     };
 
     enum class PeapLabel {
-        PeapLabelUnknown = 0,
-        PeapLabelForce,
+        Unknown = 0,
+        Force,
     };
 
     enum class FastProvisioning {
-        FastProvisioningUnknown = -1,
-        FastProvisioningDisabled,
-        FastProvisioningAllowUnauthenticated,
-        FastProvisioningAllowAuthenticated,
-        FastProvisioningAllowBoth,
+        Unknown = -1,
+        Disabled,
+        AllowUnauthenticated,
+        AllowAuthenticated,
+        AllowBoth,
     };
 
     enum class AuthMethod {
-        AuthMethodUnknown = 0,
-        AuthMethodPap,
-        AuthMethodChap,
-        AuthMethodMschap,
-        AuthMethodMschapv2,
-        AuthMethodGtc,
-        AuthMethodOtp,
-        AuthMethodMd5,
-        AuthMethodTls,
+        Unknown = 0,
+        Pap,
+        Chap,
+        Mschap,
+        Mschapv2,
+        Gtc,
+        Otp,
+        Md5,
+        Tls,
     };
 
     enum class AuthEapMethod {
-        AuthEapMethodUnknown = 0,
-        AuthEapMethodMd5,
-        AuthEapMethodMschapv2,
-        AuthEapMethodOtp,
-        AuthEapMethodGtc,
-        AuthEapMethodTls,
+        Unknown = 0,
+        Md5,
+        Mschapv2,
+        Otp,
+        Gtc,
+        Tls,
     };
 
     DSecurity8021xSetting();

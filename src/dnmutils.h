@@ -23,11 +23,11 @@ inline quint64 getIdFromObjectPath(const QDBusObjectPath &path)
 inline const char *enumToProxyType(const ProxyType type)
 {
     switch (type) {
-        case ProxyType::ProxyTypeHTTP:
+        case ProxyType::HTTP:
             return "http";
-        case ProxyType::ProxyTypeSocks4:
+        case ProxyType::Socks4:
             return "socks4";
-        case ProxyType::ProxyTypeSocks5:
+        case ProxyType::Socks5:
             return "socks5";
     }
     Q_UNREACHABLE();
@@ -36,33 +36,33 @@ inline const char *enumToProxyType(const ProxyType type)
 inline ProxyType proxyTypeToEnum(const QString &type)
 {
     if (type == "http")
-        return ProxyType::ProxyTypeHTTP;
+        return ProxyType::HTTP;
     else if (type == "socks4")
-        return ProxyType::ProxyTypeSocks4;
+        return ProxyType::Socks4;
     else if (type == "socks5")
-        return ProxyType::ProxyTypeSocks5;
+        return ProxyType::Socks5;
     Q_UNREACHABLE();
 }
 
 inline SystemProxyMethod proxyMethodToEnum(const QString &method)
 {
     if (method == "auto")
-        return SystemProxyMethod::SystemProxyMethodAuto;
+        return SystemProxyMethod::Auto;
     else if (method == "manual")
-        return SystemProxyMethod::SystemProxyMethodManual;
+        return SystemProxyMethod::Manual;
     else if (method == "none")
-        return SystemProxyMethod::SystemProxyMethodNone;
+        return SystemProxyMethod::None;
     Q_UNREACHABLE();
 }
 
 inline const char *enumToProxyMethod(const SystemProxyMethod method)
 {
     switch (method) {
-        case SystemProxyMethod::SystemProxyMethodAuto:
+        case SystemProxyMethod::Auto:
             return "auto";
-        case SystemProxyMethod::SystemProxyMethodManual:
+        case SystemProxyMethod::Manual:
             return "manual";
-        case SystemProxyMethod::SystemProxyMethodNone:
+        case SystemProxyMethod::None:
             return "none";
     }
     Q_UNREACHABLE();

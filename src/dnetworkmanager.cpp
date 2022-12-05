@@ -223,15 +223,15 @@ DExpected<QSharedPointer<DDevice>> DNetworkManager::getDeviceObject(const quint6
     else
         return DUnexpected{emplace_tag::USE_EMPLACE, type.error().type(), type.error().message()};
     switch (realType) {
-        case NMDeviceType::NMDeviceTypeADSL:
+        case NMDeviceType::ADSL:
             return QSharedPointer<DAdslDevice>(new DAdslDevice(id));
-        case NMDeviceType::NMDeviceTypeGeneric:
+        case NMDeviceType::Generic:
             return QSharedPointer<DGenericDevice>(new DGenericDevice(id));
-        case NMDeviceType::NMDeviceTypeTun:
+        case NMDeviceType::Tun:
             return QSharedPointer<DTunDevice>(new DTunDevice(id));
-        case NMDeviceType::NMDeviceTypeEthernet:
+        case NMDeviceType::Ethernet:
             return QSharedPointer<DWiredDevice>(new DWiredDevice(id));
-        case NMDeviceType::NMDeviceTypeWiFi:
+        case NMDeviceType::WiFi:
             return QSharedPointer<DWirelessDevice>(new DWirelessDevice(id));
         default:
             return DUnexpected{emplace_tag::USE_EMPLACE, -1, "unsupported device"};

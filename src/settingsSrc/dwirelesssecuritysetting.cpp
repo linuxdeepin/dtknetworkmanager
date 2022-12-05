@@ -14,7 +14,7 @@ DWirelessSecuritySettingPrivate::DWirelessSecuritySettingPrivate()
     , m_wepKeyType(DWirelessSecuritySetting::WepKeyType::NotSpecified)
     , m_pskFlags(DNMSetting::SecretFlagType::None)
     , m_leapPasswordFlags(DNMSetting::SecretFlagType::None)
-    , m_pmf(DWirelessSecuritySetting::Pmf::DefaultPmf)
+    , m_pmf(DWirelessSecuritySetting::Pmf::Default)
     , m_name(NM_SETTING_WIRELESS_SECURITY_SETTING_NAME)
 {
 }
@@ -678,7 +678,7 @@ QVariantMap DWirelessSecuritySetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS), static_cast<int>(leapPasswordFlags()));
     }
 
-    if (pmf() != Pmf::DefaultPmf) {
+    if (pmf() != Pmf::Default) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PMF), static_cast<int>(pmf()));
     }
 

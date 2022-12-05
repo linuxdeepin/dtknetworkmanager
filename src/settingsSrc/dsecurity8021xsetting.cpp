@@ -9,11 +9,11 @@ DNETWORKMANAGER_BEGIN_NAMESPACE
 
 DSecurity8021xSettingPrivate::DSecurity8021xSettingPrivate()
     : m_systemCaCerts(false)
-    , m_phase1PeapVer(DSecurity8021xSetting::PeapVersion::PeapVersionUnknown)
-    , m_phase1PeapLabel(DSecurity8021xSetting::PeapLabel::PeapLabelUnknown)
-    , m_phase1FastProvisioning(DSecurity8021xSetting::FastProvisioning::FastProvisioningUnknown)
-    , m_phase2AuthMethod(DSecurity8021xSetting::AuthMethod::AuthMethodUnknown)
-    , m_phase2AuthEapMethod(DSecurity8021xSetting::AuthEapMethod::AuthEapMethodUnknown)
+    , m_phase1PeapVer(DSecurity8021xSetting::PeapVersion::Unknown)
+    , m_phase1PeapLabel(DSecurity8021xSetting::PeapLabel::Unknown)
+    , m_phase1FastProvisioning(DSecurity8021xSetting::FastProvisioning::Unknown)
+    , m_phase2AuthMethod(DSecurity8021xSetting::AuthMethod::Unknown)
+    , m_phase2AuthEapMethod(DSecurity8021xSetting::AuthEapMethod::Unknown)
     , m_pinFlags(DNMSetting::SecretFlagType::None)
     , m_phase2PrivateKeyPasswordFlags(DNMSetting::SecretFlagType::None)
     , m_privateKeyPasswordFlags(DNMSetting::SecretFlagType::None)
@@ -523,21 +523,21 @@ QStringList DSecurity8021xSetting::needSecrets(bool requestNew) const
 {
     QStringList secrets;
 
-    if (eapMethods().contains(EapMethod::EapMethodTls) and (privateKeyPassword().isEmpty() or requestNew) and
+    if (eapMethods().contains(EapMethod::Tls) and (privateKeyPassword().isEmpty() or requestNew) and
         !privateKeyPasswordFlags().testFlag(DNMSetting::SecretFlagType::NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD);
-    } else if ((eapMethods().contains(EapMethod::EapMethodTtls) or eapMethods().contains(EapMethod::EapMethodPeap) or
-                eapMethods().contains(EapMethod::EapMethodLeap) or eapMethods().contains(EapMethod::EapMethodFast) or
-                eapMethods().contains(EapMethod::EapMethodPwd)) and
+    } else if ((eapMethods().contains(EapMethod::Ttls) or eapMethods().contains(EapMethod::Peap) or
+                eapMethods().contains(EapMethod::Leap) or eapMethods().contains(EapMethod::Fast) or
+                eapMethods().contains(EapMethod::Pwd)) and
                (password().isEmpty() or requestNew) and !passwordFlags().testFlag(DNMSetting::SecretFlagType::NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD);
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW);
-    } else if (eapMethods().contains(EapMethod::EapMethodSim) and (pin().isEmpty() or requestNew) and
+    } else if (eapMethods().contains(EapMethod::Sim) and (pin().isEmpty() or requestNew) and
                !pinFlags().testFlag(DNMSetting::SecretFlagType::NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PIN);
     }
 
-    if ((phase2AuthMethod() == AuthMethod::AuthMethodTls or phase2AuthEapMethod() == AuthEapMethod::AuthEapMethodTls) and
+    if ((phase2AuthMethod() == AuthMethod::Tls or phase2AuthEapMethod() == AuthEapMethod::Tls) and
         (phase2PrivateKeyPassword().isEmpty() or requestNew) and
         !phase2PrivateKeyPasswordFlags().testFlag(DNMSetting::SecretFlagType::NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD);
@@ -603,21 +603,21 @@ void DSecurity8021xSetting::fromMap(const QVariantMap &setting)
         QList<EapMethod> eapMethods;
         for (const QString &method : methods) {
             if (method == "leap") {
-                eapMethods << EapMethod::EapMethodLeap;
+                eapMethods << EapMethod::Leap;
             } else if (method == "md5") {
-                eapMethods << EapMethod::EapMethodMd5;
+                eapMethods << EapMethod::Md5;
             } else if (method == "tls") {
-                eapMethods << EapMethod::EapMethodTls;
+                eapMethods << EapMethod::Tls;
             } else if (method == "peap") {
-                eapMethods << EapMethod::EapMethodPeap;
+                eapMethods << EapMethod::Peap;
             } else if (method == "ttls") {
-                eapMethods << EapMethod::EapMethodTtls;
+                eapMethods << EapMethod::Ttls;
             } else if (method == "sim") {
-                eapMethods << EapMethod::EapMethodSim;
+                eapMethods << EapMethod::Sim;
             } else if (method == "fast") {
-                eapMethods << EapMethod::EapMethodFast;
+                eapMethods << EapMethod::Fast;
             } else if (method == "pwd") {
-                eapMethods << EapMethod::EapMethodPwd;
+                eapMethods << EapMethod::Pwd;
             }
         }
 
@@ -660,9 +660,9 @@ void DSecurity8021xSetting::fromMap(const QVariantMap &setting)
         const QString version = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPVER)).toString();
 
         if (version == "0") {
-            setPhase1PeapVersion(PeapVersion::PeapVersionZero);
+            setPhase1PeapVersion(PeapVersion::Zero);
         } else if (version == "1") {
-            setPhase1PeapVersion(PeapVersion::PeapVersionOne);
+            setPhase1PeapVersion(PeapVersion::One);
         }
     }
 
@@ -670,7 +670,7 @@ void DSecurity8021xSetting::fromMap(const QVariantMap &setting)
         const QString label = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPLABEL)).toString();
 
         if (label == "1") {
-            setPhase1PeapLabel(PeapLabel::PeapLabelForce);
+            setPhase1PeapLabel(PeapLabel::Force);
         }
     }
 
@@ -678,13 +678,13 @@ void DSecurity8021xSetting::fromMap(const QVariantMap &setting)
         const QString provisioning = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING)).toString();
 
         if (provisioning == "0") {
-            setPhase1FastProvisioning(FastProvisioning::FastProvisioningDisabled);
+            setPhase1FastProvisioning(FastProvisioning::Disabled);
         } else if (provisioning == "1") {
-            setPhase1FastProvisioning(FastProvisioning::FastProvisioningAllowUnauthenticated);
+            setPhase1FastProvisioning(FastProvisioning::AllowUnauthenticated);
         } else if (provisioning == "2") {
-            setPhase1FastProvisioning(FastProvisioning::FastProvisioningAllowAuthenticated);
+            setPhase1FastProvisioning(FastProvisioning::AllowAuthenticated);
         } else if (provisioning == "3") {
-            setPhase1FastProvisioning(FastProvisioning::FastProvisioningAllowBoth);
+            setPhase1FastProvisioning(FastProvisioning::AllowBoth);
         }
     }
 
@@ -692,21 +692,21 @@ void DSecurity8021xSetting::fromMap(const QVariantMap &setting)
         const QString authMethod = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTH)).toString();
 
         if (authMethod == "pap") {
-            setPhase2AuthMethod(AuthMethod::AuthMethodPap);
+            setPhase2AuthMethod(AuthMethod::Pap);
         } else if (authMethod == "chap") {
-            setPhase2AuthMethod(AuthMethod::AuthMethodChap);
+            setPhase2AuthMethod(AuthMethod::Chap);
         } else if (authMethod == "mschap") {
-            setPhase2AuthMethod(AuthMethod::AuthMethodMschap);
+            setPhase2AuthMethod(AuthMethod::Mschap);
         } else if (authMethod == "mschapv2") {
-            setPhase2AuthMethod(AuthMethod::AuthMethodMschapv2);
+            setPhase2AuthMethod(AuthMethod::Mschapv2);
         } else if (authMethod == "gtc") {
-            setPhase2AuthMethod(AuthMethod::AuthMethodGtc);
+            setPhase2AuthMethod(AuthMethod::Gtc);
         } else if (authMethod == "otp") {
-            setPhase2AuthMethod(AuthMethod::AuthMethodOtp);
+            setPhase2AuthMethod(AuthMethod::Otp);
         } else if (authMethod == "md5") {
-            setPhase2AuthMethod(AuthMethod::AuthMethodMd5);
+            setPhase2AuthMethod(AuthMethod::Md5);
         } else if (authMethod == "tls") {
-            setPhase2AuthMethod(AuthMethod::AuthMethodTls);
+            setPhase2AuthMethod(AuthMethod::Tls);
         }
     }
 
@@ -714,15 +714,15 @@ void DSecurity8021xSetting::fromMap(const QVariantMap &setting)
         const QString authEapMethod = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTHEAP)).toString();
 
         if (authEapMethod == "md5") {
-            setPhase2AuthEapMethod(AuthEapMethod::AuthEapMethodMd5);
+            setPhase2AuthEapMethod(AuthEapMethod::Md5);
         } else if (authEapMethod == "mschapv2") {
-            setPhase2AuthEapMethod(AuthEapMethod::AuthEapMethodMschapv2);
+            setPhase2AuthEapMethod(AuthEapMethod::Mschapv2);
         } else if (authEapMethod == "otp") {
-            setPhase2AuthEapMethod(AuthEapMethod::AuthEapMethodOtp);
+            setPhase2AuthEapMethod(AuthEapMethod::Otp);
         } else if (authEapMethod == "gtc") {
-            setPhase2AuthEapMethod(AuthEapMethod::AuthEapMethodGtc);
+            setPhase2AuthEapMethod(AuthEapMethod::Gtc);
         } else if (authEapMethod == "tls") {
-            setPhase2AuthEapMethod(AuthEapMethod::AuthEapMethodTls);
+            setPhase2AuthEapMethod(AuthEapMethod::Tls);
         }
     }
 
@@ -810,21 +810,21 @@ QVariantMap DSecurity8021xSetting::toMap() const
 
         const auto methodList = eapMethods();
         for (const EapMethod &method : methodList) {
-            if (method == EapMethod::EapMethodLeap) {
+            if (method == EapMethod::Leap) {
                 methods << "leap";
-            } else if (method == EapMethod::EapMethodMd5) {
+            } else if (method == EapMethod::Md5) {
                 methods << "md5";
-            } else if (method == EapMethod::EapMethodTls) {
+            } else if (method == EapMethod::Tls) {
                 methods << "tls";
-            } else if (method == EapMethod::EapMethodPeap) {
+            } else if (method == EapMethod::Peap) {
                 methods << "peap";
-            } else if (method == EapMethod::EapMethodTtls) {
+            } else if (method == EapMethod::Ttls) {
                 methods << "ttls";
-            } else if (method == EapMethod::EapMethodSim) {
+            } else if (method == EapMethod::Sim) {
                 methods << "sim";
-            } else if (method == EapMethod::EapMethodFast) {
+            } else if (method == EapMethod::Fast) {
                 methods << "fast";
-            } else if (method == EapMethod::EapMethodPwd) {
+            } else if (method == EapMethod::Pwd) {
                 methods << "pwd";
             }
         }
@@ -866,13 +866,13 @@ QVariantMap DSecurity8021xSetting::toMap() const
 
     QString version;
     switch (phase1PeapVersion()) {
-        case PeapVersion::PeapVersionZero:
+        case PeapVersion::Zero:
             version = '0';
             break;
-        case PeapVersion::PeapVersionOne:
+        case PeapVersion::One:
             version = '1';
             break;
-        case PeapVersion::PeapVersionUnknown:
+        case PeapVersion::Unknown:
             break;
     }
 
@@ -882,10 +882,10 @@ QVariantMap DSecurity8021xSetting::toMap() const
 
     QString peapLabel;
     switch (phase1PeapLabel()) {
-        case PeapLabel::PeapLabelForce:
+        case PeapLabel::Force:
             peapLabel = '1';
             break;
-        case PeapLabel::PeapLabelUnknown:
+        case PeapLabel::Unknown:
             break;
     }
 
@@ -895,19 +895,19 @@ QVariantMap DSecurity8021xSetting::toMap() const
 
     QString provisioning;
     switch (phase1FastProvisioning()) {
-        case FastProvisioning::FastProvisioningDisabled:
+        case FastProvisioning::Disabled:
             provisioning = '0';
             break;
-        case FastProvisioning::FastProvisioningAllowUnauthenticated:
+        case FastProvisioning::AllowUnauthenticated:
             provisioning = '1';
             break;
-        case FastProvisioning::FastProvisioningAllowAuthenticated:
+        case FastProvisioning::AllowAuthenticated:
             provisioning = '2';
             break;
-        case FastProvisioning::FastProvisioningAllowBoth:
+        case FastProvisioning::AllowBoth:
             provisioning = '3';
             break;
-        case FastProvisioning::FastProvisioningUnknown:
+        case FastProvisioning::Unknown:
             break;
     }
 
@@ -917,31 +917,31 @@ QVariantMap DSecurity8021xSetting::toMap() const
 
     QString authMethod;
     switch (phase2AuthMethod()) {
-        case AuthMethod::AuthMethodPap:
+        case AuthMethod::Pap:
             authMethod = "pap";
             break;
-        case AuthMethod::AuthMethodChap:
+        case AuthMethod::Chap:
             authMethod = "chap";
             break;
-        case AuthMethod::AuthMethodMschap:
+        case AuthMethod::Mschap:
             authMethod = "mschap";
             break;
-        case AuthMethod::AuthMethodMschapv2:
+        case AuthMethod::Mschapv2:
             authMethod = "mschapv2";
             break;
-        case AuthMethod::AuthMethodGtc:
+        case AuthMethod::Gtc:
             authMethod = "gtc";
             break;
-        case AuthMethod::AuthMethodOtp:
+        case AuthMethod::Otp:
             authMethod = "otp";
             break;
-        case AuthMethod::AuthMethodMd5:
+        case AuthMethod::Md5:
             authMethod = "md5";
             break;
-        case AuthMethod::AuthMethodTls:
+        case AuthMethod::Tls:
             authMethod = "tls";
             break;
-        case AuthMethod::AuthMethodUnknown:
+        case AuthMethod::Unknown:
             break;
     }
 
@@ -951,22 +951,22 @@ QVariantMap DSecurity8021xSetting::toMap() const
 
     QString authEapMethod;
     switch (phase2AuthEapMethod()) {
-        case AuthEapMethod::AuthEapMethodMd5:
+        case AuthEapMethod::Md5:
             authEapMethod = "md5";
             break;
-        case AuthEapMethod::AuthEapMethodMschapv2:
+        case AuthEapMethod::Mschapv2:
             authEapMethod = "mschapv2";
             break;
-        case AuthEapMethod::AuthEapMethodOtp:
+        case AuthEapMethod::Otp:
             authEapMethod = "otp";
             break;
-        case AuthEapMethod::AuthEapMethodGtc:
+        case AuthEapMethod::Gtc:
             authEapMethod = "gtc";
             break;
-        case AuthEapMethod::AuthEapMethodTls:
+        case AuthEapMethod::Tls:
             authEapMethod = "tls";
             break;
-        case AuthEapMethod::AuthEapMethodUnknown:
+        case AuthEapMethod::Unknown:
             break;
     }
 

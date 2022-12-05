@@ -13,10 +13,10 @@ DWiredSettingPrivate::DWiredSettingPrivate()
     : m_autoNegotiate(false)
     , m_speed(0)
     , m_mtu(0)
-    , m_port(DWiredSetting::PortType::UnknownPort)
-    , m_duplex(DWiredSetting::DuplexType::UnknownDuplexType)
+    , m_port(DWiredSetting::PortType::Unknown)
+    , m_duplex(DWiredSetting::DuplexType::Unknown)
     , m_s390NetType(DWiredSetting::S390Nettype::Undefined)
-    , m_wakeOnLan(DWiredSetting::WakeOnLanFlag::WakeOnLanDefault)
+    , m_wakeOnLan(DWiredSetting::WakeOnLanFlag::Default)
     , m_name(NM_SETTING_WIRED_SETTING_NAME)
 {
 }
@@ -358,7 +358,7 @@ QVariantMap NetworkManager::DWiredSetting::toMap() const
         case PortType::Mii:
             setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "mii");
             break;
-        case PortType::UnknownPort:
+        case PortType::Unknown:
             break;
     }
 
@@ -375,7 +375,7 @@ QVariantMap NetworkManager::DWiredSetting::toMap() const
             case DuplexType::Full:
                 setting.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), "full");
                 break;
-            case DuplexType::UnknownDuplexType:
+            case DuplexType::Unknown:
                 break;
         }
     }

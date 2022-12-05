@@ -47,10 +47,10 @@ public:
         Passphrase,
     };
     enum class Pmf {
-        DefaultPmf,
-        DisablePmf,
-        OptionalPmf,
-        RequiredPmf,
+        Default,
+        Disable,
+        Optional,
+        Required,
     };
 
     DWirelessSecuritySetting();
