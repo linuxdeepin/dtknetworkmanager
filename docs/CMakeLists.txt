@@ -20,9 +20,10 @@ set (DOXYGEN_TAGFILES "qtcore.tags=qthelp://doc.qt.io/qt-5/" CACHE STRING "Doxyg
 set (DOXYGEN_MACRO_EXPANSION "YES")
 set (DOXYGEN_EXPAND_ONLY_PREDEF "YES")
 set (DOXYGEN_PREDEFINED
-    "\"DNETWORKMANAGER_BEGIN_NAMESPACE=namespace Dtk::NetworkManager{\""
-    "\"DNETWORKMANAGER_END_NAMESPACE=}\""
-    "\"DNETWORKMANAGER_USE_NAMESPACE=using namespace Dtk::NetworkManager;\""
+    "DNETWORKMANAGER_BEGIN_NAMESPACE=namespace Dtk::NetworkManager{"
+    "DNETWORKMANAGER_END_NAMESPACE=}"
+    "DNETWORKMANAGER_USE_NAMESPACE=using namespace Dtk::NetworkManager;"
+    "DTK_DNETWORKMANAGER_NAMESPACE=Dtk::NetworkManager"
 )
 
 doxygen_add_docs (doxygen
