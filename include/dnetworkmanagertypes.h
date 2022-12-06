@@ -279,7 +279,14 @@ struct AppProxySet
 
 DNETWORKMANAGER_END_NAMESPACE
 
+/**
+ * @private
+ */
 Q_DECLARE_METATYPE(DTK_DNETWORKMANAGER_NAMESPACE::Config);
+
+/**
+ * @private
+ */
 Q_DECLARE_METATYPE(DTK_DNETWORKMANAGER_NAMESPACE::SettingDesc);
 
 #endif

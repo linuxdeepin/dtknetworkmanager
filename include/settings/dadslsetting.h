@@ -16,13 +16,13 @@ class DAdslSetting : public DNMSetting
 {
 public:
     enum class Protocol {
-        UnknownProtocol = 0,
+        Unknown = 0,
         Pppoa,
         Pppoe,
         Ipoatm,
     };
     enum class Encapsulation {
-        UnknownEncapsulation = 0,
+        Unknown = 0,
         Vcmux,
         Llc,
     };

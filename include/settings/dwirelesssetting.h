@@ -17,13 +17,13 @@ class DWirelessSetting : public DNMSetting
 {
 public:
     enum class NetworkMode {
-        Infrastructure,
+        Infrastructure = 0,
         Adhoc,
         Ap,
     };
 
     enum class FrequencyBand {
-        Automatic,
+        Automatic = 0,
         A,
         Bg,
     };

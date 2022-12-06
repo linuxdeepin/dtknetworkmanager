@@ -8,8 +8,8 @@ DNETWORKMANAGER_BEGIN_NAMESPACE
 
 DAdslSettingPrivate::DAdslSettingPrivate()
     : m_passwordFlags(DNMSetting::SecretFlagType::None)
-    , m_protocol(DAdslSetting::Protocol::UnknownProtocol)
-    , m_encapsulation(DAdslSetting::Encapsulation::UnknownEncapsulation)
+    , m_protocol(DAdslSetting::Protocol::Unknown)
+    , m_encapsulation(DAdslSetting::Encapsulation::Unknown)
     , m_vpi(0)
     , m_vci(0)
     , m_name(NM_SETTING_ADSL_SETTING_NAME)
@@ -223,7 +223,7 @@ QVariantMap DAdslSetting::toMap() const
         case Protocol::Ipoatm:
             setting.insert(QLatin1String(NM_SETTING_ADSL_PROTOCOL), QLatin1String(NM_SETTING_ADSL_PROTOCOL_IPOATM));
             break;
-        case Protocol::UnknownProtocol:
+        case Protocol::Unknown:
             break;
     }
 
@@ -234,7 +234,7 @@ QVariantMap DAdslSetting::toMap() const
         case Encapsulation::Llc:
             setting.insert(QLatin1String(NM_SETTING_ADSL_ENCAPSULATION), QLatin1String(NM_SETTING_ADSL_ENCAPSULATION_LLC));
             break;
-        case Encapsulation::UnknownEncapsulation:
+        case Encapsulation::Unknown:
             break;
     }
 
