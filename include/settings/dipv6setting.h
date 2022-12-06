@@ -62,7 +62,7 @@ public:
         PreferTemporary,
     };
     enum class IPv6AddressGenMode {
-        Eui64,
+        Eui64 = 0,
         StablePrivacy,
     };
 
