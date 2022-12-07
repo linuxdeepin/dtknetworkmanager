@@ -20,19 +20,19 @@ class DSecretAgent : public QObject
     Q_OBJECT
 public:
     explicit DSecretAgent(QObject *parent = nullptr);
-    ~DSecretAgent() override = default;
+    ~DSecretAgent() override;
 
     Q_DECLARE_FLAGS(SecretFlags, NMSecretAgentGetSecretsFlags);
 
 public slots:
     DExpected<SettingDesc> secrets(const SettingDesc &conn,
-                                   const QByteArray &UUID,
+                                   const quint64 connId,
                                    const QByteArray &settingName,
                                    const QList<QByteArray> &hints,
                                    const SecretFlags &flags) const;
-    DExpected<void> cancelSecrets(const QByteArray &UUID, const QByteArray &settingName) const;
-    DExpected<void> saveSecret(const SettingDesc &connSettigns, const QByteArray &UUID) const;
-    DExpected<void> deleteSecret(const SettingDesc &connSettigns, const QByteArray &UUID) const;
+    DExpected<void> cancelSecrets(const quint64 connId, const QByteArray &settingName) const;
+    DExpected<void> saveSecret(const SettingDesc &connSettigns, const quint64 connId) const;
+    DExpected<void> deleteSecret(const SettingDesc &connSettigns, const quint64 connId) const;
 
 private:
     QScopedPointer<DSecretAgentPrivate> d_ptr;

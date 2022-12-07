@@ -22,7 +22,7 @@ public:
     Q_DECLARE_FLAGS(NMSCFlags, NMSettingsConnectionFlags);
 
     explicit DConnectionSetting(const quint64 id, QObject *parent = nullptr);
-    ~DConnectionSetting() override = default;
+    ~DConnectionSetting() override;
 
     Q_PROPERTY(bool unsaved READ unsaved NOTIFY unsavedChanged)
     Q_PROPERTY(QUrl filename READ filename NOTIFY filenameChanged)

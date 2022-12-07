@@ -22,6 +22,8 @@ DSystemProxy::DSystemProxy(QObject *parent)
 {
 }
 
+DSystemProxy::~DSystemProxy() = default;
+
 DExpected<QString> DSystemProxy::autoProxy() const
 {
     Q_D(const DSystemProxy);

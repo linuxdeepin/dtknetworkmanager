@@ -5,15 +5,9 @@
 #ifndef DACCESSPOINTINTERFACE_H
 #define DACCESSPOINTINTERFACE_H
 
-#include "dnetworkmanager_global.h"
 #include "dnetworkmanagertypes.h"
 #include <DDBusInterface>
-#include <QSharedPointer>
-#include <QDBusPendingReply>
 #include <QString>
-#include <QMap>
-#include <QVariant>
-#include <QList>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 

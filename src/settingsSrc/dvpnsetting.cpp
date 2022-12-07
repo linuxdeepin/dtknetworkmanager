@@ -194,4 +194,35 @@ QVariantMap DVpnSetting::toMap() const
     return setting;
 }
 
+void DVpnSetting::stringMapTosecrets(const QMap<QString, QString> &map)
+{
+    Q_D(DVpnSetting);
+
+    if (map.contains(QLatin1String("VpnSecrets"))) {
+        const QStringList list = map.value(QLatin1String("VpnSecrets")).split("%SEP%");
+        if (list.count() % 2 == 0) {
+            for (int i = 0; i < list.count(); i += 2) {
+                if (d->m_secrets.contains(list[i])) {
+                    d->m_secrets.remove(list[i]);
+                }
+                d->m_secrets.insert(list[i], list[i + 1]);
+            }
+        }
+    }
+}
+
+QMap<QString, QString> DVpnSetting::secretsToStringMap() const
+{
+    QMap<QString, QString> ret;
+    QStringList list;
+    QMap<QString, QString>::ConstIterator i = secrets().constBegin();
+    while (i != secrets().constEnd()) {
+        list << i.key() << i.value();
+        ++i;
+    }
+
+    ret.insert(QLatin1String("VpnSecrets"), list.join("%SEP%"));
+    return ret;
+}
+
 DNETWORKMANAGER_END_NAMESPACE

@@ -2,19 +2,23 @@
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-#include "dactivevpnconnection.h"
 #include "dactivevpnconnection_p.h"
+#include "dnmutils.h"
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
 DActiveVpnConnectionPrivate::DActiveVpnConnectionPrivate(const quint64 id, DActiveVpnConnection *parent)
     : DActiveConnectionPrivate(id, parent)
+#ifdef USE_FAKE_INTERFACE
+    , m_vpn(new DActiveVpnConnectionInterface("/com/deepin/FakeNetworkManager/ActiveConnection/" + QByteArray::number(id), this))
+#else
     , m_vpn(new DActiveVpnConnectionInterface("/org/freedesktop/NetworkManager/ActiveConnection/" + QByteArray::number(id), this))
+#endif
 {
 }
 
 DActiveVpnConnection::DActiveVpnConnection(const quint64 id, QObject *parent)
-    : DActiveConnection(id, parent)
+    : DActiveConnection(*new DActiveVpnConnectionPrivate(id, this), parent)
 {
     Q_D(const DActiveVpnConnection);
 

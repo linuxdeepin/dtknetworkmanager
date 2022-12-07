@@ -20,7 +20,7 @@ class DSystemProxy : public QObject
     Q_OBJECT
 public:
     explicit DSystemProxy(QObject *parent = nullptr);
-    ~DSystemProxy() override = default;
+    ~DSystemProxy() override;
 
 public slots:
     DExpected<QString> autoProxy() const;

@@ -10,9 +10,9 @@ DSystemProxyInterface::DSystemProxyInterface(QObject *parent)
     : QObject(parent)
 {
 #ifdef USE_FAKE_INTERFACE
-    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
-    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetworkManager.SystemProxy");
-    const QString &Path = QStringLiteral("/com/deepin/daemon/FakeNetworkManager/SystemProxy");
+    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetwork");
+    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetwork.Network");
+    const QString &Path = QStringLiteral("/com/deepin/daemon/FakeNetwork/Network");
     QDBusConnection Connection = QDBusConnection::sessionBus();
 #else
     const QString &Service = QStringLiteral("com.deepin.daemon.Network");

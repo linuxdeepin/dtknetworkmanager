@@ -9,7 +9,11 @@ DNETWORKMANAGER_BEGIN_NAMESPACE
 
 DIPv4ConfigPrivate::DIPv4ConfigPrivate(const quint64 id, DIPv4Config *parent)
     : q_ptr(parent)
+#ifdef USE_FAKE_INTERFACE
+    , m_ipv4(new DIPv4ConfigInterface("/com/deepin/FakeNetworkManager/IP4Config/" + QByteArray::number(id), this))
+#else
     , m_ipv4(new DIPv4ConfigInterface("/org/freedesktop/NetworkManager/IP4Config/" + QByteArray::number(id), this))
+#endif
 {
 }
 
@@ -26,6 +30,8 @@ DIPv4Config::DIPv4Config(const quint64 id, QObject *parent)
         emit this->gatewayChanged(QHostAddress(gateway));
     });
 }
+
+DIPv4Config::~DIPv4Config() = default;
 
 QList<Config> DIPv4Config::addressData() const
 {

@@ -22,6 +22,8 @@ DAppProxy::DAppProxy(QObject *parent)
 {
 }
 
+DAppProxy::~DAppProxy() = default;
+
 QByteArray DAppProxy::IP() const
 {
     Q_D(const DAppProxy);

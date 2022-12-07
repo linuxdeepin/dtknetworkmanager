@@ -260,12 +260,17 @@ struct NewConn
 {
     quint64 settingId;
     quint64 activeConnId;
+    bool operator==(const NewConn &other) const
+    {
+        return (this->activeConnId == other.activeConnId) and (this->settingId == other.settingId);
+    }
 };
 
 struct SystemProxyAddr
 {
     quint32 port;
     QString host;
+    bool operator==(const SystemProxyAddr &other) const { return (this->port == other.port) and (this->host == other.host); }
 };
 
 struct AppProxySet
@@ -275,6 +280,11 @@ struct AppProxySet
     QByteArray ip;
     QByteArray password;
     QString user;
+    bool operator==(const AppProxySet &other) const
+    {
+        return (this->port == other.port) and (this->type == other.type) and (this->ip == other.ip) and
+               (this->password == other.password) and (this->user == other.user);
+    }
 };
 
 DNETWORKMANAGER_END_NAMESPACE

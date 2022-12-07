@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 #include "dwireddeviceinterface.h"
+#include <QDBusMetaType>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -10,8 +11,8 @@ DWiredDeviceInterface::DWiredDeviceInterface(const QByteArray &path, QObject *pa
     : DDeviceInterface(path, parent)
 {
 #ifdef USE_FAKE_INTERFACE
-    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
-    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetworkManager.Device.Wired");
+    const QString &Service = QStringLiteral("com.deepin.FakeNetworkManager");
+    const QString &Interface = QStringLiteral("com.deepin.FakeNetworkManager.Device.Wired");
     QDBusConnection Connection = QDBusConnection::sessionBus();
 #else
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
@@ -36,9 +37,9 @@ quint32 DWiredDeviceInterface::speed() const
     return qdbus_cast<quint32>(m_wiredInter->property("Speed"));
 }
 
-QList<QString> DWiredDeviceInterface::S390Subchannels() const
+QStringList DWiredDeviceInterface::S390Subchannels() const
 {
-    return qdbus_cast<QList<QString>>(m_wiredInter->property("S390Subchannels"));
+    return qdbus_cast<QStringList>(m_wiredInter->property("S390Subchannels"));
 }
 
 bool DWiredDeviceInterface::carrier() const

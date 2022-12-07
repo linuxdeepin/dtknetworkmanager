@@ -19,7 +19,7 @@ class DAppProxy : public QObject
     Q_OBJECT
 public:
     explicit DAppProxy(QObject *parent = nullptr);
-    ~DAppProxy() override = default;
+    ~DAppProxy() override;
 
     Q_PROPERTY(QByteArray IP READ IP)
     Q_PROPERTY(QByteArray password READ password)

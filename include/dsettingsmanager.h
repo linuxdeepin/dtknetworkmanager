@@ -7,6 +7,7 @@
 
 #include "dnetworkmanagertypes.h"
 #include <DExpected>
+#include <QUuid>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -20,11 +21,11 @@ class DSettingsManager : public QObject
 
 public:
     explicit DSettingsManager(QObject *parent = nullptr);
-    ~DSettingsManager() override = default;
+    ~DSettingsManager() override;
 
 public slots:
     DExpected<QList<quint64>> listConnections() const;
-    DExpected<quint64> getConnectionByUUID(const QByteArray &UUID) const;
+    DExpected<quint64> getConnectionByUUID(const QUuid &UUID) const;
     DExpected<quint64> addConnection(const SettingDesc &conn) const;
 
 signals:

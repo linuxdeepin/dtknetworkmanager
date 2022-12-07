@@ -2,7 +2,6 @@
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-#include "dsecurity8021xsetting.h"
 #include "dsecurity8021xsetting_p.h"
 
 DNETWORKMANAGER_BEGIN_NAMESPACE

@@ -11,8 +11,8 @@ DActiveConnectionInterface::DActiveConnectionInterface(const QByteArray &path, Q
     : QObject(parent)
 {
 #ifdef USE_FAKE_INTERFACE
-    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
-    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetworkManager.Connection.Active");
+    const QString &Service = QStringLiteral("com.deepin.FakeNetworkManager");
+    const QString &Interface = QStringLiteral("com.deepin.FakeNetworkManager.Connection.Active");
     QDBusConnection Connection = QDBusConnection::sessionBus();
 #else
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");

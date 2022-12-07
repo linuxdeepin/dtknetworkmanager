@@ -10,9 +10,9 @@ DAgentManagerInterface::DAgentManagerInterface(QObject *parent)
     : QObject(parent)
 {
 #ifdef USE_FAKE_INTERFACE
-    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
-    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetworkManager.AgentManager");
-    const QString &Path = QStringLiteral("/com/deepin/daemon/FakeNetworkManager/AgentManager");
+    const QString &Service = QStringLiteral("com.deepin.FakeNetworkManager");
+    const QString &Interface = QStringLiteral("com.deepin.FakeNetworkManager.AgentManager");
+    const QString &Path = QStringLiteral("/com/deepin/FakeNetworkManager/AgentManager");
     QDBusConnection Connection = QDBusConnection::sessionBus();
 #else
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");

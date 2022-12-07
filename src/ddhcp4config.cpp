@@ -9,7 +9,11 @@ DNETWORKMANAGER_BEGIN_NAMESPACE
 
 DDHCP4ConfigPrivate::DDHCP4ConfigPrivate(const quint64 id, DDHCP4Config *parent)
     : q_ptr(parent)
+#ifdef USE_FAKE_INTERFACE
+    , m_dhcp4(new DDHCP4ConfigInterface("/com/deepin/FakeNetworkManager/DHCP4Config/" + QByteArray::number(id), this))
+#else
     , m_dhcp4(new DDHCP4ConfigInterface("/org/freedesktop/NetworkManager/DHCP4Config/" + QByteArray::number(id), this))
+#endif
 {
 }
 
@@ -20,6 +24,8 @@ DDHCP4Config::DDHCP4Config(const quint64 id, QObject *parent)
     Q_D(const DDHCP4Config);
     connect(d->m_dhcp4, &DDHCP4ConfigInterface::optionsChanged, this, &DDHCP4Config::optionsChanged);
 }
+
+DDHCP4Config::~DDHCP4Config() = default;
 
 Config DDHCP4Config::options() const
 {

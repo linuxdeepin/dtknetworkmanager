@@ -73,6 +73,8 @@ DNetworkManager::DNetworkManager(QObject *parent)
     });
 }
 
+DNetworkManager::~DNetworkManager() = default;
+
 bool DNetworkManager::networkingEnabled() const
 {
     Q_D(const DNetworkManager);

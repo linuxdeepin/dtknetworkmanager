@@ -4,6 +4,7 @@
 
 #include "dconnectionsettinginterface.h"
 #include <QDBusArgument>
+#include <QDBusMetaType>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -11,8 +12,8 @@ DConnectionSettingInterface::DConnectionSettingInterface(const QByteArray &path,
     : QObject(parent)
 {
 #ifdef USE_FAKE_INTERFACE
-    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
-    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetworkManager.Settings.Connection");
+    const QString &Service = QStringLiteral("com.deepin.FakeNetworkManager");
+    const QString &Interface = QStringLiteral("com.deepin.FakeNetworkManager.Settings.Connection");
     QDBusConnection Connection = QDBusConnection::sessionBus();
 #else
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
@@ -22,6 +23,23 @@ DConnectionSettingInterface::DConnectionSettingInterface(const QByteArray &path,
     Connection.connect(Service, path, Interface, "Removed", this, SLOT([this]() { emit this->Removed(); }));
 #endif
     m_inter = new DDBusInterface(Service, path, Interface, Connection, this);
+    qRegisterMetaType<SettingDesc>("SettingDesc");
+    qDBusRegisterMetaType<SettingDesc>();
+}
+
+bool DConnectionSettingInterface::unsaved() const
+{
+    return qdbus_cast<bool>(m_inter->property("Unsaved"));
+}
+
+QString DConnectionSettingInterface::filename() const
+{
+    return "file:" + qdbus_cast<QString>(m_inter->property("Filename"));
+}
+
+quint32 DConnectionSettingInterface::flags() const
+{
+    return qdbus_cast<quint32>(m_inter->property("Flags"));
 }
 
 QDBusPendingReply<void> DConnectionSettingInterface::UpdateSetting(const SettingDesc &prop) const

@@ -10,8 +10,8 @@ DTunDeviceInterface::DTunDeviceInterface(const QByteArray &path, QObject *parent
     : DDeviceInterface(path, parent)
 {
 #ifdef USE_FAKE_INTERFACE
-    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
-    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetworkManager.Device.Tun");
+    const QString &Service = QStringLiteral("com.deepin.FakeNetworkManager");
+    const QString &Interface = QStringLiteral("com.deepin.FakeNetworkManager.Device.Tun");
     QDBusConnection Connection = QDBusConnection::sessionBus();
 #else
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");

@@ -10,9 +10,9 @@ DIPConflictCheckInterface::DIPConflictCheckInterface(QObject *parent)
     : QObject(parent)
 {
 #ifdef USE_FAKE_INTERFACE
-    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
-    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetworkManager.IPWatchD");
-    const QString &Path = QStringLiteral("/com/deepin/daemon/FakeNetworkManager/IPWatchD");
+    const QString &Service = QStringLiteral("com.deepin.FakeSystem.IPWatchD");
+    const QString &Interface = QStringLiteral("com.deepin.FakeSystem.IPWatchD");
+    const QString &Path = QStringLiteral("/com/deepin/FakeSystem/IPWatchD");
     QDBusConnection Connection = QDBusConnection::sessionBus();
 #else
     const QString &Service = QStringLiteral("com.deepin.system.IPWatchD");

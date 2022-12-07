@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 #include "dnetworkmanagerinterface.h"
+#include <QDBusMetaType>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -10,9 +11,9 @@ DNetworkManagerInterface::DNetworkManagerInterface(QObject *parent)
     : QObject(parent)
 {
 #ifdef USE_FAKE_INTERFACE
-    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
-    const QString &Path = QStringLiteral("/com/deepin/daemon/FakeNetworkManager");
-    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
+    const QString &Service = QStringLiteral("com.deepin.FakeNetworkManager");
+    const QString &Path = QStringLiteral("/com/deepin/FakeNetworkManager");
+    const QString &Interface = QStringLiteral("com.deepin.FakeNetworkManager");
     QDBusConnection Connection = QDBusConnection::sessionBus();
 #else
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
@@ -31,6 +32,8 @@ DNetworkManagerInterface::DNetworkManagerInterface(QObject *parent)
 
 #endif
     m_inter = new DDBusInterface(Service, Path, Interface, Connection, this);
+    qRegisterMetaType<SettingDesc>("SettingDesc");
+    qDBusRegisterMetaType<SettingDesc>();
 }
 
 bool DNetworkManagerInterface::networkingEnabled() const
@@ -50,7 +53,7 @@ bool DNetworkManagerInterface::wirelessHardwareEnabled() const
 
 void DNetworkManagerInterface::setWirelessEnabled(const bool enable) const
 {
-    m_inter->setProperty("WirelessHardwareEnabled", enable);
+    m_inter->setProperty("WirelessEnabled", enable);
 }
 
 QList<QDBusObjectPath> DNetworkManagerInterface::activeConnections() const

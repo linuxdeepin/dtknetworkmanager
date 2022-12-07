@@ -12,7 +12,11 @@ using DCORE_NAMESPACE::emplace_tag;
 
 DConnectionSettingPrivate::DConnectionSettingPrivate(const quint64 id, DConnectionSetting *parent)
     : QObject(parent)
+#ifdef USE_FAKE_INTERFACE
+    , m_setting(new DConnectionSettingInterface("/com/deepin/FakeNetworkManager/Settings/" + QByteArray::number(id), this))
+#else
     , m_setting(new DConnectionSettingInterface("/org/freedesktop/NetworkManager/Settings/" + QByteArray::number(id), this))
+#endif
 {
 }
 
@@ -36,6 +40,8 @@ DConnectionSetting::DConnectionSetting(const quint64 id, QObject *parent)
 
     connect(d->m_setting, &DConnectionSettingInterface::Updated, this, &DConnectionSetting::Updated);
 }
+
+DConnectionSetting::~DConnectionSetting() = default;
 
 bool DConnectionSetting::unsaved() const
 {
