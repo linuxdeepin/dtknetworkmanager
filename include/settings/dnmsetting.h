@@ -9,6 +9,7 @@
 #include <DExpected>
 #include <QSharedPointer>
 #include <QString>
+#include <QVariant>
 
 #undef signals  // avoiding gio signals(pointers to pointers) conflicts with Qt defined signals macro
 #include <libnm/NetworkManager.h>

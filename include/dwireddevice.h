@@ -17,7 +17,7 @@ class DWiredDevice : public DDevice
     Q_PROPERTY(QByteArray HwAddress READ HwAddress NOTIFY HwAddressChanged)
     Q_PROPERTY(QByteArray permHwAddress READ permHwAddress NOTIFY permHwAddressChanged)
     Q_PROPERTY(quint32 speed READ speed NOTIFY speedChanged)
-    Q_PROPERTY(QList<QString> S390Subchannels READ S390Subchannels NOTIFY S390SubchannelsChanged)
+    Q_PROPERTY(QStringList S390Subchannels READ S390Subchannels NOTIFY S390SubchannelsChanged)
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 public:
     explicit DWiredDevice(const quint64 id, QObject *parent = nullptr);
@@ -26,14 +26,14 @@ public:
     QByteArray HwAddress() const;
     QByteArray permHwAddress() const;
     quint32 speed() const;
-    QList<QString> S390Subchannels() const;
+    QStringList S390Subchannels() const;
     bool carrier() const;
 
 signals:
     void HwAddressChanged(const QByteArray &address);
     void permHwAddressChanged(const QByteArray &address);
     void speedChanged(const quint32 speed);
-    void S390SubchannelsChanged(const QList<QString> &channels);
+    void S390SubchannelsChanged(const QStringList &channels);
     void carrierChanged(const bool carrier);
 
 private:

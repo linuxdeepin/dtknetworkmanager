@@ -16,6 +16,7 @@ class DActiveConnection : public QObject
     Q_OBJECT
 public:
     explicit DActiveConnection(const quint64 activeConnId, QObject *parent = nullptr);
+    explicit DActiveConnection(DActiveConnectionPrivate &other, QObject *parent = nullptr);
     ~DActiveConnection() override;
 
     Q_PROPERTY(QList<quint64> devices READ devices NOTIFY devicesChanged)

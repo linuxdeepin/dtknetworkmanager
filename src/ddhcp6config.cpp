@@ -9,7 +9,11 @@ DNETWORKMANAGER_BEGIN_NAMESPACE
 
 DDHCP6ConfigPrivate::DDHCP6ConfigPrivate(const quint64 id, DDHCP6Config *parent)
     : q_ptr(parent)
+#ifdef USE_FAKE_INTERFACE
+    , m_dhcp6(new DDHCP6ConfigInterface("/com/deepin/FakeNetworkManager/DHCP6Config/" + QByteArray::number(id), this))
+#else
     , m_dhcp6(new DDHCP6ConfigInterface("/org/freedesktop/NetworkManager/DHCP6Config/" + QByteArray::number(id), this))
+#endif
 {
 }
 
@@ -20,6 +24,8 @@ DDHCP6Config::DDHCP6Config(const quint64 id, QObject *parent)
     Q_D(const DDHCP6Config);
     connect(d->m_dhcp6, &DDHCP6ConfigInterface::optionsChanged, this, &DDHCP6Config::optionsChanged);
 }
+
+DDHCP6Config::~DDHCP6Config() = default;
 
 Config DDHCP6Config::options() const
 {

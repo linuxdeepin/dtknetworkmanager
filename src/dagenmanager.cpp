@@ -22,6 +22,8 @@ DAgentManager::DAgentManager(QObject *parent)
 {
 }
 
+DAgentManager::~DAgentManager() = default;
+
 DExpected<void> DAgentManager::registerAgent(const QByteArray &identifier) const
 {
     Q_D(const DAgentManager);
@@ -42,7 +44,7 @@ DExpected<void> DAgentManager::registerWithCapabilities(const QByteArray &identi
     return {};
 }
 
-DExpected<void> DAgentManager::unregister() const
+DExpected<void> DAgentManager::unregisterAgent() const
 {
     Q_D(const DAgentManager);
     auto reply = d->m_agent->unregisterAgent();

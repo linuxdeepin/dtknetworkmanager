@@ -76,6 +76,30 @@ DExpected<DNMSetting::SettingType> DNMSetting::stringToType(const QString &str)
     return DUnexpected{emplace_tag::USE_EMPLACE, -1, "unsupported setting type"};
 }
 
+void DNMSetting::setType(SettingType type)
+{
+    Q_D(DNMSetting);
+    d->m_type = type;
+}
+
+DNMSetting::SettingType DNMSetting::type() const
+{
+    Q_D(const DNMSetting);
+    return d->m_type;
+}
+
+bool DNMSetting::isInit() const
+{
+    Q_D(const DNMSetting);
+    return d->m_init;
+}
+
+void DNMSetting::setInit(bool init)
+{
+    Q_D(DNMSetting);
+    d->m_init = init;
+}
+
 QStringList DNMSetting::needSecrets(bool request) const
 {
     Q_UNUSED(request)
@@ -90,6 +114,30 @@ QVariantMap DNMSetting::secretsToMap() const
 void DNMSetting::mapToSecrets(const QVariantMap &secrets)
 {
     Q_UNUSED(secrets)
+}
+
+void DNMSetting::stringMapTosecrets(const QMap<QString, QString> &map)
+{
+    QVariantMap secretsMap;
+    QMap<QString, QString>::ConstIterator i = map.constBegin();
+    while (i != map.constEnd()) {
+        secretsMap.insert(i.key(), i.value());
+        ++i;
+    }
+    mapToSecrets(secretsMap);
+}
+
+QMap<QString, QString> DNMSetting::secretsToStringMap() const
+{
+    QMap<QString, QString> ret;
+    QVariantMap secretsMap = secretsToMap();
+    QVariantMap::ConstIterator i = secretsMap.constBegin();
+    while (i != secretsMap.constEnd()) {
+        ret.insert(i.key(), i.value().toString());
+        ++i;
+    }
+
+    return ret;
 }
 
 DNETWORKMANAGER_END_NAMESPACE

@@ -11,9 +11,9 @@ DAppProxyInterface::DAppProxyInterface(QObject *parent)
     : QObject(parent)
 {
 #ifdef USE_FAKE_INTERFACE
-    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
-    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetworkManager.AppProxy");
-    const QString &Path = QStringLiteral("/com/deepin/daemon/FakeNetworkManager/AppProxy");
+    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetwork");
+    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetwork.ProxyChains");
+    const QString &Path = QStringLiteral("/com/deepin/daemon/FakeNetwork/ProxyChains");
     QDBusConnection Connection = QDBusConnection::sessionBus();
 #else
     const QString &Service = QStringLiteral("com.deepin.daemon.Network");

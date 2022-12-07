@@ -11,7 +11,11 @@ using DCORE_NAMESPACE::DUnexpected;
 using DCORE_NAMESPACE::emplace_tag;
 
 DDevicePrivate::DDevicePrivate(const quint64 deviceId, DDevice *parent)
+#ifdef USE_FAKE_INTERFACE
+    : m_device(new DDeviceInterface("/com/deepin/FakeNetworkManager/Devices/" + QByteArray::number(deviceId), this))
+#else
     : m_device(new DDeviceInterface("/org/freedesktop/NetworkManager/Devices/" + QByteArray::number(deviceId), this))
+#endif
     , q_ptr(parent)
 {
 }
@@ -21,6 +25,77 @@ DDevicePrivate::~DDevicePrivate() = default;
 DDevice::DDevice(const quint64 deviceId, QObject *parent)
     : QObject(parent)
     , d_ptr(new DDevicePrivate(deviceId, this))
+{
+    Q_D(const DDevice);
+    connect(d->m_device, &DDeviceInterface::availableConnectionsChanged, this, [this](const QList<QDBusObjectPath> &conns) {
+        QList<quint64> ret;
+        for (const auto &it : conns)
+            ret.append(getIdFromObjectPath(it));
+        emit this->availableConnectionsChanged(ret);
+    });
+
+    connect(d->m_device,
+            &DDeviceInterface::stateChanged,
+            this,
+            [this](const quint32 newSatate, const quint32 oldState, const quint32 reason) {
+                emit this->deviceStateChanged(static_cast<NMDeviceState>(newSatate),
+                                              static_cast<NMDeviceState>(oldState),
+                                              static_cast<NMDeviceStateReason>(reason));
+            });
+
+    connect(d->m_device, &DDeviceInterface::autoconnectChanged, this, &DDevice::autoconnectChanged);
+
+    connect(d->m_device, &DDeviceInterface::managedChanged, this, &DDevice::managedChanged);
+
+    connect(d->m_device, &DDeviceInterface::activeConnectionChanged, this, [this](const QDBusObjectPath &conn) {
+        emit this->activeConnectionChanged(getIdFromObjectPath(conn));
+    });
+
+    connect(d->m_device, &DDeviceInterface::DHCP4ConfigChanged, this, [this](const QDBusObjectPath &config) {
+        emit this->DHCP4ConfigChanged(getIdFromObjectPath(config));
+    });
+
+    connect(d->m_device, &DDeviceInterface::DHCP6ConfigChanged, this, [this](const QDBusObjectPath &config) {
+        emit this->DHCP6ConfigChanged(getIdFromObjectPath(config));
+    });
+
+    connect(d->m_device, &DDeviceInterface::IPv4ConfigChanged, this, [this](const QDBusObjectPath &config) {
+        emit this->IPv4ConfigChanged(getIdFromObjectPath(config));
+    });
+
+    connect(d->m_device, &DDeviceInterface::IPv6ConfigChanged, this, [this](const QDBusObjectPath &config) {
+        emit this->IPv6ConfigChanged(getIdFromObjectPath(config));
+    });
+
+    connect(d->m_device, &DDeviceInterface::driverChanged, this, [this](const QString &driver) {
+        emit this->driverChanged(driver.toUtf8());
+    });
+
+    connect(d->m_device, &DDeviceInterface::interfaceChanged, this, [this](const QString &ifc) {
+        emit this->interfaceChanged(ifc.toUtf8());
+    });
+
+    connect(
+        d->m_device, &DDeviceInterface::udiChanged, this, [this](const QString &udi) { emit this->udiChanged(udi.toUtf8()); });
+
+    connect(d->m_device, &DDeviceInterface::deviceTypeChanged, this, [this](const quint32 type) {
+        emit this->deviceTypeChanged(static_cast<NMDeviceType>(type));
+    });
+
+    connect(d->m_device, &DDeviceInterface::interfaceFlagsChanged, this, [this](const quint32 flags) {
+        emit this->interfaceFlagsChanged(DeviceInterfaceFlags{flags});
+    });
+
+    connect(d->m_device, &DDeviceInterface::refreshRateMsChanged, this, &DDevice::refreshRateMsChanged);
+
+    connect(d->m_device, &DDeviceInterface::rxBytesChanged, this, &DDevice::rxBytesChanged);
+
+    connect(d->m_device, &DDeviceInterface::txBytesChanged, this, &DDevice::txBytesChanged);
+}
+
+DDevice::DDevice(DDevicePrivate &other, QObject *parent)
+    : QObject(parent)
+    , d_ptr(&other)
 {
     Q_D(const DDevice);
     connect(d->m_device, &DDeviceInterface::availableConnectionsChanged, this, [this](const QList<QDBusObjectPath> &conns) {
@@ -178,16 +253,16 @@ NMDeviceType DDevice::deviceType() const
     return static_cast<NMDeviceType>(d->m_device->deviceType());
 }
 
-NMDeviceInterfaceFlags DDevice::interfaceFlags() const
+DDevice::DeviceInterfaceFlags DDevice::interfaceFlags() const
 {
     Q_D(const DDevice);
-    return static_cast<NMDeviceInterfaceFlags>(d->m_device->interfaceFlags());
+    return DDevice::DeviceInterfaceFlags{d->m_device->interfaceFlags()};
 }
 
 NMDeviceState DDevice::deviceState() const
 {
     Q_D(const DDevice);
-    return static_cast<NMDeviceState>(d->m_device->deviceType());
+    return static_cast<NMDeviceState>(d->m_device->state());
 }
 
 quint32 DDevice::refreshRateMs() const

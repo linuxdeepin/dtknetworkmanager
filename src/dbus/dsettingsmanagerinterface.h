@@ -9,7 +9,6 @@
 #include "dnetworkmanagertypes.h"
 #include <DDBusInterface>
 #include <QDBusPendingReply>
-#include <QString>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 

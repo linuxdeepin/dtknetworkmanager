@@ -30,14 +30,17 @@ class DDevice : public QObject
     Q_PROPERTY(QByteArray interface READ interface NOTIFY interfaceChanged)
     Q_PROPERTY(QByteArray udi READ udi NOTIFY udiChanged)
     Q_PROPERTY(NMDeviceType deviceType READ deviceType NOTIFY deviceTypeChanged)
-    Q_PROPERTY(NMDeviceInterfaceFlags interfaceFlags READ interfaceFlags NOTIFY interfaceFlagsChanged)
+    Q_PROPERTY(DeviceInterfaceFlags interfaceFlags READ interfaceFlags NOTIFY interfaceFlagsChanged)
     Q_PROPERTY(NMDeviceState deviceState READ deviceState NOTIFY deviceStateChanged)
     Q_PROPERTY(quint32 refreshRateMs READ refreshRateMs WRITE setRefreshRateMs NOTIFY refreshRateMsChanged)
     Q_PROPERTY(quint32 rxBytes READ rxBytes NOTIFY rxBytesChanged)
     Q_PROPERTY(quint32 txBytes READ txBytes NOTIFY txBytesChanged)
 
 public:
+    Q_DECLARE_FLAGS(DeviceInterfaceFlags, NMDeviceInterfaceFlags)
+
     explicit DDevice(const quint64 deviceId, QObject *parent = nullptr);
+    explicit DDevice(DDevicePrivate &other, QObject *parent = nullptr);
     ~DDevice() override;
 
     QList<quint64> availableConnections() const;
@@ -54,7 +57,7 @@ public:
     QByteArray interface() const;
     QByteArray udi() const;
     NMDeviceType deviceType() const;
-    NMDeviceInterfaceFlags interfaceFlags() const;
+    DeviceInterfaceFlags interfaceFlags() const;
     NMDeviceState deviceState() const;
     quint32 refreshRateMs() const;
     void setRefreshRateMs(const quint32 newRate) const;
@@ -78,7 +81,7 @@ signals:
     void interfaceChanged(const QByteArray &ifc);
     void udiChanged(const QByteArray &udi);
     void deviceTypeChanged(const NMDeviceType type);
-    void interfaceFlagsChanged(const NMDeviceInterfaceFlags flags);
+    void interfaceFlagsChanged(const DeviceInterfaceFlags flags);
     void refreshRateMsChanged(const quint32 rate);
     void rxBytesChanged(const quint32 bytes);
     void txBytesChanged(const quint32 bytes);
@@ -89,6 +92,8 @@ protected:
 private:
     Q_DECLARE_PRIVATE(DDevice)
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(DDevice::DeviceInterfaceFlags)
 
 DNETWORKMANAGER_END_NAMESPACE
 

@@ -4,6 +4,7 @@
 
 #include "dipv4configinterface.h"
 #include <QDBusArgument>
+#include <QDBusMetaType>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -11,8 +12,8 @@ DIPv4ConfigInterface::DIPv4ConfigInterface(const QByteArray &path, QObject *pare
     : QObject(parent)
 {
 #ifdef USE_FAKE_INTERFACE
-    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
-    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetworkManager.IP4Config");
+    const QString &Service = QStringLiteral("com.deepin.FakeNetworkManager");
+    const QString &Interface = QStringLiteral("com.deepin.FakeNetworkManager.IP4Config");
     QDBusConnection Connection = QDBusConnection::sessionBus();
 #else
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
@@ -20,6 +21,10 @@ DIPv4ConfigInterface::DIPv4ConfigInterface(const QByteArray &path, QObject *pare
     QDBusConnection Connection = QDBusConnection::systemBus();
 #endif
     m_inter = new DDBusInterface(Service, path, Interface, Connection, this);
+    qRegisterMetaType<Config>("Config");
+    qRegisterMetaType<QList<Config>>("QList<Config>");
+    qDBusRegisterMetaType<Config>();
+    qDBusRegisterMetaType<QList<Config>>();
 }
 
 QList<Config> DIPv4ConfigInterface::addressData() const

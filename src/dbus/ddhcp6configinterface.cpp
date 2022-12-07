@@ -4,6 +4,7 @@
 
 #include "ddhcp6configinterface.h"
 #include <QDBusArgument>
+#include <QDBusMetaType>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -11,8 +12,8 @@ DDHCP6ConfigInterface::DDHCP6ConfigInterface(const QByteArray &path, QObject *pa
     : QObject(parent)
 {
 #ifdef USE_FAKE_INTERFACE
-    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
-    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetworkManager.DHCP6Config");
+    const QString &Service = QStringLiteral("com.deepin.FakeNetworkManager");
+    const QString &Interface = QStringLiteral("com.deepin.FakeNetworkManager.DHCP6Config");
     QDBusConnection Connection = QDBusConnection::sessionBus();
 #else
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
@@ -20,11 +21,13 @@ DDHCP6ConfigInterface::DDHCP6ConfigInterface(const QByteArray &path, QObject *pa
     QDBusConnection Connection = QDBusConnection::systemBus();
 #endif
     m_inter = new DDBusInterface(Service, path, Interface, Connection, this);
+    qRegisterMetaType<Config>("Config");
+    qDBusRegisterMetaType<Config>();
 }
 
-QMap<QString, QVariant> DDHCP6ConfigInterface::options() const
+Config DDHCP6ConfigInterface::options() const
 {
-    return qdbus_cast<QMap<QString, QVariant>>(m_inter->property("Options"));
+    return qdbus_cast<Config>(m_inter->property("Options"));
 }
 
 DNETWORKMANAGER_END_NAMESPACE

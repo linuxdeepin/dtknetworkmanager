@@ -29,6 +29,8 @@ DSettingsManager::DSettingsManager(QObject *parent)
     });
 }
 
+DSettingsManager::~DSettingsManager() = default;
+
 DExpected<QList<quint64>> DSettingsManager::listConnections() const
 {
     Q_D(const DSettingsManager);
@@ -42,10 +44,10 @@ DExpected<QList<quint64>> DSettingsManager::listConnections() const
     return ret;
 }
 
-DExpected<quint64> DSettingsManager::getConnectionByUUID(const QByteArray &UUID) const
+DExpected<quint64> DSettingsManager::getConnectionByUUID(const QUuid &UUID) const
 {
     Q_D(const DSettingsManager);
-    auto reply = d->m_settings->getConnectionByUUID(UUID);
+    auto reply = d->m_settings->getConnectionByUUID(UUID.toByteArray());
     reply.waitForFinished();
     if (!reply.isValid())
         return DUnexpected{emplace_tag::USE_EMPLACE, reply.error().type(), reply.error().message()};

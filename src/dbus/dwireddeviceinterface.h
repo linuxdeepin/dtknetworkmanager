@@ -21,20 +21,20 @@ public:
     Q_PROPERTY(QString HwAddress READ HwAddress NOTIFY HwAddressChanged)
     Q_PROPERTY(QString permHwAddress READ permHwAddress NOTIFY permHwAddressChanged)
     Q_PROPERTY(quint32 speed READ speed NOTIFY speedChanged)
-    Q_PROPERTY(QList<QString> S390Subchannels READ S390Subchannels NOTIFY S390SubchannelsChanged)
+    Q_PROPERTY(QStringList S390Subchannels READ S390Subchannels NOTIFY S390SubchannelsChanged)
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 
     QString HwAddress() const;
     QString permHwAddress() const;
     quint32 speed() const;
-    QList<QString> S390Subchannels() const;
+    QStringList S390Subchannels() const;
     bool carrier() const;
 
 signals:
     void HwAddressChanged(const QString &address);
     void permHwAddressChanged(const QString &address);
     void speedChanged(const quint32 speed);
-    void S390SubchannelsChanged(const QList<QString> &channels);
+    void S390SubchannelsChanged(const QStringList &channels);
     void carrierChanged(const bool carrier);
 
 private:

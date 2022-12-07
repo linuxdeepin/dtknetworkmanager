@@ -62,8 +62,8 @@ public:
     quint32 state() const;
     quint32 refreshRateMs() const;
     void setRefreshRateMs(const quint32 newRate) const;
-    quint32 rxBytes() const;
-    quint32 txBytes() const;
+    quint64 rxBytes() const;
+    quint64 txBytes() const;
 
 public slots:
 
@@ -85,8 +85,8 @@ signals:
     void deviceTypeChanged(const quint32 type);
     void interfaceFlagsChanged(const quint32 flags);
     void refreshRateMsChanged(const quint32 rate);
-    void rxBytesChanged(const quint32 bytes);
-    void txBytesChanged(const quint32 bytes);
+    void rxBytesChanged(const quint64 bytes);
+    void txBytesChanged(const quint64 bytes);
 
 private:
     DDBusInterface *m_deviceInter{nullptr};

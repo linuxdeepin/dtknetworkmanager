@@ -4,7 +4,7 @@
 
 #include "dsecretagentinterface.h"
 #include <QDBusObjectPath>
-#include <algorithm>
+#include <QDBusMetaType>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -12,9 +12,9 @@ DSecretAgentInterface::DSecretAgentInterface(QObject *parent)
     : QObject(parent)
 {
 #ifdef USE_FAKE_INTERFACE
-    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
-    const QString &Interface = QStringLiteral("com.deepin.daemon.FakeNetworkManager.SecretAgent");
-    const QString &Path = QStringLiteral("/com/deepin/daemon/FakeNetworkManager/SecretAgent");
+    const QString &Service = QStringLiteral("com.deepin.FakeNetworkManager");
+    const QString &Interface = QStringLiteral("com.deepin.FakeNetworkManager.SecretAgent");
+    const QString &Path = QStringLiteral("/com/deepin/FakeNetworkManager/SecretAgent");
     QDBusConnection Connection = QDBusConnection::sessionBus();
 #else
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
@@ -23,6 +23,8 @@ DSecretAgentInterface::DSecretAgentInterface(QObject *parent)
     QDBusConnection Connection = QDBusConnection::systemBus();
 #endif
     m_inter = new DDBusInterface(Service, Path, Interface, Connection, this);
+    qDBusRegisterMetaType<SettingDesc>();
+    qRegisterMetaType<SettingDesc>("SettingDesc");
 }
 
 QDBusPendingReply<SettingDesc> DSecretAgentInterface::getSecrets(const SettingDesc &connection,
@@ -31,12 +33,12 @@ QDBusPendingReply<SettingDesc> DSecretAgentInterface::getSecrets(const SettingDe
                                                                  const QList<QByteArray> &hints,
                                                                  const quint32 flag) const
 {
-    return m_inter->asyncCallWithArgumentList("GetSecret",
-                                              {QVariant::fromValue(connection),
+    return m_inter->asyncCallWithArgumentList("GetSecrets",
+                                              {QVariant::fromValue<SettingDesc>(connection),
                                                QVariant::fromValue(QDBusObjectPath(QString(connectionPath))),
                                                QVariant::fromValue<QString>(settingName),
                                                QVariant::fromValue([&hints]() {
-                                                   QList<QString> ret;
+                                                   QStringList ret;
                                                    for (int i = 0; i < hints.size(); ++i)
                                                        ret.append(hints[i]);
                                                    return ret;
@@ -55,14 +57,16 @@ QDBusPendingReply<void> DSecretAgentInterface::cancelGetSecrets(const QByteArray
 QDBusPendingReply<void> DSecretAgentInterface::saveSecrets(const SettingDesc &connection, const QByteArray &connectionPath) const
 {
     return m_inter->asyncCallWithArgumentList(
-        "SaveSecrets", {QVariant::fromValue(connection), QVariant::fromValue(QDBusObjectPath(QString(connectionPath)))});
+        "SaveSecrets",
+        {QVariant::fromValue<SettingDesc>(connection), QVariant::fromValue(QDBusObjectPath(QString(connectionPath)))});
 }
 
 QDBusPendingReply<void> DSecretAgentInterface::deleteSecrets(const SettingDesc &connection,
                                                              const QByteArray &connectionPath) const
 {
     return m_inter->asyncCallWithArgumentList(
-        "SaveSecrets", {QVariant::fromValue(connection), QVariant::fromValue(QDBusObjectPath(QString(connectionPath)))});
+        "DeleteSecrets",
+        {QVariant::fromValue<SettingDesc>(connection), QVariant::fromValue(QDBusObjectPath(QString(connectionPath)))});
 }
 
 DNETWORKMANAGER_END_NAMESPACE

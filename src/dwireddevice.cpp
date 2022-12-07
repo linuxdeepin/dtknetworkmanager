@@ -8,12 +8,16 @@ DNETWORKMANAGER_BEGIN_NAMESPACE
 
 DWiredDevicePrivate::DWiredDevicePrivate(const quint64 id, DWiredDevice *parent)
     : DDevicePrivate(id, parent)
+#ifdef USE_FAKE_INTERFACE
+    , m_wired(new DWiredDeviceInterface("/com/deepin/FakeNetworkManager/Devices/" + QByteArray::number(id), this))
+#else
     , m_wired(new DWiredDeviceInterface("/org/freedesktop/NetworkManager/Devices/" + QByteArray::number(id), this))
+#endif
 {
 }
 
 DWiredDevice::DWiredDevice(const quint64 id, QObject *parent)
-    : DDevice(id, parent)
+    : DDevice(*new DWiredDevicePrivate(id, this), parent)
 {
     Q_D(const DWiredDevice);
 
@@ -50,7 +54,7 @@ quint32 DWiredDevice::speed() const
     return d->m_wired->speed();
 }
 
-QList<QString> DWiredDevice::S390Subchannels() const
+QStringList DWiredDevice::S390Subchannels() const
 {
     Q_D(const DWiredDevice);
     return d->m_wired->S390Subchannels();

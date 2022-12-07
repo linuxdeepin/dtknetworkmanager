@@ -29,6 +29,8 @@ DIPConflictCheck::DIPConflictCheck(QObject *parent)
             });
 }
 
+DIPConflictCheck::~DIPConflictCheck() = default;
+
 DExpected<QByteArray> DIPConflictCheck::requestIPConflictCheck(const QByteArray &ip, const QByteArray &ifc) const
 {
     Q_D(const DIPConflictCheck);

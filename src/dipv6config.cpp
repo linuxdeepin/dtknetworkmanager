@@ -2,14 +2,18 @@
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-#include "dipv6config.h"
 #include "dipv6config_p.h"
+#include "dnmutils.h"
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
 DIPv6ConfigPrivate::DIPv6ConfigPrivate(const quint64 id, DIPv6Config *parent)
     : q_ptr(parent)
+#ifdef USE_FAKE_INTERFACE
+    , m_ipv6(new DIPv6ConfigInterface("/com/deepin/FakeNetworkManager/IP6Config/" + QByteArray::number(id), this))
+#else
     , m_ipv6(new DIPv6ConfigInterface("/org/freedesktop/NetworkManager/IP6Config/" + QByteArray::number(id), this))
+#endif
 {
 }
 
@@ -37,6 +41,8 @@ DIPv6Config::DIPv6Config(const quint64 id, QObject *parent)
     });
 }
 
+DIPv6Config::~DIPv6Config() = default;
+
 QList<Config> DIPv6Config::addressData() const
 {
     Q_D(const DIPv6Config);
@@ -47,13 +53,8 @@ QList<QHostAddress> DIPv6Config::nameservers() const
 {
     Q_D(const DIPv6Config);
     QList<QHostAddress> ret;
-    for (const QByteArray &nameserver : d->m_ipv6->nameservers()) {
-        Q_IPV6ADDR address;
-        for (int i = 0; i < 16; i++) {
-            address[i] = static_cast<quint8>(nameserver[i]);
-        }
-        ret.append(QHostAddress(address));
-    }
+    for (const QByteArray &nameserver : d->m_ipv6->nameservers())
+        ret.append(ipv6AddressToHostAddress(nameserver));
     return ret;
 }
 

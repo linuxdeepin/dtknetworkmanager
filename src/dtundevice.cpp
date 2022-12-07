@@ -8,12 +8,16 @@ DNETWORKMANAGER_BEGIN_NAMESPACE
 
 DTunDevicePrivate::DTunDevicePrivate(const quint64 id, DTunDevice *parent)
     : DDevicePrivate(id, parent)
+#ifdef USE_FAKE_INTERFACE
+    , m_tun(new DTunDeviceInterface("/com/deepin/FakeNetworkManager/Devices/" + QByteArray::number(id), this))
+#else
     , m_tun(new DTunDeviceInterface("/org/freedesktop/NetworkManager/Devices/" + QByteArray::number(id), this))
+#endif
 {
 }
 
 DTunDevice::DTunDevice(const quint64 id, QObject *parent)
-    : DDevice(id, parent)
+    : DDevice(*new DTunDevicePrivate(id, this), parent)
 {
     Q_D(const DTunDevice);
     connect(d->m_tun, &DTunDeviceInterface::HwAddressChanged, this, [this](const QString &addr) {

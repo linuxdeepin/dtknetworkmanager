@@ -7,6 +7,8 @@
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
+constexpr const char *connPath = "/org/freedesktop/NetworkManager/Settings/";
+
 using DCORE_NAMESPACE::DUnexpected;
 using DCORE_NAMESPACE::emplace_tag;
 
@@ -23,43 +25,45 @@ DSecretAgent::DSecretAgent(QObject *parent)
 }
 
 DExpected<SettingDesc> DSecretAgent::secrets(const SettingDesc &conn,
-                                             const QByteArray &UUID,
+                                             const quint64 connId,
                                              const QByteArray &settingName,
                                              const QList<QByteArray> &hints,
                                              const SecretFlags &flags) const
 {
     Q_D(const DSecretAgent);
-    auto reply = d->m_secret->getSecrets(conn, UUID, settingName, hints, flags);
+    auto reply = d->m_secret->getSecrets(conn, connPath + QByteArray::number(connId), settingName, hints, flags);
     reply.waitForFinished();
     if (!reply.isValid())
         return DUnexpected{emplace_tag::USE_EMPLACE, reply.error().type(), reply.error().message()};
     return reply.value();
 }
 
-DExpected<void> DSecretAgent::cancelSecrets(const QByteArray &UUID, const QByteArray &settingName) const
+DSecretAgent::~DSecretAgent() = default;
+
+DExpected<void> DSecretAgent::cancelSecrets(const quint64 connId, const QByteArray &settingName) const
 {
     Q_D(const DSecretAgent);
-    auto reply = d->m_secret->cancelGetSecrets(UUID, settingName);
+    auto reply = d->m_secret->cancelGetSecrets(connPath + QByteArray::number(connId), settingName);
     reply.waitForFinished();
     if (!reply.isValid())
         return DUnexpected{emplace_tag::USE_EMPLACE, reply.error().type(), reply.error().message()};
     return {};
 }
 
-DExpected<void> DSecretAgent::saveSecret(const SettingDesc &connSettigns, const QByteArray &UUID) const
+DExpected<void> DSecretAgent::saveSecret(const SettingDesc &connSettigns, const quint64 connId) const
 {
     Q_D(const DSecretAgent);
-    auto reply = d->m_secret->saveSecrets(connSettigns, UUID);
+    auto reply = d->m_secret->saveSecrets(connSettigns, connPath + QByteArray::number(connId));
     reply.waitForFinished();
     if (!reply.isValid())
         return DUnexpected{emplace_tag::USE_EMPLACE, reply.error().type(), reply.error().message()};
     return {};
 }
 
-DExpected<void> DSecretAgent::deleteSecret(const SettingDesc &connSettigns, const QByteArray &UUID) const
+DExpected<void> DSecretAgent::deleteSecret(const SettingDesc &connSettigns, const quint64 connId) const
 {
     Q_D(const DSecretAgent);
-    auto reply = d->m_secret->deleteSecrets(connSettigns, UUID);
+    auto reply = d->m_secret->deleteSecrets(connSettigns, connPath + QByteArray::number(connId));
     reply.waitForFinished();
     if (!reply.isValid())
         return DUnexpected{emplace_tag::USE_EMPLACE, reply.error().type(), reply.error().message()};

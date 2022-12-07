@@ -10,9 +10,9 @@ DDeviceInterface::DDeviceInterface(const QByteArray &path, QObject *parent)
     : QObject(parent)
 {
 #ifdef USE_FAKE_INTERFACE
-    const QString &Service = QStringLiteral("com.deepin.daemon.FakeNetworkManager");
-    const QString &deviceInterface = QStringLiteral("com.deepin.daemon.FakeNetworkManager.Device");
-    const QString &statisticsInterface = QStringLiteral("com.deepin.daemon.FakeNetworkManager.Device.Statistics");
+    const QString &Service = QStringLiteral("com.deepin.FakeNetworkManager");
+    const QString &deviceInterface = QStringLiteral("com.deepin.FakeNetworkManager.Device");
+    const QString &statisticsInterface = QStringLiteral("com.deepin.FakeNetworkManager.Device.Statistics");
     QDBusConnection Connection = QDBusConnection::sessionBus();
 #else
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
@@ -99,7 +99,7 @@ QString DDeviceInterface::udi() const
 
 quint32 DDeviceInterface::deviceType() const
 {
-    return qdbus_cast<quint32>(m_deviceInter->property("Driver"));
+    return qdbus_cast<quint32>(m_deviceInter->property("DeviceType"));
 }
 
 quint32 DDeviceInterface::interfaceFlags() const
@@ -122,14 +122,14 @@ void DDeviceInterface::setRefreshRateMs(const quint32 newRate) const
     m_statisticsInter->setProperty("RefreshRateMs", QVariant::fromValue(newRate));
 }
 
-quint32 DDeviceInterface::rxBytes() const
+quint64 DDeviceInterface::rxBytes() const
 {
-    return qdbus_cast<quint32>(m_statisticsInter->property("RxBytes"));
+    return qdbus_cast<quint64>(m_statisticsInter->property("RxBytes"));
 }
 
-quint32 DDeviceInterface::txBytes() const
+quint64 DDeviceInterface::txBytes() const
 {
-    return qdbus_cast<quint32>(m_statisticsInter->property("TxBytes"));
+    return qdbus_cast<quint64>(m_statisticsInter->property("TxBytes"));
 }
 
 QDBusPendingReply<void> DDeviceInterface::disconnect() const

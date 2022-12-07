@@ -19,12 +19,12 @@ class DAgentManager : public QObject
     Q_OBJECT
 public:
     explicit DAgentManager(QObject *parent = nullptr);
-    ~DAgentManager() override = default;
+    ~DAgentManager() override;
 
 public slots:
     DExpected<void> registerAgent(const QByteArray &identifier) const;
     DExpected<void> registerWithCapabilities(const QByteArray &identifier, const NMSecretAgentCapabilities caps) const;
-    DExpected<void> unregister() const;
+    DExpected<void> unregisterAgent() const;
 
 private:
     QScopedPointer<DAgentManagerPrivate> d_ptr;

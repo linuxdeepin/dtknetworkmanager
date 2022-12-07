@@ -12,12 +12,16 @@ using DCORE_NAMESPACE::emplace_tag;
 
 DWirelessDevicePrivate::DWirelessDevicePrivate(const quint64 id, DWirelessDevice *parent)
     : DDevicePrivate(id, parent)
+#ifdef USE_FAKE_INTERFACE
+    , m_wireless(new DWirelessDeviceInterface("/com/deepin/FakeNetworkManager/Devices/" + QByteArray::number(id), this))
+#else
     , m_wireless(new DWirelessDeviceInterface("/org/freedesktop/NetworkManager/Devices/" + QByteArray::number(id), this))
+#endif
 {
 }
 
 DWirelessDevice::DWirelessDevice(const quint64 id, QObject *parent)
-    : DDevice(id, parent)
+    : DDevice(*new DWirelessDevicePrivate(id, this), parent)
 {
     Q_D(const DWirelessDevice);
     connect(d->m_wireless, &DWirelessDeviceInterface::accessPointsChanged, this, [this](const QList<QDBusObjectPath> &aps) {

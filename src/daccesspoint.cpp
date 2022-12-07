@@ -9,7 +9,11 @@ DNETWORKMANAGER_BEGIN_NAMESPACE
 
 DAccessPointPrivate::DAccessPointPrivate(const quint64 apId, DAccessPoint *parent)
     : q_ptr(parent)
+#ifdef USE_FAKE_INTERFACE
+    , m_ap(new DAccessPointInterface("/com/deepin/FakeNetworkManager/AccessPoint/" + QByteArray::number(apId), this))
+#else
     , m_ap(new DAccessPointInterface("/org/freedesktop/NetworkManager/AccessPoint/" + QByteArray::number(apId), this))
+#endif
 {
 }
 
@@ -36,6 +40,8 @@ DAccessPoint::DAccessPoint(const quint64 apId, QObject *parent)
         emit this->wpaFlagsChanged({wpaFlags});
     });
 }
+
+DAccessPoint::~DAccessPoint() = default;
 
 QString DAccessPoint::SSID() const
 {
