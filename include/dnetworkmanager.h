@@ -46,10 +46,9 @@ public:
 public slots:
 
     DExpected<QList<quint64>> getDeviceIdList() const;
-    DExpected<quint64> activateConnection(const quint64 connId, const quint64 &deviceId, const QByteArray specObj = "/") const;
-    DExpected<NewConn>
-    addAndActivateConnection(const SettingDesc &conn, const quint64 &deviceId, const QByteArray specObj = "/") const;
-    DExpected<void> deactivateConnection(const quint64 &activeConnId) const;
+    DExpected<quint64> activateConnection(const quint64 connId, const quint64 deviceId, const qint64 objId = 0) const;
+    DExpected<NewConn> addAndActivateConnection(const SettingDesc &conn, const quint64 deviceId, const qint64 objId = 0) const;
+    DExpected<void> deactivateConnection(const quint64 activeConnId) const;
     DExpected<void> enable(const bool enabled) const;
     DExpected<QMap<QString, QString>> permissions() const;
     DExpected<NMConnectivityState> checkConnectivity() const;
@@ -62,7 +61,7 @@ signals:
     void wirelessEnabledChanged(const bool enable);
     void wirelessHardwareEnabledChanged(const bool enable);
     void activeConnectionsChanged(const QList<quint64> &connIds);
-    void primaryConnectionChanged(const quint64 &connId);
+    void primaryConnectionChanged(const quint64 connId);
     void primaryConnectionTypeChanged(const QByteArray &type);
     void connectivityChanged(const NMConnectivityState connState);
     void DeviceAdded(const quint64 deviceId);

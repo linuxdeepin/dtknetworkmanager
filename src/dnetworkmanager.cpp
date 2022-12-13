@@ -2,7 +2,6 @@
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-#include "dnetworkmanager.h"
 #include "dnetworkmanager_p.h"
 #include "dnmutils.h"
 #include "dadsldevice.h"
@@ -145,13 +144,21 @@ DExpected<QList<quint64>> DNetworkManager::getDeviceIdList() const
     return ret;
 }
 
-DExpected<quint64>
-DNetworkManager::activateConnection(const quint64 connId, const quint64 &deviceId, const QByteArray specObj) const
+DExpected<quint64> DNetworkManager::activateConnection(const quint64 connId, const quint64 deviceId, const qint64 objId) const
 {
     Q_D(const DNetworkManager);
+    QByteArray objPath{"/"};
+
+    if (objId != 0) {
+        auto type = DNetworkManagerPrivate::getSettingTypeFromConnId(connId);
+        if (!type)
+            return DUnexpected{std::move(type).error()};
+        objPath = DNetworkManagerPrivate::getObjPath(type.value()) + QByteArray::number(objId);
+    }
+
     auto reply = d->m_manager->activateConnection("/org/freedesktop/NetworkManager/Settings/" + QByteArray::number(connId),
                                                   "/org/freedesktop/NetworkManager/Devices/" + QByteArray::number(deviceId),
-                                                  specObj);
+                                                  objPath);
     reply.waitForFinished();
     if (!reply.isValid())
         return DUnexpected{emplace_tag::USE_EMPLACE, reply.error().type(), reply.error().message()};
@@ -159,18 +166,27 @@ DNetworkManager::activateConnection(const quint64 connId, const quint64 &deviceI
 }
 
 DExpected<NewConn>
-DNetworkManager::addAndActivateConnection(const SettingDesc &conn, const quint64 &deviceId, const QByteArray specObj) const
+DNetworkManager::addAndActivateConnection(const SettingDesc &conn, const quint64 deviceId, const qint64 objId) const
 {
     Q_D(const DNetworkManager);
+    QByteArray objPath{"/"};
+
+    if (objId != 0) {
+        auto type = DNetworkManagerPrivate::getSettingTypeFromMap(conn);
+        if (!type)
+            return DUnexpected{std::move(type).error()};
+        objPath = DNetworkManagerPrivate::getObjPath(type.value()) + QByteArray::number(objId);
+    }
+
     auto reply = d->m_manager->addAndActivateConnection(
-        conn, "/org/freedesktop/NetworkManager/Devices/" + QByteArray::number(deviceId), specObj);
+        conn, "/org/freedesktop/NetworkManager/Devices/" + QByteArray::number(deviceId), objPath);
     reply.waitForFinished();
     if (!reply.isValid())
         return DUnexpected{emplace_tag::USE_EMPLACE, reply.error().type(), reply.error().message()};
     return NewConn{getIdFromObjectPath(reply.argumentAt<0>()), getIdFromObjectPath(reply.argumentAt<1>())};
 }
 
-DExpected<void> DNetworkManager::deactivateConnection(const quint64 &activeConnId) const
+DExpected<void> DNetworkManager::deactivateConnection(const quint64 activeConnId) const
 {
     Q_D(const DNetworkManager);
     auto reply = d->m_manager->deactivateConnection("/org/freedesktop/ActiveConnection/" + QByteArray::number(activeConnId));
