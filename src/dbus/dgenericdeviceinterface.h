@@ -19,14 +19,14 @@ public:
     ~DGenericDeviceInterface() override = default;
 
     Q_PROPERTY(QString HwAddress READ HwAddress NOTIFY HwAddressChanged)
-    Q_PROPERTY(QString typeDescription READ typeDescription NOTIFY typeDescriptionChanged)
+    Q_PROPERTY(QString typeDescription READ typeDescription NOTIFY TypeDescriptionChanged)
 
     QString HwAddress() const;
     QString typeDescription() const;
 
 signals:
     void HwAddressChanged(const QString &address);
-    void typeDescriptionChanged(const QString &desc);
+    void TypeDescriptionChanged(const QString &desc);
 
 private:
     DDBusInterface *m_genericInter{nullptr};

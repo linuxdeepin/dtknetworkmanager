@@ -21,17 +21,17 @@ DWiredDevice::DWiredDevice(const quint64 id, QObject *parent)
 {
     Q_D(const DWiredDevice);
 
-    connect(d->m_wired, &DWiredDeviceInterface::carrierChanged, this, &DWiredDevice::carrierChanged);
+    connect(d->m_wired, &DWiredDeviceInterface::CarrierChanged, this, &DWiredDevice::carrierChanged);
 
     connect(d->m_wired, &DWiredDeviceInterface::HwAddressChanged, this, [this](const QString &addr) {
         emit this->HwAddressChanged(addr.toUtf8());
     });
 
-    connect(d->m_wired, &DWiredDeviceInterface::permHwAddressChanged, this, [this](const QString &address) {
+    connect(d->m_wired, &DWiredDeviceInterface::PermHwAddressChanged, this, [this](const QString &address) {
         emit this->permHwAddressChanged(address.toUtf8());
     });
 
-    connect(d->m_wired, &DWiredDeviceInterface::speedChanged, this, &DWiredDevice::speedChanged);
+    connect(d->m_wired, &DWiredDeviceInterface::SpeedChanged, this, &DWiredDevice::speedChanged);
 
     connect(d->m_wired, &DWiredDeviceInterface::S390SubchannelsChanged, this, &DWiredDevice::S390SubchannelsChanged);
 }

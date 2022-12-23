@@ -25,6 +25,7 @@ public:
     Q_PROPERTY(quint32 Bitrate READ bitrate)
     Q_PROPERTY(QDBusObjectPath ActiveAccessPoint READ activeAccessPoint)
     Q_PROPERTY(quint32 WirelessCapabilities READ wirelessCapabilities)
+    Q_PROPERTY(qint64 LastScan READ lastScan)
 
     QList<QDBusObjectPath> m_accessPoints{QDBusObjectPath{"/org/freedesktop/NetworkManager/AccessPoint/15"}};
     QString m_HwAddress{"127.0.0.1"};
@@ -33,6 +34,7 @@ public:
     quint32 m_bitrate{200};
     QDBusObjectPath m_activeAccessPoint{"/org/freedesktop/NetworkManager/AccessPoint/15"};
     quint32 m_wirelessCapabilities{3};
+    qint64 m_lastScan{1433143};
 
     QList<QDBusObjectPath> accessPoints() const { return m_accessPoints; };
     QString HwAddress() const { return m_HwAddress; };
@@ -41,6 +43,8 @@ public:
     quint32 bitrate() const { return m_bitrate; };
     QDBusObjectPath activeAccessPoint() const { return m_activeAccessPoint; };
     quint32 wirelessCapabilities() const { return m_wirelessCapabilities; };
+    qint64 lastScan() const {return m_lastScan;}
+
 
     bool m_requestScanTrigger{false};
     bool m_getAllAccesspointTrigger{false};

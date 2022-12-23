@@ -17,10 +17,10 @@ DAdslDevicePrivate::DAdslDevicePrivate(const quint64 id, DAdslDevice *parent)
 }
 
 DAdslDevice::DAdslDevice(const quint64 id, QObject *parent)
-    : DDevice(*new DAdslDevicePrivate(id,this),parent)
+    : DDevice(*new DAdslDevicePrivate(id, this), parent)
 {
     Q_D(const DAdslDevice);
-    connect(d->m_adsl, &DAdslDeviceInterface::carrierChanged, this, &DAdslDevice::carrierChanged);
+    connect(d->m_adsl, &DAdslDeviceInterface::CarrierChanged, this, &DAdslDevice::carrierChanged);
 }
 
 bool DAdslDevice::carrier() const

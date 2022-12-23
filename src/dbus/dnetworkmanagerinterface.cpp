@@ -34,6 +34,7 @@ DNetworkManagerInterface::DNetworkManagerInterface(QObject *parent)
     m_inter = new DDBusInterface(Service, Path, Interface, Connection, this);
     qRegisterMetaType<SettingDesc>("SettingDesc");
     qDBusRegisterMetaType<SettingDesc>();
+    qDBusRegisterMetaType<QMap<QString, QString>>();
 }
 
 bool DNetworkManagerInterface::networkingEnabled() const

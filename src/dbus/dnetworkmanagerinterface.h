@@ -26,14 +26,14 @@ public:
     explicit DNetworkManagerInterface(QObject *parent = nullptr);
     ~DNetworkManagerInterface() override = default;
 
-    Q_PROPERTY(bool networkingEnabled READ networkingEnabled NOTIFY networkingEnabledChanged)
-    Q_PROPERTY(bool wirelessEnabled READ wirelessEnabled WRITE setWirelessEnabled NOTIFY wirelessEnabledChanged)
-    Q_PROPERTY(bool wirelessHardwareEnabled READ wirelessHardwareEnabled NOTIFY wirelessHardwareEnabledChanged)
-    Q_PROPERTY(QList<QDBusObjectPath> activeConnections READ activeConnections NOTIFY activeConnectionsChanged)
-    Q_PROPERTY(QDBusObjectPath primaryConnection READ primaryConnection NOTIFY primaryConnectionChanged)
-    Q_PROPERTY(QString primaryConnectionType READ primaryConnectionType NOTIFY primaryConnectionTypeChanged)
+    Q_PROPERTY(bool networkingEnabled READ networkingEnabled NOTIFY NetworkingEnabledChanged)
+    Q_PROPERTY(bool wirelessEnabled READ wirelessEnabled WRITE setWirelessEnabled NOTIFY WirelessEnabledChanged)
+    Q_PROPERTY(bool wirelessHardwareEnabled READ wirelessHardwareEnabled NOTIFY WirelessHardwareEnabledChanged)
+    Q_PROPERTY(QList<QDBusObjectPath> ActiveConnections READ activeConnections NOTIFY ActiveConnectionsChanged)
+    Q_PROPERTY(QDBusObjectPath primaryConnection READ primaryConnection NOTIFY PrimaryConnectionChanged)
+    Q_PROPERTY(QString primaryConnectionType READ primaryConnectionType NOTIFY PrimaryConnectionTypeChanged)
     Q_PROPERTY(quint32 state READ state NOTIFY StateChanged)
-    Q_PROPERTY(quint32 connectivity READ connectivity NOTIFY connectivityChanged)
+    Q_PROPERTY(quint32 Connectivity READ connectivity NOTIFY ConnectivityChanged)
 
     bool networkingEnabled() const;
     bool wirelessEnabled() const;
@@ -57,13 +57,13 @@ public slots:
     QDBusPendingReply<quint32> checkConnectivity();
 
 signals:
-    void networkingEnabledChanged(const bool enable);
-    void wirelessEnabledChanged(const bool enable);
-    void wirelessHardwareEnabledChanged(const bool enable);
-    void activeConnectionsChanged(const QList<QDBusObjectPath> &conn);
-    void primaryConnectionChanged(const QDBusObjectPath &path);
-    void primaryConnectionTypeChanged(const QString &type);
-    void connectivityChanged(const quint32 con);
+    void NetworkingEnabledChanged(const bool enable);
+    void WirelessEnabledChanged(const bool enable);
+    void WirelessHardwareEnabledChanged(const bool enable);
+    void ActiveConnectionsChanged(const QList<QDBusObjectPath> &conn);
+    void PrimaryConnectionChanged(const QDBusObjectPath &path);
+    void PrimaryConnectionTypeChanged(const QString &type);
+    void ConnectivityChanged(const quint32 con);
     void DeviceAdded(const QDBusObjectPath &device);
     void DeviceRemoved(const QDBusObjectPath &device);
     void CheckPermissions();

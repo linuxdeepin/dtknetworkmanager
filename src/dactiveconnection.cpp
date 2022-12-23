@@ -26,20 +26,20 @@ DActiveConnection::DActiveConnection(const quint64 activeConnId, QObject *parent
     , d_ptr(new DActiveConnectionPrivate(activeConnId, this))
 {
     Q_D(const DActiveConnection);
-    connect(d->m_activeConn, &DActiveConnectionInterface::devicesChanged, this, [this](const QList<QDBusObjectPath> &devices) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::DevicesChanged, this, [this](const QList<QDBusObjectPath> &devices) {
         QList<quint64> ret;
         for (const auto &it : devices)
             ret.append(getIdFromObjectPath(it));
         emit this->devicesChanged(ret);
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::vpnChanged, this, &DActiveConnection::vpnChanged);
-    connect(d->m_activeConn, &DActiveConnectionInterface::connectionChanged, this, [this](const QDBusObjectPath &connection) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::VpnChanged, this, &DActiveConnection::vpnChanged);
+    connect(d->m_activeConn, &DActiveConnectionInterface::ConnectionChanged, this, [this](const QDBusObjectPath &connection) {
         emit this->connectionChanged(getIdFromObjectPath(connection));
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::DHCP4ConfigChanged, this, [this](const QDBusObjectPath &config) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::Dhcp4ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->DHCP4ConfigChanged(getIdFromObjectPath(config));
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::DHCP6ConfigChanged, this, [this](const QDBusObjectPath &config) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::Dhcp6ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->DHCP6ConfigChanged(getIdFromObjectPath(config));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::IP4ConfigChanged, this, [this](const QDBusObjectPath &config) {
@@ -48,17 +48,17 @@ DActiveConnection::DActiveConnection(const quint64 activeConnId, QObject *parent
     connect(d->m_activeConn, &DActiveConnectionInterface::IP6ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->IP6ConfigChanged(getIdFromObjectPath(config));
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::specificObjectChanged, this, [this](const QDBusObjectPath &specObj) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::SpecificObjectChanged, this, [this](const QDBusObjectPath &specObj) {
         emit this->specificObjectChanged(specObj.path().toUtf8());
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::idChanged, this, &DActiveConnection::connecionIdChanged);
-    connect(d->m_activeConn, &DActiveConnectionInterface::uuidChanged, this, [this](const QString &uuid) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::IdChanged, this, &DActiveConnection::connectionIdChanged);
+    connect(d->m_activeConn, &DActiveConnectionInterface::UuidChanged, this, [this](const QString &uuid) {
         emit this->UUIDChanged(uuid.toUtf8());
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::typeChanged, this, [this](const QString &type) {
-        emit this->connectionTypeChanged(type.toUtf8());
+    connect(d->m_activeConn, &DActiveConnectionInterface::TypeChanged, this, [this](const QString &type) {
+        emit this->connectionTypeChanged(DNMSetting::stringToType(type));
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::stateChanged, this, [this](const quint32 state, const quint32 reason) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::StateChanged, this, [this](const quint32 state, const quint32 reason) {
         emit this->connectionStateChanged(static_cast<NMActiveConnectionState>(state),
                                           static_cast<NMActiveConnectionStateReason>(reason));
     });
@@ -69,20 +69,20 @@ DActiveConnection::DActiveConnection(DActiveConnectionPrivate &other, QObject *p
     , d_ptr(&other)
 {
     Q_D(DActiveConnection);
-    connect(d->m_activeConn, &DActiveConnectionInterface::devicesChanged, this, [this](const QList<QDBusObjectPath> &devices) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::DevicesChanged, this, [this](const QList<QDBusObjectPath> &devices) {
         QList<quint64> ret;
         for (const auto &it : devices)
             ret.append(getIdFromObjectPath(it));
         emit this->devicesChanged(ret);
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::vpnChanged, this, &DActiveConnection::vpnChanged);
-    connect(d->m_activeConn, &DActiveConnectionInterface::connectionChanged, this, [this](const QDBusObjectPath &connection) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::VpnChanged, this, &DActiveConnection::vpnChanged);
+    connect(d->m_activeConn, &DActiveConnectionInterface::ConnectionChanged, this, [this](const QDBusObjectPath &connection) {
         emit this->connectionChanged(getIdFromObjectPath(connection));
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::DHCP4ConfigChanged, this, [this](const QDBusObjectPath &config) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::Dhcp4ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->DHCP4ConfigChanged(getIdFromObjectPath(config));
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::DHCP6ConfigChanged, this, [this](const QDBusObjectPath &config) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::Dhcp6ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->DHCP6ConfigChanged(getIdFromObjectPath(config));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::IP4ConfigChanged, this, [this](const QDBusObjectPath &config) {
@@ -91,17 +91,17 @@ DActiveConnection::DActiveConnection(DActiveConnectionPrivate &other, QObject *p
     connect(d->m_activeConn, &DActiveConnectionInterface::IP6ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->IP6ConfigChanged(getIdFromObjectPath(config));
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::specificObjectChanged, this, [this](const QDBusObjectPath &specObj) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::SpecificObjectChanged, this, [this](const QDBusObjectPath &specObj) {
         emit this->specificObjectChanged(specObj.path().toUtf8());
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::idChanged, this, &DActiveConnection::connecionIdChanged);
-    connect(d->m_activeConn, &DActiveConnectionInterface::uuidChanged, this, [this](const QString &uuid) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::IdChanged, this, &DActiveConnection::connectionIdChanged);
+    connect(d->m_activeConn, &DActiveConnectionInterface::UuidChanged, this, [this](const QString &uuid) {
         emit this->UUIDChanged(uuid.toUtf8());
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::typeChanged, this, [this](const QString &type) {
-        emit this->connectionTypeChanged(type.toUtf8());
+    connect(d->m_activeConn, &DActiveConnectionInterface::TypeChanged, this, [this](const QString &type) {
+        emit this->connectionTypeChanged(DNMSetting::stringToType(type));
     });
-    connect(d->m_activeConn, &DActiveConnectionInterface::stateChanged, this, [this](const quint32 state, const quint32 reason) {
+    connect(d->m_activeConn, &DActiveConnectionInterface::StateChanged, this, [this](const quint32 state, const quint32 reason) {
         emit this->connectionStateChanged(static_cast<NMActiveConnectionState>(state),
                                           static_cast<NMActiveConnectionStateReason>(reason));
     });
@@ -160,16 +160,16 @@ QByteArray DActiveConnection::specificObject() const
     return d->m_activeConn->specificObject().path().toUtf8();
 }
 
-QString DActiveConnection::connecionId() const
+QString DActiveConnection::connectionId() const
 {
     Q_D(const DActiveConnection);
     return d->m_activeConn->id();
 }
 
-QByteArray DActiveConnection::connectionType() const
+DNMSetting::SettingType DActiveConnection::connectionType() const
 {
     Q_D(const DActiveConnection);
-    return d->m_activeConn->type().toUtf8();
+    return DNMSetting::stringToType(d->m_activeConn->type());
 }
 
 QByteArray DActiveConnection::UUID() const

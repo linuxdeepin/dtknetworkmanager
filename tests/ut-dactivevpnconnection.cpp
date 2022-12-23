@@ -77,12 +77,12 @@ TEST_F(TestDActiveVpnConnection, specificObject)
 
 TEST_F(TestDActiveVpnConnection, id)
 {
-    EXPECT_EQ("有线连接", m_avc->connecionId());
+    EXPECT_EQ("有线连接", m_avc->connectionId());
 }
 
 TEST_F(TestDActiveVpnConnection, type)
 {
-    EXPECT_EQ("802-3-ethernet", m_avc->connectionType());
+    EXPECT_EQ(DNMSetting::SettingType::Wired, m_avc->connectionType());
 }
 
 TEST_F(TestDActiveVpnConnection, uuid)
@@ -92,12 +92,13 @@ TEST_F(TestDActiveVpnConnection, uuid)
 
 TEST_F(TestDActiveVpnConnection, state)
 {
-    EXPECT_EQ(NMActiveConnectionState::Activated, m_avc->connectionState());
+    // using fully qualified to avoid ambiguous error
+    EXPECT_EQ(Dtk::NetworkManager::NMActiveConnectionState::Activated, m_avc->connectionState());
 }
 
 TEST_F(TestDActiveVpnConnection, vpnState)
 {
-    EXPECT_EQ(NMVpnConnectionState::Activated, m_avc->vpnState());
+    EXPECT_EQ(Dtk::NetworkManager::NMVpnConnectionState::Activated, m_avc->vpnState());
 }
 
 TEST_F(TestDActiveVpnConnection, banner)

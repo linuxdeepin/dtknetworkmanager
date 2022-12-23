@@ -27,7 +27,7 @@ DDevice::DDevice(const quint64 deviceId, QObject *parent)
     , d_ptr(new DDevicePrivate(deviceId, this))
 {
     Q_D(const DDevice);
-    connect(d->m_device, &DDeviceInterface::availableConnectionsChanged, this, [this](const QList<QDBusObjectPath> &conns) {
+    connect(d->m_device, &DDeviceInterface::AvailableConnectionsChanged, this, [this](const QList<QDBusObjectPath> &conns) {
         QList<quint64> ret;
         for (const auto &it : conns)
             ret.append(getIdFromObjectPath(it));
@@ -35,7 +35,7 @@ DDevice::DDevice(const quint64 deviceId, QObject *parent)
     });
 
     connect(d->m_device,
-            &DDeviceInterface::stateChanged,
+            &DDeviceInterface::StateChanged,
             this,
             [this](const quint32 newSatate, const quint32 oldState, const quint32 reason) {
                 emit this->deviceStateChanged(static_cast<NMDeviceState>(newSatate),
@@ -43,54 +43,54 @@ DDevice::DDevice(const quint64 deviceId, QObject *parent)
                                               static_cast<NMDeviceStateReason>(reason));
             });
 
-    connect(d->m_device, &DDeviceInterface::autoconnectChanged, this, &DDevice::autoconnectChanged);
+    connect(d->m_device, &DDeviceInterface::AutoconnectChanged, this, &DDevice::autoconnectChanged);
 
-    connect(d->m_device, &DDeviceInterface::managedChanged, this, &DDevice::managedChanged);
+    connect(d->m_device, &DDeviceInterface::ManagedChanged, this, &DDevice::managedChanged);
 
-    connect(d->m_device, &DDeviceInterface::activeConnectionChanged, this, [this](const QDBusObjectPath &conn) {
+    connect(d->m_device, &DDeviceInterface::ActiveConnectionChanged, this, [this](const QDBusObjectPath &conn) {
         emit this->activeConnectionChanged(getIdFromObjectPath(conn));
     });
 
-    connect(d->m_device, &DDeviceInterface::DHCP4ConfigChanged, this, [this](const QDBusObjectPath &config) {
+    connect(d->m_device, &DDeviceInterface::Dhcp4ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->DHCP4ConfigChanged(getIdFromObjectPath(config));
     });
 
-    connect(d->m_device, &DDeviceInterface::DHCP6ConfigChanged, this, [this](const QDBusObjectPath &config) {
+    connect(d->m_device, &DDeviceInterface::Dhcp6ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->DHCP6ConfigChanged(getIdFromObjectPath(config));
     });
 
-    connect(d->m_device, &DDeviceInterface::IPv4ConfigChanged, this, [this](const QDBusObjectPath &config) {
+    connect(d->m_device, &DDeviceInterface::IP4ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->IPv4ConfigChanged(getIdFromObjectPath(config));
     });
 
-    connect(d->m_device, &DDeviceInterface::IPv6ConfigChanged, this, [this](const QDBusObjectPath &config) {
+    connect(d->m_device, &DDeviceInterface::IP6ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->IPv6ConfigChanged(getIdFromObjectPath(config));
     });
 
-    connect(d->m_device, &DDeviceInterface::driverChanged, this, [this](const QString &driver) {
+    connect(d->m_device, &DDeviceInterface::DriverChanged, this, [this](const QString &driver) {
         emit this->driverChanged(driver.toUtf8());
     });
 
-    connect(d->m_device, &DDeviceInterface::interfaceChanged, this, [this](const QString &ifc) {
+    connect(d->m_device, &DDeviceInterface::InterfaceChanged, this, [this](const QString &ifc) {
         emit this->interfaceChanged(ifc.toUtf8());
     });
 
     connect(
-        d->m_device, &DDeviceInterface::udiChanged, this, [this](const QString &udi) { emit this->udiChanged(udi.toUtf8()); });
+        d->m_device, &DDeviceInterface::UdiChanged, this, [this](const QString &udi) { emit this->udiChanged(udi.toUtf8()); });
 
-    connect(d->m_device, &DDeviceInterface::deviceTypeChanged, this, [this](const quint32 type) {
+    connect(d->m_device, &DDeviceInterface::DeviceTypeChanged, this, [this](const quint32 type) {
         emit this->deviceTypeChanged(static_cast<NMDeviceType>(type));
     });
 
-    connect(d->m_device, &DDeviceInterface::interfaceFlagsChanged, this, [this](const quint32 flags) {
+    connect(d->m_device, &DDeviceInterface::InterfaceFlagsChanged, this, [this](const quint32 flags) {
         emit this->interfaceFlagsChanged(DeviceInterfaceFlags{flags});
     });
 
-    connect(d->m_device, &DDeviceInterface::refreshRateMsChanged, this, &DDevice::refreshRateMsChanged);
+    connect(d->m_device, &DDeviceInterface::RefreshRateMsChanged, this, &DDevice::refreshRateMsChanged);
 
-    connect(d->m_device, &DDeviceInterface::rxBytesChanged, this, &DDevice::rxBytesChanged);
+    connect(d->m_device, &DDeviceInterface::RxBytesChanged, this, &DDevice::rxBytesChanged);
 
-    connect(d->m_device, &DDeviceInterface::txBytesChanged, this, &DDevice::txBytesChanged);
+    connect(d->m_device, &DDeviceInterface::TxBytesChanged, this, &DDevice::txBytesChanged);
 }
 
 DDevice::DDevice(DDevicePrivate &other, QObject *parent)
@@ -98,7 +98,7 @@ DDevice::DDevice(DDevicePrivate &other, QObject *parent)
     , d_ptr(&other)
 {
     Q_D(const DDevice);
-    connect(d->m_device, &DDeviceInterface::availableConnectionsChanged, this, [this](const QList<QDBusObjectPath> &conns) {
+    connect(d->m_device, &DDeviceInterface::AvailableConnectionsChanged, this, [this](const QList<QDBusObjectPath> &conns) {
         QList<quint64> ret;
         for (const auto &it : conns)
             ret.append(getIdFromObjectPath(it));
@@ -106,7 +106,7 @@ DDevice::DDevice(DDevicePrivate &other, QObject *parent)
     });
 
     connect(d->m_device,
-            &DDeviceInterface::stateChanged,
+            &DDeviceInterface::StateChanged,
             this,
             [this](const quint32 newSatate, const quint32 oldState, const quint32 reason) {
                 emit this->deviceStateChanged(static_cast<NMDeviceState>(newSatate),
@@ -114,54 +114,54 @@ DDevice::DDevice(DDevicePrivate &other, QObject *parent)
                                               static_cast<NMDeviceStateReason>(reason));
             });
 
-    connect(d->m_device, &DDeviceInterface::autoconnectChanged, this, &DDevice::autoconnectChanged);
+    connect(d->m_device, &DDeviceInterface::AutoconnectChanged, this, &DDevice::autoconnectChanged);
 
-    connect(d->m_device, &DDeviceInterface::managedChanged, this, &DDevice::managedChanged);
+    connect(d->m_device, &DDeviceInterface::ManagedChanged, this, &DDevice::managedChanged);
 
-    connect(d->m_device, &DDeviceInterface::activeConnectionChanged, this, [this](const QDBusObjectPath &conn) {
+    connect(d->m_device, &DDeviceInterface::ActiveConnectionChanged, this, [this](const QDBusObjectPath &conn) {
         emit this->activeConnectionChanged(getIdFromObjectPath(conn));
     });
 
-    connect(d->m_device, &DDeviceInterface::DHCP4ConfigChanged, this, [this](const QDBusObjectPath &config) {
+    connect(d->m_device, &DDeviceInterface::Dhcp4ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->DHCP4ConfigChanged(getIdFromObjectPath(config));
     });
 
-    connect(d->m_device, &DDeviceInterface::DHCP6ConfigChanged, this, [this](const QDBusObjectPath &config) {
+    connect(d->m_device, &DDeviceInterface::Dhcp6ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->DHCP6ConfigChanged(getIdFromObjectPath(config));
     });
 
-    connect(d->m_device, &DDeviceInterface::IPv4ConfigChanged, this, [this](const QDBusObjectPath &config) {
+    connect(d->m_device, &DDeviceInterface::IP4ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->IPv4ConfigChanged(getIdFromObjectPath(config));
     });
 
-    connect(d->m_device, &DDeviceInterface::IPv6ConfigChanged, this, [this](const QDBusObjectPath &config) {
+    connect(d->m_device, &DDeviceInterface::IP6ConfigChanged, this, [this](const QDBusObjectPath &config) {
         emit this->IPv6ConfigChanged(getIdFromObjectPath(config));
     });
 
-    connect(d->m_device, &DDeviceInterface::driverChanged, this, [this](const QString &driver) {
+    connect(d->m_device, &DDeviceInterface::DriverChanged, this, [this](const QString &driver) {
         emit this->driverChanged(driver.toUtf8());
     });
 
-    connect(d->m_device, &DDeviceInterface::interfaceChanged, this, [this](const QString &ifc) {
+    connect(d->m_device, &DDeviceInterface::InterfaceChanged, this, [this](const QString &ifc) {
         emit this->interfaceChanged(ifc.toUtf8());
     });
 
     connect(
-        d->m_device, &DDeviceInterface::udiChanged, this, [this](const QString &udi) { emit this->udiChanged(udi.toUtf8()); });
+        d->m_device, &DDeviceInterface::UdiChanged, this, [this](const QString &udi) { emit this->udiChanged(udi.toUtf8()); });
 
-    connect(d->m_device, &DDeviceInterface::deviceTypeChanged, this, [this](const quint32 type) {
+    connect(d->m_device, &DDeviceInterface::DeviceTypeChanged, this, [this](const quint32 type) {
         emit this->deviceTypeChanged(static_cast<NMDeviceType>(type));
     });
 
-    connect(d->m_device, &DDeviceInterface::interfaceFlagsChanged, this, [this](const quint32 flags) {
+    connect(d->m_device, &DDeviceInterface::InterfaceFlagsChanged, this, [this](const quint32 flags) {
         emit this->interfaceFlagsChanged(static_cast<NMDeviceInterfaceFlags>(flags));
     });
 
-    connect(d->m_device, &DDeviceInterface::refreshRateMsChanged, this, &DDevice::refreshRateMsChanged);
+    connect(d->m_device, &DDeviceInterface::RefreshRateMsChanged, this, &DDevice::refreshRateMsChanged);
 
-    connect(d->m_device, &DDeviceInterface::rxBytesChanged, this, &DDevice::rxBytesChanged);
+    connect(d->m_device, &DDeviceInterface::RxBytesChanged, this, &DDevice::rxBytesChanged);
 
-    connect(d->m_device, &DDeviceInterface::txBytesChanged, this, &DDevice::txBytesChanged);
+    connect(d->m_device, &DDeviceInterface::TxBytesChanged, this, &DDevice::txBytesChanged);
 }
 
 DDevice::~DDevice() = default;

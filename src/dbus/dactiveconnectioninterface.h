@@ -22,18 +22,18 @@ public:
     explicit DActiveConnectionInterface(const QByteArray &Path, QObject *parent = nullptr);
     ~DActiveConnectionInterface() override = default;
 
-    Q_PROPERTY(QList<QDBusObjectPath> devices READ devices NOTIFY devicesChanged)
-    Q_PROPERTY(bool vpn READ vpn NOTIFY vpnChanged)
-    Q_PROPERTY(QDBusObjectPath connection READ connection NOTIFY connectionChanged)
-    Q_PROPERTY(QDBusObjectPath DHCP4Config READ DHCP4Config NOTIFY DHCP4ConfigChanged)
-    Q_PROPERTY(QDBusObjectPath DHCP6Config READ DHCP6Config NOTIFY DHCP6ConfigChanged)
+    Q_PROPERTY(QList<QDBusObjectPath> devices READ devices NOTIFY DevicesChanged)
+    Q_PROPERTY(bool vpn READ vpn NOTIFY VpnChanged)
+    Q_PROPERTY(QDBusObjectPath connection READ connection NOTIFY ConnectionChanged)
+    Q_PROPERTY(QDBusObjectPath DHCP4Config READ DHCP4Config NOTIFY Dhcp4ConfigChanged)
+    Q_PROPERTY(QDBusObjectPath DHCP6Config READ DHCP6Config NOTIFY Dhcp6ConfigChanged)
     Q_PROPERTY(QDBusObjectPath IP4Config READ IP4Config NOTIFY IP4ConfigChanged)
     Q_PROPERTY(QDBusObjectPath IP6Config READ IP6Config NOTIFY IP6ConfigChanged)
-    Q_PROPERTY(QDBusObjectPath specificObject READ specificObject NOTIFY specificObjectChanged)
-    Q_PROPERTY(QString id READ id NOTIFY idChanged)
-    Q_PROPERTY(QString uuid READ uuid NOTIFY uuidChanged)
-    Q_PROPERTY(QString type READ type NOTIFY typeChanged)
-    Q_PROPERTY(quint32 state READ state NOTIFY stateChanged)
+    Q_PROPERTY(QDBusObjectPath specificObject READ specificObject NOTIFY SpecificObjectChanged)
+    Q_PROPERTY(QString id READ id NOTIFY IdChanged)
+    Q_PROPERTY(QString uuid READ uuid NOTIFY UuidChanged)
+    Q_PROPERTY(QString type READ type NOTIFY TypeChanged)
+    Q_PROPERTY(quint32 state READ state NOTIFY StateChanged)
 
     QList<QDBusObjectPath> devices() const;
     bool vpn() const;
@@ -49,18 +49,18 @@ public:
     quint32 state() const;
 
 signals:
-    void devicesChanged(const QList<QDBusObjectPath> &devices);
-    void vpnChanged(const bool vpn);
-    void connectionChanged(const QDBusObjectPath &connection);
-    void DHCP4ConfigChanged(const QDBusObjectPath &config);
-    void DHCP6ConfigChanged(const QDBusObjectPath &config);
+    void DevicesChanged(const QList<QDBusObjectPath> &devices);
+    void VpnChanged(const bool vpn);
+    void ConnectionChanged(const QDBusObjectPath &connection);
+    void Dhcp4ConfigChanged(const QDBusObjectPath &config);
+    void Dhcp6ConfigChanged(const QDBusObjectPath &config);
     void IP4ConfigChanged(const QDBusObjectPath &config);
     void IP6ConfigChanged(const QDBusObjectPath &config);
-    void specificObjectChanged(const QDBusObjectPath &specObj);
-    void idChanged(const QString &id);
-    void uuidChanged(const QString &uuid);
-    void typeChanged(const QString &type);
-    void stateChanged(const quint32 state, const quint32 reason);
+    void SpecificObjectChanged(const QDBusObjectPath &specObj);
+    void IdChanged(const QString &id);
+    void UuidChanged(const QString &uuid);
+    void TypeChanged(const QString &type);
+    void StateChanged(const quint32 state, const quint32 reason);
 
 private:
     DDBusInterface *m_inter{nullptr};

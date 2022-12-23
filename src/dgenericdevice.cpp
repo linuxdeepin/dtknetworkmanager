@@ -23,7 +23,7 @@ DGenericDevice::DGenericDevice(const quint64 id, QObject *parent)
     connect(d->m_generic, &DGenericDeviceInterface::HwAddressChanged, this, [this](const QString &addr) {
         emit this->HwAddressChanged(addr.toUtf8());
     });
-    connect(d->m_generic, &DGenericDeviceInterface::typeDescriptionChanged, this, &DGenericDevice::typeDescriptionChanged);
+    connect(d->m_generic, &DGenericDeviceInterface::TypeDescriptionChanged, this, &DGenericDevice::typeDescriptionChanged);
 }
 
 QByteArray DGenericDevice::HwAddress() const

@@ -22,7 +22,7 @@ DDHCP6Config::DDHCP6Config(const quint64 id, QObject *parent)
     , d_ptr(new DDHCP6ConfigPrivate(id, this))
 {
     Q_D(const DDHCP6Config);
-    connect(d->m_dhcp6, &DDHCP6ConfigInterface::optionsChanged, this, &DDHCP6Config::optionsChanged);
+    connect(d->m_dhcp6, &DDHCP6ConfigInterface::OptionsChanged, this, &DDHCP6Config::optionsChanged);
 }
 
 DDHCP6Config::~DDHCP6Config() = default;

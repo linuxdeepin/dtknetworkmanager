@@ -32,7 +32,7 @@ public:
 
 TEST_F(TestDAppProxy, IP)
 {
-    EXPECT_EQ("127.0.0.1", m_ap->IP());
+    EXPECT_EQ("127.0.0.1", m_ap->IP().toString());
 }
 
 TEST_F(TestDAppProxy, password)

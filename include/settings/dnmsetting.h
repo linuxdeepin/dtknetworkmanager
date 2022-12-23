@@ -29,6 +29,7 @@ class DNMSetting
 {
 public:
     enum class SettingType {
+        Unknown,
         Adsl,
         Cdma,
         Gsm,
@@ -72,8 +73,8 @@ public:
     enum class SecretFlagType { None = 0, AgentOwned = 0x01, NotSaved = 0x02, NotRequired = 0x04 };
     Q_DECLARE_FLAGS(SecretFlags, SecretFlagType)
 
-    static DExpected<QString> typeToString(const SettingType type);
-    static DExpected<SettingType> stringToType(const QString &str);
+    static QString typeToString(const SettingType type);
+    static SettingType stringToType(const QString &str);
 
     explicit DNMSetting() = default;
     explicit DNMSetting(SettingType type);

@@ -30,7 +30,7 @@ DNMSetting::DNMSetting(const QSharedPointer<DNMSetting> &other)
 
 DNMSetting::~DNMSetting() = default;
 
-DExpected<QString> DNMSetting::typeToString(const SettingType type)
+QString DNMSetting::typeToString(const SettingType type)
 {
     switch (type) {
         case SettingType::Adsl:
@@ -54,12 +54,12 @@ DExpected<QString> DNMSetting::typeToString(const SettingType type)
         case SettingType::Tun:
             return QLatin1String(NM_SETTING_TUN_SETTING_NAME);
         default:
-            return DUnexpected{emplace_tag::USE_EMPLACE, -1, "unsupported setting type"};
+            return "Unknown or Unsupported";
     }
     Q_UNREACHABLE();
 }
 
-DExpected<DNMSetting::SettingType> DNMSetting::stringToType(const QString &str)
+DNMSetting::SettingType DNMSetting::stringToType(const QString &str)
 {
     static QMap<QString, SettingType> map{{NM_SETTING_ADSL_SETTING_NAME, SettingType::Adsl},
                                           {NM_SETTING_IP4_CONFIG_SETTING_NAME, SettingType::Ipv4},
@@ -73,7 +73,7 @@ DExpected<DNMSetting::SettingType> DNMSetting::stringToType(const QString &str)
                                           {NM_SETTING_TUN_SETTING_NAME, SettingType::Tun}};
     if (const auto &elem = map.find(str); elem != map.end())
         return elem.value();
-    return DUnexpected{emplace_tag::USE_EMPLACE, -1, "unsupported setting type"};
+    return DNMSetting::SettingType::Unknown;
 }
 
 void DNMSetting::setType(SettingType type)

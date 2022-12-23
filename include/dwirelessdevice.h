@@ -25,6 +25,7 @@ class DWirelessDevice : public DDevice
     Q_PROPERTY(quint32 bitrate READ bitrate NOTIFY bitrateChanged)
     Q_PROPERTY(quint64 activeAccessPoint READ activeAccessPoint NOTIFY activeAccessPointChanged)
     Q_PROPERTY(NMWifiCap wirelessCapabilities READ wirelessCapabilities NOTIFY wirelessCapabilitiesChanged)
+    Q_PROPERTY(qint64 lastScan READ lastScan NOTIFY lastScanChanged)
 public:
     Q_DECLARE_FLAGS(NMWifiCap, NMDeviceWiFiCapabilities);
 
@@ -38,6 +39,7 @@ public:
     quint32 bitrate() const;
     quint64 activeAccessPoint() const;
     NMWifiCap wirelessCapabilities() const;
+    qint64 lastScan() const;
 
 public slots:
     DExpected<void> requestScan(const Config &options = {}) const;
@@ -51,6 +53,7 @@ signals:
     void bitrateChanged(const quint32 bitrate);
     void activeAccessPointChanged(const quint64 &path);
     void wirelessCapabilitiesChanged(const NMWifiCap wirelessCapabilities);
+    void lastScanChanged(const qint64 time);
 
     void AccessPointAdded(const quint64 &ap);
     void AccessPointRemoved(const quint64 &ap);

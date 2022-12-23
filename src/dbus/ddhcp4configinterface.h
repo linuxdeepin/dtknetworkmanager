@@ -22,12 +22,12 @@ public:
     explicit DDHCP4ConfigInterface(const QByteArray &path, QObject *parent = nullptr);
     ~DDHCP4ConfigInterface() override = default;
 
-    Q_PROPERTY(Config options READ options NOTIFY optionsChanged)
+    Q_PROPERTY(Config options READ options NOTIFY OptionsChanged)
 
     Config options() const;
 
 signals:
-    void optionsChanged(const Config &option);
+    void OptionsChanged(const Config &option);
 
 private:
     DDBusInterface *m_inter{nullptr};

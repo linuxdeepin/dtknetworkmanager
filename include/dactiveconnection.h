@@ -6,6 +6,7 @@
 #define DACTIVECONNECTION_H
 
 #include "dnetworkmanagertypes.h"
+#include "settings/dnmsetting.h"
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -27,8 +28,8 @@ public:
     Q_PROPERTY(quint64 IP4Config READ IP4Config NOTIFY IP4ConfigChanged)
     Q_PROPERTY(quint64 IP6Config READ IP6Config NOTIFY IP6ConfigChanged)
     Q_PROPERTY(QByteArray specificObject READ specificObject NOTIFY specificObjectChanged)
-    Q_PROPERTY(QString connecionId READ connecionId NOTIFY connecionIdChanged)
-    Q_PROPERTY(QString connectionType READ connectionType NOTIFY connectionTypeChanged)
+    Q_PROPERTY(QString connectionId READ connectionId NOTIFY connectionIdChanged)
+    Q_PROPERTY(DNMSetting::SettingType connectionType READ connectionType NOTIFY connectionTypeChanged)
     Q_PROPERTY(QByteArray UUID READ UUID NOTIFY UUIDChanged)
     Q_PROPERTY(NMActiveConnectionState connectionState READ connectionState NOTIFY connectionStateChanged)
 
@@ -40,8 +41,8 @@ public:
     quint64 IP4Config() const;
     quint64 IP6Config() const;
     QByteArray specificObject() const;
-    QString connecionId() const;
-    QByteArray connectionType() const;
+    QString connectionId() const;
+    DNMSetting::SettingType connectionType() const;
     QByteArray UUID() const;
     NMActiveConnectionState connectionState() const;
 
@@ -54,8 +55,8 @@ signals:
     void IP4ConfigChanged(const quint64 &config);
     void IP6ConfigChanged(const quint64 &config);
     void specificObjectChanged(const QByteArray &specObj);
-    void connecionIdChanged(const QString &id);
-    void connectionTypeChanged(const QByteArray &type);
+    void connectionIdChanged(const QString &id);
+    void connectionTypeChanged(const DNMSetting::SettingType type);
     void UUIDChanged(const QByteArray &UUID);
     void connectionStateChanged(const NMActiveConnectionState state, const NMActiveConnectionStateReason reason);
 

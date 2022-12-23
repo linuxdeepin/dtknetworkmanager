@@ -22,9 +22,9 @@ DIPv6Config::DIPv6Config(const quint64 id, QObject *parent)
     , d_ptr(new DIPv6ConfigPrivate(id, this))
 {
     Q_D(const DIPv6Config);
-    connect(d->m_ipv6, &DIPv6ConfigInterface::addressDataChanged, this, &DIPv6Config::addressDataChanged);
+    connect(d->m_ipv6, &DIPv6ConfigInterface::AddressDataChanged, this, &DIPv6Config::addressDataChanged);
 
-    connect(d->m_ipv6, &DIPv6ConfigInterface::nameserversChanged, this, [this](const QList<QByteArray> &nameservers) {
+    connect(d->m_ipv6, &DIPv6ConfigInterface::NameserversChanged, this, [this](const QList<QByteArray> &nameservers) {
         QList<QHostAddress> ret;
         for (const QByteArray &nameserver : nameservers) {
             Q_IPV6ADDR address;
@@ -36,7 +36,7 @@ DIPv6Config::DIPv6Config(const quint64 id, QObject *parent)
         emit this->nameserversChanged(ret);
     });
 
-    connect(d->m_ipv6, &DIPv6ConfigInterface::gatewayChanged, this, [this](const QString &gateway) {
+    connect(d->m_ipv6, &DIPv6ConfigInterface::GatewayChanged, this, [this](const QString &gateway) {
         emit this->gatewayChanged(QHostAddress(gateway));
     });
 }

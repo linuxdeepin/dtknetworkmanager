@@ -7,6 +7,7 @@
 
 #include "dnetworkmanagertypes.h"
 #include <DExpected>
+#include <QHostAddress>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -21,13 +22,13 @@ public:
     explicit DAppProxy(QObject *parent = nullptr);
     ~DAppProxy() override;
 
-    Q_PROPERTY(QByteArray IP READ IP)
+    Q_PROPERTY(QHostAddress IP READ IP)
     Q_PROPERTY(QByteArray password READ password)
     Q_PROPERTY(ProxyType type READ type)
     Q_PROPERTY(QByteArray user READ user)
     Q_PROPERTY(quint32 port READ port)
 
-    QByteArray IP() const;
+    QHostAddress IP() const;
     QByteArray password() const;
     ProxyType type() const;
     QByteArray user() const;
