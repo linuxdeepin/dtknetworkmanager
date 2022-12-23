@@ -7,9 +7,9 @@ cmake_minimum_required(VERSION 3.13)
 # If do't define version number, specify the version number
 set (VERSION "1.0.0" CACHE STRING "define project version")
 
-set(BIN_NAME dtknetworkmanager)
+set(LIB_NAME dtknetworkmanager)
 
-project(${BIN_NAME}
+project(${LIB_NAME}
     LANGUAGES CXX
     HOMEPAGE_URL https://github.com/linuxdeepin/dtknetworkmanager
     DESCRIPTION "NetworkManager DBus interface binding for Qt"
@@ -45,7 +45,7 @@ find_package(PkgConfig)
 pkg_search_module(NetworkManager REQUIRED IMPORTED_TARGET libnm>=1.4.0)
 pkg_search_module(Gio REQUIRED IMPORTED_TARGET gio-2.0)
 find_package(DtkCore REQUIRED)
-find_package(QT NAMES Qt5 REQUIRED COMPONENTS Core)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core DBus Network)
 
 add_subdirectory(src)
@@ -61,21 +61,26 @@ if (BUILD_TESTING)
    add_subdirectory(tests)
 endif ()
 
+# examples
+if (BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
+
 # for pc file config
 set(PC_LIBS_PRIVATE Qt${QT_VERSION_MAJOR}Core)
 set(PC_REQ_PRIVATE)
 set(PC_REQ_PUBLIC)
 
 # config pkgconfig file
-configure_file(misc/${BIN_NAME}.pc.in ${BIN_NAME}.pc @ONLY)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${BIN_NAME}.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+configure_file(misc/${LIB_NAME}.pc.in ${LIB_NAME}.pc @ONLY)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${LIB_NAME}.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 # config cmake file
-configure_file(misc/${BIN_NAME}Config.cmake.in ${BIN_NAME}Config.cmake @ONLY)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${BIN_NAME}Config.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${BIN_NAME})
+configure_file(misc/${LIB_NAME}Config.cmake.in ${LIB_NAME}Config.cmake @ONLY)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${LIB_NAME}Config.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIB_NAME})
 
 # config qmake moudule file
-set(DTK_MODULE ${BIN_NAME})
+set(DTK_MODULE ${LIB_NAME})
 set(DTK_DEPS "core dbus network")
 set(QMKSPECS_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/qt${QT_VERSION_MAJOR}/mkspecs/modules" CACHE STRING "INSTALL DIR FOR qt pri files")
-configure_file(misc/qt_lib_${BIN_NAME}.pri.in qt_lib_${BIN_NAME}.pri @ONLY)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/qt_lib_${BIN_NAME}.pri DESTINATION "${QMKSPECS_INSTALL_DIR}")
+configure_file(misc/qt_lib_${LIB_NAME}.pri.in qt_lib_${LIB_NAME}.pri @ONLY)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/qt_lib_${LIB_NAME}.pri DESTINATION "${QMKSPECS_INSTALL_DIR}")
