@@ -10,19 +10,19 @@ file(GLOB_RECURSE SRCS
     "./*.cpp"
 )
 
-add_library(${BIN_NAME} SHARED
+add_library(${LIB_NAME} SHARED
     ${COMMON_HEADER}
     ${SETTING_HEADER}
     ${SRCS}
 )
 
-set_target_properties(${BIN_NAME} PROPERTIES
+set_target_properties(${LIB_NAME} PROPERTIES
     VERSION ${CMAKE_PROJECT_VERSION}
     SOVERSION ${CMAKE_PROJECT_VERSION_MAJOR})
 
-target_compile_definitions(${BIN_NAME} PRIVATE VERSION="${CMAKE_PROJECT_VERSION}")
+target_compile_definitions(${LIB_NAME} PRIVATE VERSION="${CMAKE_PROJECT_VERSION}")
 
-target_include_directories(${BIN_NAME} PUBLIC
+target_include_directories(${LIB_NAME} PUBLIC
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::DBus
     Qt${QT_VERSION_MAJOR}::Network
@@ -32,7 +32,7 @@ target_include_directories(${BIN_NAME} PUBLIC
     ./dbus
 )
 
-target_link_libraries(${BIN_NAME} PRIVATE
+target_link_libraries(${LIB_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::DBus
     Qt${QT_VERSION_MAJOR}::Network
@@ -41,6 +41,6 @@ target_link_libraries(${BIN_NAME} PRIVATE
     PkgConfig::NetworkManager
 )
 
-install(FILES ${COMMON_HEADER} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${BIN_NAME})
-install(FILES ${SETTING_HEADER} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${BIN_NAME}/settings)
-install(TARGETS ${BIN_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(FILES ${COMMON_HEADER} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${LIB_NAME})
+install(FILES ${SETTING_HEADER} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${LIB_NAME}/settings)
+install(TARGETS ${LIB_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
