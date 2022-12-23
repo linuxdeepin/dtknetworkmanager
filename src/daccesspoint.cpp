@@ -23,20 +23,20 @@ DAccessPoint::DAccessPoint(const quint64 apId, QObject *parent)
 {
     Q_D(const DAccessPoint);
 
-    connect(d->m_ap, &DAccessPointInterface::SSIDChanged, this, &DAccessPoint::SSID);
+    connect(d->m_ap, &DAccessPointInterface::SsidChanged, this, &DAccessPoint::SSID);
 
-    connect(d->m_ap, &DAccessPointInterface::strengthChanged, this, &DAccessPoint::strength);
+    connect(d->m_ap, &DAccessPointInterface::StrengthChanged, this, &DAccessPoint::strength);
 
     connect(
-        d->m_ap, &DAccessPointInterface::flagsChanged, this, [this](const quint32 flags) { emit this->flagsChanged({flags}); });
+        d->m_ap, &DAccessPointInterface::FlagsChanged, this, [this](const quint32 flags) { emit this->flagsChanged({flags}); });
 
-    connect(d->m_ap, &DAccessPointInterface::frequencyChanged, this, &DAccessPoint::frequencyChanged);
+    connect(d->m_ap, &DAccessPointInterface::FrequencyChanged, this, &DAccessPoint::frequencyChanged);
 
-    connect(d->m_ap, &DAccessPointInterface::rsnFlagsChanged, this, [this](const quint32 rsnFlags) {
+    connect(d->m_ap, &DAccessPointInterface::RsnFlagsChanged, this, [this](const quint32 rsnFlags) {
         emit this->rsnFlagsChanged({rsnFlags});
     });
 
-    connect(d->m_ap, &DAccessPointInterface::wpaFlagsChanged, this, [this](const quint32 wpaFlags) {
+    connect(d->m_ap, &DAccessPointInterface::WpaFlagsChanged, this, [this](const quint32 wpaFlags) {
         emit this->wpaFlagsChanged({wpaFlags});
     });
 }

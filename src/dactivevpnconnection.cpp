@@ -26,7 +26,7 @@ DActiveVpnConnection::DActiveVpnConnection(const quint64 id, QObject *parent)
         emit this->VpnStateChanged(static_cast<NMVpnConnectionState>(state), static_cast<NMActiveConnectionStateReason>(reason));
     });
 
-    connect(d->m_vpn, &DActiveVpnConnectionInterface::bannerChanged, this, &DActiveVpnConnection::bannerChanged);
+    connect(d->m_vpn, &DActiveVpnConnectionInterface::BannerChanged, this, &DActiveVpnConnection::bannerChanged);
 }
 
 NMVpnConnectionState DActiveVpnConnection::vpnState() const

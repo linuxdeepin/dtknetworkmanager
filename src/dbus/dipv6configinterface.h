@@ -23,18 +23,18 @@ public:
     explicit DIPv6ConfigInterface(const QByteArray &path, QObject *parent = nullptr);
     ~DIPv6ConfigInterface() override = default;
 
-    Q_PROPERTY(QList<Config> addressData READ addressData NOTIFY addressDataChanged)
-    Q_PROPERTY(QList<QByteArray> nameservers READ nameservers NOTIFY nameserversChanged)
-    Q_PROPERTY(QString gateway READ gateway NOTIFY gatewayChanged)
+    Q_PROPERTY(QList<Config> addressData READ addressData NOTIFY AddressDataChanged)
+    Q_PROPERTY(QList<QByteArray> nameservers READ nameservers NOTIFY NameserversChanged)
+    Q_PROPERTY(QString gateway READ gateway NOTIFY GatewayChanged)
 
     QList<Config> addressData() const;
     QList<QByteArray> nameservers() const;
     QString gateway() const;
 
 signals:
-    void addressDataChanged(const QList<Config> &addressData);
-    void nameserversChanged(const QList<QByteArray> &nameservers);
-    void gatewayChanged(const QString &gateway);
+    void AddressDataChanged(const QList<Config> &addressData);
+    void NameserversChanged(const QList<QByteArray> &nameservers);
+    void GatewayChanged(const QString &gateway);
 
 private:
     DDBusInterface *m_inter{nullptr};

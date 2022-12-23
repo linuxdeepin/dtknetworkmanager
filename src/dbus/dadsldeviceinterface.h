@@ -18,11 +18,11 @@ public:
     explicit DAdslDeviceInterface(const QByteArray &path, QObject *parent = nullptr);
     ~DAdslDeviceInterface() override = default;
 
-    Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
+    Q_PROPERTY(bool carrier READ carrier NOTIFY CarrierChanged)
     bool carrier() const;
 
 signals:
-    void carrierChanged(const bool found);
+    void CarrierChanged(const bool found);
 
 private:
     DDBusInterface *m_adslInter{nullptr};

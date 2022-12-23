@@ -19,10 +19,10 @@ public:
     ~DWiredDeviceInterface() override = default;
 
     Q_PROPERTY(QString HwAddress READ HwAddress NOTIFY HwAddressChanged)
-    Q_PROPERTY(QString permHwAddress READ permHwAddress NOTIFY permHwAddressChanged)
-    Q_PROPERTY(quint32 speed READ speed NOTIFY speedChanged)
+    Q_PROPERTY(QString permHwAddress READ permHwAddress NOTIFY PermHwAddressChanged)
+    Q_PROPERTY(quint32 speed READ speed NOTIFY SpeedChanged)
     Q_PROPERTY(QStringList S390Subchannels READ S390Subchannels NOTIFY S390SubchannelsChanged)
-    Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
+    Q_PROPERTY(bool carrier READ carrier NOTIFY CarrierChanged)
 
     QString HwAddress() const;
     QString permHwAddress() const;
@@ -32,10 +32,10 @@ public:
 
 signals:
     void HwAddressChanged(const QString &address);
-    void permHwAddressChanged(const QString &address);
-    void speedChanged(const quint32 speed);
+    void PermHwAddressChanged(const QString &address);
+    void SpeedChanged(const quint32 speed);
     void S390SubchannelsChanged(const QStringList &channels);
-    void carrierChanged(const bool carrier);
+    void CarrierChanged(const bool carrier);
 
 private:
     DDBusInterface *m_wiredInter{nullptr};

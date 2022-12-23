@@ -5,7 +5,8 @@
 #ifndef DSECRETAGENT_P_H
 #define DSECRETAGENT_P_H
 
-#include "dbus/dsecretagentinterface.h"
+#include "dbus/dagentmanagerinterface.h"
+#include "dbus/dsecretagentadaptor.h"
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -14,13 +15,22 @@ class DSecretAgent;
 class DSecretAgentPrivate : public QObject
 {
     Q_OBJECT
-public:
-    explicit DSecretAgentPrivate(DSecretAgent *parent);
-    ~DSecretAgentPrivate() override = default;
-
-    DSecretAgent *q_ptr{nullptr};
-    DSecretAgentInterface *m_secret{nullptr};
     Q_DECLARE_PUBLIC(DSecretAgent)
+public:
+    explicit DSecretAgentPrivate(const QString &id, DSecretAgent::Capabilities caps, DSecretAgent *parent = nullptr);
+    virtual ~DSecretAgentPrivate();
+
+private slots:
+    void registerAgent();
+    void registerAgent(const DSecretAgent::Capabilities capabilities);
+    void dbusInterfacesAdded(const QDBusObjectPath &path, const QVariantMap &interfaces);
+
+private:
+    QString m_agentId;
+    DSecretAgent::Capabilities m_caps;
+    DSecretAgent *q_ptr{nullptr};
+    DSecretAgentAdaptor *m_agent{nullptr};
+    DAgentManagerInterface *m_manager{nullptr};
 };
 
 DNETWORKMANAGER_END_NAMESPACE

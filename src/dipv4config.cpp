@@ -22,11 +22,11 @@ DIPv4Config::DIPv4Config(const quint64 id, QObject *parent)
     , d_ptr(new DIPv4ConfigPrivate(id, this))
 {
     Q_D(const DIPv4Config);
-    connect(d->m_ipv4, &DIPv4ConfigInterface::addressDataChanged, this, &DIPv4Config::addressDataChanged);
+    connect(d->m_ipv4, &DIPv4ConfigInterface::AddressDataChanged, this, &DIPv4Config::addressDataChanged);
 
-    connect(d->m_ipv4, &DIPv4ConfigInterface::nameserverDataChanged, this, &DIPv4Config::nameserverDataChanged);
+    connect(d->m_ipv4, &DIPv4ConfigInterface::NameserverDataChanged, this, &DIPv4Config::nameserverDataChanged);
 
-    connect(d->m_ipv4, &DIPv4ConfigInterface::gatewayChanged, this, [this](const QString &gateway) {
+    connect(d->m_ipv4, &DIPv4ConfigInterface::GatewayChanged, this, [this](const QString &gateway) {
         emit this->gatewayChanged(QHostAddress(gateway));
     });
 }

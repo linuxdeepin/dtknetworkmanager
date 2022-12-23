@@ -26,13 +26,13 @@ DConnectionSetting::DConnectionSetting(const quint64 id, QObject *parent)
 {
     Q_D(const DConnectionSetting);
 
-    connect(d->m_setting, &DConnectionSettingInterface::unsavedChanged, this, &DConnectionSetting::unsavedChanged);
+    connect(d->m_setting, &DConnectionSettingInterface::UnsavedChanged, this, &DConnectionSetting::unsavedChanged);
 
-    connect(d->m_setting, &DConnectionSettingInterface::filenameChanged, this, [this](const QString &filename) {
+    connect(d->m_setting, &DConnectionSettingInterface::FilenameChanged, this, [this](const QString &filename) {
         emit this->filenameChanged(filename);
     });
 
-    connect(d->m_setting, &DConnectionSettingInterface::flagsChanged, this, [this](const quint32 flags) {
+    connect(d->m_setting, &DConnectionSettingInterface::FlagsChanged, this, [this](const quint32 flags) {
         emit this->flagsChanged(static_cast<NMSCFlags>(flags));
     });
 

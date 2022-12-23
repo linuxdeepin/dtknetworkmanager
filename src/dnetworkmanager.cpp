@@ -29,31 +29,31 @@ DNetworkManager::DNetworkManager(QObject *parent)
 {
     Q_D(const DNetworkManager);
 
-    connect(d->m_manager, &DNetworkManagerInterface::networkingEnabledChanged, this, &DNetworkManager::networkingEnabledChanged);
+    connect(d->m_manager, &DNetworkManagerInterface::NetworkingEnabledChanged, this, &DNetworkManager::networkingEnabledChanged);
 
-    connect(d->m_manager, &DNetworkManagerInterface::wirelessEnabledChanged, this, &DNetworkManager::wirelessEnabledChanged);
+    connect(d->m_manager, &DNetworkManagerInterface::WirelessEnabledChanged, this, &DNetworkManager::wirelessEnabledChanged);
 
     connect(d->m_manager,
-            &DNetworkManagerInterface::wirelessHardwareEnabledChanged,
+            &DNetworkManagerInterface::WirelessHardwareEnabledChanged,
             this,
             &DNetworkManager::wirelessHardwareEnabledChanged);
 
-    connect(d->m_manager, &DNetworkManagerInterface::activeConnectionsChanged, this, [this](const QList<QDBusObjectPath> &conn) {
+    connect(d->m_manager, &DNetworkManagerInterface::ActiveConnectionsChanged, this, [this](const QList<QDBusObjectPath> &conn) {
         QList<quint64> ret;
         for (const auto &it : conn)
             ret.append(getIdFromObjectPath(it));
         emit this->activeConnectionsChanged(ret);
     });
 
-    connect(d->m_manager, &DNetworkManagerInterface::primaryConnectionChanged, this, [this](const QDBusObjectPath &conn) {
+    connect(d->m_manager, &DNetworkManagerInterface::PrimaryConnectionChanged, this, [this](const QDBusObjectPath &conn) {
         emit this->primaryConnectionChanged(getIdFromObjectPath(conn));
     });
 
-    connect(d->m_manager, &DNetworkManagerInterface::primaryConnectionTypeChanged, this, [this](const QString &type) {
+    connect(d->m_manager, &DNetworkManagerInterface::PrimaryConnectionTypeChanged, this, [this](const QString &type) {
         emit this->primaryConnectionTypeChanged(type.toUtf8());
     });
 
-    connect(d->m_manager, &DNetworkManagerInterface::connectivityChanged, this, [this](const quint32 con) {
+    connect(d->m_manager, &DNetworkManagerInterface::ConnectivityChanged, this, [this](const quint32 con) {
         emit this->connectivityChanged(static_cast<NMConnectivityState>(con));
     });
 
@@ -116,6 +116,7 @@ quint64 DNetworkManager::primaryConnection() const
 QByteArray DNetworkManager::primaryConnectionType() const
 {
     Q_D(const DNetworkManager);
+
     return d->m_manager->primaryConnectionType().toUtf8();
 }
 
@@ -189,7 +190,8 @@ DNetworkManager::addAndActivateConnection(const SettingDesc &conn, const quint64
 DExpected<void> DNetworkManager::deactivateConnection(const quint64 activeConnId) const
 {
     Q_D(const DNetworkManager);
-    auto reply = d->m_manager->deactivateConnection("/org/freedesktop/ActiveConnection/" + QByteArray::number(activeConnId));
+    auto reply = d->m_manager->deactivateConnection("/org/freedesktop/NetworkManager/ActiveConnection/" +
+                                                    QByteArray::number(activeConnId));
     reply.waitForFinished();
     if (!reply.isValid())
         return DUnexpected{emplace_tag::USE_EMPLACE, reply.error().type(), reply.error().message()};
@@ -230,7 +232,7 @@ DExpected<QSharedPointer<DDevice>> DNetworkManager::getDeviceObject(const quint6
 {
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
     const QString &Path = QStringLiteral("/org/freedesktop/NetworkManager/Devices/");
-    const QString &Interface = QStringLiteral("org.freedesktop.Dbus.Properties");
+    const QString &Interface = QStringLiteral("org.freedesktop.DBus.Properties");
     auto msg = QDBusMessage::createMethodCall(Service, Path + QString::number(id), Interface, "Get");
     msg << "org.freedesktop.NetworkManager.Device"
         << "DeviceType";
@@ -261,7 +263,7 @@ DExpected<QSharedPointer<DActiveConnection>> DNetworkManager::getActiveConnectio
 {
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
     const QString &Path = QStringLiteral("/org/freedesktop/NetworkManager/ActiveConnection/");
-    const QString &Interface = QStringLiteral("org.freedesktop.Dbus.Properties");
+    const QString &Interface = QStringLiteral("org.freedesktop.DBus.Properties");
     auto msg = QDBusMessage::createMethodCall(Service, Path + QString::number(id), Interface, "Get");
     msg << "org.freedesktop.NetworkManager.Connection.Active"
         << "Vpn";

@@ -29,10 +29,10 @@ QDBusPendingReply<void> DAgentManagerInterface::registerAgent(const QByteArray &
 }
 
 QDBusPendingReply<void> DAgentManagerInterface::registerWithCapabilities(const QByteArray &identifier,
-                                                                         const NMSecretAgentCapabilities cap) const
+                                                                         const DSecretAgent::Capabilities caps) const
 {
     return m_inter->asyncCallWithArgumentList("RegisterWithCapabilities",
-                                              {QVariant::fromValue(identifier), QVariant::fromValue(static_cast<quint32>(cap))});
+                                              {QVariant::fromValue(identifier), QVariant::fromValue(static_cast<quint32>(caps))});
 }
 
 QDBusPendingReply<void> DAgentManagerInterface::unregisterAgent() const

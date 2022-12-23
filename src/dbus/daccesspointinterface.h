@@ -20,12 +20,12 @@ public:
     explicit DAccessPointInterface(const QByteArray &path, QObject *parent = nullptr);
     ~DAccessPointInterface() override = default;
 
-    Q_PROPERTY(QString SSID READ SSID NOTIFY SSIDChanged)
-    Q_PROPERTY(quint8 strength READ strength NOTIFY strengthChanged)
-    Q_PROPERTY(quint32 flags READ flags NOTIFY flagsChanged)
-    Q_PROPERTY(quint32 frequency READ frequency NOTIFY frequencyChanged)
-    Q_PROPERTY(quint32 rsnFlags READ rsnFlags NOTIFY rsnFlagsChanged)
-    Q_PROPERTY(quint32 wpaFlags READ wpaFlags NOTIFY wpaFlagsChanged)
+    Q_PROPERTY(QString SSID READ SSID NOTIFY SsidChanged)
+    Q_PROPERTY(quint8 strength READ strength NOTIFY StrengthChanged)
+    Q_PROPERTY(quint32 flags READ flags NOTIFY FlagsChanged)
+    Q_PROPERTY(quint32 frequency READ frequency NOTIFY FrequencyChanged)
+    Q_PROPERTY(quint32 rsnFlags READ rsnFlags NOTIFY RsnFlagsChanged)
+    Q_PROPERTY(quint32 wpaFlags READ wpaFlags NOTIFY WpaFlagsChanged)
 
     QString SSID() const;
     quint8 strength() const;
@@ -36,12 +36,12 @@ public:
 
 signals:
 
-    void SSIDChanged(const QString &ssid);
-    void strengthChanged(const quint8 strength);
-    void frequencyChanged(const quint32 frequency);
-    void flagsChanged(const quint32 flags);
-    void rsnFlagsChanged(const quint32 rsnFlags);
-    void wpaFlagsChanged(const quint32 wpaFlags);
+    void SsidChanged(const QString &ssid);
+    void StrengthChanged(const quint8 strength);
+    void FrequencyChanged(const quint32 frequency);
+    void FlagsChanged(const quint32 flags);
+    void RsnFlagsChanged(const quint32 rsnFlags);
+    void WpaFlagsChanged(const quint32 wpaFlags);
 
 private:
     DDBusInterface *m_inter{nullptr};

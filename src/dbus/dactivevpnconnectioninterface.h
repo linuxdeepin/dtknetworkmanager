@@ -19,14 +19,14 @@ public:
     ~DActiveVpnConnectionInterface() override = default;
 
     Q_PROPERTY(quint32 vpnState READ vpnState NOTIFY VpnStateChanged)
-    Q_PROPERTY(QString banner READ banner NOTIFY bannerChanged)
+    Q_PROPERTY(QString banner READ banner NOTIFY BannerChanged)
 
     quint32 vpnState() const;
     QString banner() const;
 
 signals:
     void VpnStateChanged(const quint32 state, const quint32 reason);
-    void bannerChanged(const QString &banner);
+    void BannerChanged(const QString &banner);
 
 private:
     DDBusInterface *m_vpninter{nullptr};

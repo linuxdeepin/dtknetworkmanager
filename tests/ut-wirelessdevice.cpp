@@ -71,6 +71,11 @@ TEST_F(TestDWirelessDevice, wirelessCapabilities)
     EXPECT_EQ(true, m_wd->wirelessCapabilities().testFlag(NMDeviceWiFiCapabilities::CipherWEP104));
 }
 
+TEST_F(TestDWirelessDevice,lastScan)
+{
+    EXPECT_EQ(1433143, m_wd->lastScan());
+}
+
 TEST_F(TestDWirelessDevice, requestScan)
 {
     auto ret = m_wd->requestScan({});

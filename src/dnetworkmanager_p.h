@@ -39,9 +39,7 @@ public:
         if (typeStr == (*section).cend())
             return Core::DUnexpected{Core::emplace_tag::USE_EMPLACE, -1, "can't find connection type in connection section"};
         auto connectionType = DNMSetting::stringToType((*typeStr).toString());
-        if (!connectionType)
-            return Core::DUnexpected{std::move(connectionType).error()};
-        return connectionType.value();
+        return connectionType;
     }
 
     static QByteArray getObjPath(const DNMSetting::SettingType type)

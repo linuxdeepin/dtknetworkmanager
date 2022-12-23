@@ -23,9 +23,9 @@ public:
     explicit DConnectionSettingInterface(const QByteArray &path, QObject *parent = nullptr);
     ~DConnectionSettingInterface() override = default;
 
-    Q_PROPERTY(bool unsaved READ unsaved NOTIFY unsavedChanged)
-    Q_PROPERTY(QString filename READ filename NOTIFY filenameChanged)
-    Q_PROPERTY(quint32 flags READ flags NOTIFY flagsChanged)
+    Q_PROPERTY(bool unsaved READ unsaved NOTIFY UnsavedChanged)
+    Q_PROPERTY(QString filename READ filename NOTIFY FilenameChanged)
+    Q_PROPERTY(quint32 flags READ flags NOTIFY FlagsChanged)
 
     bool unsaved() const;
     QString filename() const;
@@ -37,9 +37,9 @@ public slots:
     QDBusPendingReply<SettingDesc> getSettigns() const;
 
 signals:
-    void unsavedChanged(const bool unsaved);
-    void filenameChanged(const QString &filename);
-    void flagsChanged(const quint32 flags);
+    void UnsavedChanged(const bool unsaved);
+    void FilenameChanged(const QString &filename);
+    void FlagsChanged(const quint32 flags);
     void Removed();
     void Updated();
 

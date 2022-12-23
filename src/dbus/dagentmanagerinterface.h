@@ -6,6 +6,7 @@
 #define DAGENTMANAGERINTERFACE_H
 
 #include "dnetworkmanagertypes.h"
+#include "dsecretagent.h"
 #include "dnetworkmanager_global.h"
 #include <QObject>
 #include <QString>
@@ -23,10 +24,13 @@ public:
     explicit DAgentManagerInterface(QObject *parent = nullptr);
     ~DAgentManagerInterface() override = default;
 
+public:
+    auto getConnection() { return m_inter->connection(); }
+
 public slots:
 
     QDBusPendingReply<void> registerAgent(const QByteArray &identifier) const;
-    QDBusPendingReply<void> registerWithCapabilities(const QByteArray &identifier, const NMSecretAgentCapabilities cap) const;
+    QDBusPendingReply<void> registerWithCapabilities(const QByteArray &identifier, const DSecretAgent::Capabilities caps) const;
     QDBusPendingReply<void> unregisterAgent() const;
 
 private:

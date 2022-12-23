@@ -65,6 +65,11 @@ quint32 DWirelessDeviceInterface::wirelessCapabilities() const
     return qdbus_cast<quint32>(m_wirelessInter->property("WirelessCapabilities"));
 }
 
+qint64 DWirelessDeviceInterface::lastScan() const
+{
+    return qdbus_cast<qint64>(m_wirelessInter->property("LastScan"));
+}
+
 QDBusPendingReply<void> DWirelessDeviceInterface::requestScan(const Config &options) const
 {
     return m_wirelessInter->asyncCallWithArgumentList("RequestScan", {QVariant::fromValue(options)});

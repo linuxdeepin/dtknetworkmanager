@@ -24,10 +24,10 @@ DAppProxy::DAppProxy(QObject *parent)
 
 DAppProxy::~DAppProxy() = default;
 
-QByteArray DAppProxy::IP() const
+QHostAddress DAppProxy::IP() const
 {
     Q_D(const DAppProxy);
-    return d->m_appProxy->IP().toUtf8();
+    return QHostAddress(d->m_appProxy->IP());
 }
 
 QByteArray DAppProxy::password() const
