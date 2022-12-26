@@ -24,15 +24,11 @@ add_executable(${LIB_NAME}
 )
 
 target_include_directories(${LIB_NAME} PUBLIC
-    Qt${QT_VERSION_MAJOR}::Core
-    Qt${QT_VERSION_MAJOR}::DBus
-    Qt${QT_VERSION_MAJOR}::Network
-    ${DtkCore_INCLUDE_DIRS}
-    ../include
-    ../include/settings
-    ../src/dbus
-    ../src
-    ./fakeDBus
+    ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/include/settings
+    ${PROJECT_SOURCE_DIR}/src
+    ${PROJECT_SOURCE_DIR}/src/dbus
+    ${PROJECT_SOURCE_DIR}/tests/fakeDBus
 )
 
 target_link_libraries(${LIB_NAME} PRIVATE
@@ -42,10 +38,10 @@ target_link_libraries(${LIB_NAME} PRIVATE
     ${DtkCore_LIBRARIES}
     PkgConfig::Gio
     PkgConfig::NetworkManager
-    -lpthread
-    -lgcov
-    -lgtest
-    -lgmock
+    pthread
+    gcov
+    gtest
+    gmock
 )
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
