@@ -53,12 +53,12 @@ void DSecretAgentPrivate::dbusInterfacesAdded(const QDBusObjectPath &path, const
 
 void DSecretAgentPrivate::registerAgent()
 {
-    m_manager->registerAgent(m_agentId.toUtf8());
+    m_manager->registerAgent(m_agentId);
 }
 
 void DSecretAgentPrivate::registerAgent(const DSecretAgent::Capabilities capabilities)
 {
-    m_manager->registerWithCapabilities(m_agentId.toUtf8(), capabilities);
+    m_manager->registerWithCapabilities(m_agentId, capabilities);
 }
 
 DSecretAgent::DSecretAgent(const QString &id, QObject *parent)

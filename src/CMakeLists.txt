@@ -16,23 +16,20 @@ add_library(${LIB_NAME} SHARED
     ${SRCS}
 )
 
-set_target_properties(${LIB_NAME} PROPERTIES
-    VERSION ${CMAKE_PROJECT_VERSION}
-    SOVERSION ${CMAKE_PROJECT_VERSION_MAJOR})
+set(EXPORT_HEADERS ${COMMON_HEADER} ${SETTING_HEADER})
+
+target_include_directories(${LIB_NAME} PUBLIC
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/settings>
+    $<BUILD_INTERFACE:${DtkCore_INCLUDE_DIRS}>)
+
+target_include_directories(${LIB_NAME} INTERFACE
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 
 target_compile_definitions(${LIB_NAME} PRIVATE VERSION="${CMAKE_PROJECT_VERSION}")
 
-target_include_directories(${LIB_NAME} PUBLIC
-    Qt${QT_VERSION_MAJOR}::Core
-    Qt${QT_VERSION_MAJOR}::DBus
-    Qt${QT_VERSION_MAJOR}::Network
-    ${DtkCore_INCLUDE_DIRS}
-    ../include
-    ../include/settings
-    ./dbus
-)
-
-target_link_libraries(${LIB_NAME} PRIVATE
+target_link_libraries(${LIB_NAME} PUBLIC
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::DBus
     Qt${QT_VERSION_MAJOR}::Network
@@ -41,6 +38,21 @@ target_link_libraries(${LIB_NAME} PRIVATE
     PkgConfig::NetworkManager
 )
 
-install(FILES ${COMMON_HEADER} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${LIB_NAME})
-install(FILES ${SETTING_HEADER} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${LIB_NAME}/settings)
-install(TARGETS ${LIB_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+set_target_properties(${LIB_NAME} PROPERTIES
+    EXPORT_NAME NetworkManager
+    VERSION ${CMAKE_PROJECT_VERSION}
+    SOVERSION ${CMAKE_PROJECT_VERSION_MAJOR}
+    PUBLIC_HEADER "${EXPORT_HEADER}")
+
+install(TARGETS ${LIB_NAME} EXPORT DtkNetworkManagerTargets
+LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+install(FILES ${COMMON_HEADER} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/)
+install(FILES ${SETTING_HEADER} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/settings)
+
+install(EXPORT DtkNetworkManagerTargets
+    FILE DtkNetworkManagerTargets.cmake
+    NAMESPACE Dtk::
+    DESTINATION ${ConfigPackageLocation}
+)
