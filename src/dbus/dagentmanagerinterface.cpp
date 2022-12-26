@@ -23,12 +23,12 @@ DAgentManagerInterface::DAgentManagerInterface(QObject *parent)
     m_inter = new DDBusInterface(Service, Path, Interface, Connection, this);
 }
 
-QDBusPendingReply<void> DAgentManagerInterface::registerAgent(const QByteArray &identifier) const
+QDBusPendingReply<void> DAgentManagerInterface::registerAgent(const QString &identifier) const
 {
     return m_inter->asyncCallWithArgumentList("Register", {QVariant::fromValue(identifier)});
 }
 
-QDBusPendingReply<void> DAgentManagerInterface::registerWithCapabilities(const QByteArray &identifier,
+QDBusPendingReply<void> DAgentManagerInterface::registerWithCapabilities(const QString &identifier,
                                                                          const DSecretAgent::Capabilities caps) const
 {
     return m_inter->asyncCallWithArgumentList("RegisterWithCapabilities",

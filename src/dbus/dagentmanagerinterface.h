@@ -5,7 +5,6 @@
 #ifndef DAGENTMANAGERINTERFACE_H
 #define DAGENTMANAGERINTERFACE_H
 
-#include "dnetworkmanagertypes.h"
 #include "dsecretagent.h"
 #include "dnetworkmanager_global.h"
 #include <QObject>
@@ -29,8 +28,8 @@ public:
 
 public slots:
 
-    QDBusPendingReply<void> registerAgent(const QByteArray &identifier) const;
-    QDBusPendingReply<void> registerWithCapabilities(const QByteArray &identifier, const DSecretAgent::Capabilities caps) const;
+    QDBusPendingReply<void> registerAgent(const QString &identifier) const;
+    QDBusPendingReply<void> registerWithCapabilities(const QString &identifier, const DSecretAgent::Capabilities caps) const;
     QDBusPendingReply<void> unregisterAgent() const;
 
 private:

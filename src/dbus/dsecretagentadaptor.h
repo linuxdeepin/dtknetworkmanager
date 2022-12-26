@@ -64,7 +64,7 @@ public:
 
     DSecretAgent *parent() const { return static_cast<DSecretAgent *>(QObject::parent()); }
 
-public slots:
+public Q_SLOTS:
     void CancelGetSecrets(const QDBusObjectPath &connection_path, const QString &setting_name);
     void DeleteSecrets(SettingDesc connection, const QDBusObjectPath &connection_path);
     SettingDesc GetSecrets(SettingDesc connection,
