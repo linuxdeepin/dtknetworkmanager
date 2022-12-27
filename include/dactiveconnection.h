@@ -7,6 +7,7 @@
 
 #include "dnetworkmanagertypes.h"
 #include "settings/dnmsetting.h"
+#include <QUuid>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -30,7 +31,7 @@ public:
     Q_PROPERTY(quint64 specificObject READ specificObject NOTIFY specificObjectChanged)
     Q_PROPERTY(QString connectionId READ connectionId NOTIFY connectionIdChanged)
     Q_PROPERTY(DNMSetting::SettingType connectionType READ connectionType NOTIFY connectionTypeChanged)
-    Q_PROPERTY(QByteArray UUID READ UUID NOTIFY UUIDChanged)
+    Q_PROPERTY(QUuid UUID READ UUID NOTIFY UUIDChanged)
     Q_PROPERTY(NMActiveConnectionState connectionState READ connectionState NOTIFY connectionStateChanged)
 
     QList<quint64> devices() const;
@@ -43,7 +44,7 @@ public:
     quint64 specificObject() const;
     QString connectionId() const;
     DNMSetting::SettingType connectionType() const;
-    QByteArray UUID() const;
+    QUuid UUID() const;
     NMActiveConnectionState connectionState() const;
 
 signals:
@@ -57,7 +58,7 @@ signals:
     void specificObjectChanged(const quint64 &specObj);
     void connectionIdChanged(const QString &id);
     void connectionTypeChanged(const DNMSetting::SettingType type);
-    void UUIDChanged(const QByteArray &UUID);
+    void UUIDChanged(const QUuid &UUID);
     void connectionStateChanged(const NMActiveConnectionState state, const NMActiveConnectionStateReason reason);
 
 protected:

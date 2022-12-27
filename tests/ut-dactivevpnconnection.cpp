@@ -87,7 +87,7 @@ TEST_F(TestDActiveVpnConnection, type)
 
 TEST_F(TestDActiveVpnConnection, uuid)
 {
-    EXPECT_EQ("eb7e3c30-d5de-4a21-a697-1c31777b4276", m_avc->UUID());
+    EXPECT_EQ(QString{"eb7e3c30-d5de-4a21-a697-1c31777b4276"}, m_avc->UUID().toString(QUuid::WithoutBraces));
 }
 
 TEST_F(TestDActiveVpnConnection, state)
