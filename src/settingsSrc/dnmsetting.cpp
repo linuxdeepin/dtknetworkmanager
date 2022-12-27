@@ -6,9 +6,6 @@
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
-using DCORE_NAMESPACE::DUnexpected;
-using DCORE_NAMESPACE::emplace_tag;
-
 DNMSettingPrivate::DNMSettingPrivate()
     : m_type(DNMSetting::SettingType::Generic)
     , m_init(false)

@@ -59,17 +59,17 @@ TEST_F(TestDNetworkManager, primaryConnection)
 
 TEST_F(TestDNetworkManager, primaryConnectionType)
 {
-    EXPECT_EQ("802-3-ethernet", m_mg->primaryConnectionType());
+    EXPECT_EQ(DNMSetting::SettingType::Wired, m_mg->primaryConnectionType());
 }
 
 TEST_F(TestDNetworkManager, state)
 {
-    EXPECT_EQ(NMState::ConnectedGlobal, m_mg->state());
+    EXPECT_EQ(Dtk::NetworkManager::NMState::ConnectedGlobal, m_mg->state());
 }
 
 TEST_F(TestDNetworkManager, connectivity)
 {
-    EXPECT_EQ(NMConnectivityState::Full, m_mg->connectivity());
+    EXPECT_EQ(Dtk::NetworkManager::NMConnectivityState::Full, m_mg->connectivity());
 }
 
 TEST_F(TestDNetworkManager, getDeviceIdList)

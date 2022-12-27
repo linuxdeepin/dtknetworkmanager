@@ -6,7 +6,6 @@
 #define DNMSETTING_H
 
 #include "dnetworkmanager_global.h"
-#include <DExpected>
 #include <QSharedPointer>
 #include <QString>
 #include <QVariant>
@@ -20,8 +19,6 @@
 #endif
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
-
-using DCORE_NAMESPACE::DExpected;
 
 class DNMSettingPrivate;
 

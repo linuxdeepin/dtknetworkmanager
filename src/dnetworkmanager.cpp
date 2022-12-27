@@ -50,7 +50,7 @@ DNetworkManager::DNetworkManager(QObject *parent)
     });
 
     connect(d->m_manager, &DNetworkManagerInterface::PrimaryConnectionTypeChanged, this, [this](const QString &type) {
-        emit this->primaryConnectionTypeChanged(type.toUtf8());
+        emit this->primaryConnectionTypeChanged(DNMSetting::stringToType(type));
     });
 
     connect(d->m_manager, &DNetworkManagerInterface::ConnectivityChanged, this, [this](const quint32 con) {
@@ -113,11 +113,11 @@ quint64 DNetworkManager::primaryConnection() const
     return getIdFromObjectPath(d->m_manager->primaryConnection());
 }
 
-QByteArray DNetworkManager::primaryConnectionType() const
+DNMSetting::SettingType DNetworkManager::primaryConnectionType() const
 {
     Q_D(const DNetworkManager);
 
-    return d->m_manager->primaryConnectionType().toUtf8();
+    return DNMSetting::stringToType(d->m_manager->primaryConnectionType());
 }
 
 NMState DNetworkManager::state() const
