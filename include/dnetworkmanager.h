@@ -6,6 +6,7 @@
 #define DNETWORKMANAGER_H
 
 #include "dnetworkmanagertypes.h"
+#include "dnmsetting.h"
 #include <DExpected>
 #include <QSharedPointer>
 
@@ -29,7 +30,7 @@ public:
     Q_PROPERTY(bool wirelessHardwareEnabled READ wirelessHardwareEnabled NOTIFY wirelessHardwareEnabledChanged)
     Q_PROPERTY(QList<quint64> activeConnections READ getActiveConnectionsIdList NOTIFY activeConnectionsChanged)
     Q_PROPERTY(quint64 primaryConnection READ primaryConnection NOTIFY primaryConnectionChanged)
-    Q_PROPERTY(QString primaryConnectionType READ primaryConnectionType NOTIFY primaryConnectionTypeChanged)
+    Q_PROPERTY(DNMSetting::SettingType primaryConnectionType READ primaryConnectionType NOTIFY primaryConnectionTypeChanged)
     Q_PROPERTY(NMState state READ state NOTIFY StateChanged)
     Q_PROPERTY(NMConnectivityState connectivity READ connectivity NOTIFY connectivityChanged)
 
@@ -39,7 +40,7 @@ public:
     bool wirelessHardwareEnabled() const;
     QList<quint64> getActiveConnectionsIdList() const;
     quint64 primaryConnection() const;
-    QByteArray primaryConnectionType() const;
+    DNMSetting::SettingType primaryConnectionType() const;
     NMState state() const;
     NMConnectivityState connectivity() const;
 
@@ -62,7 +63,7 @@ signals:
     void wirelessHardwareEnabledChanged(const bool enable);
     void activeConnectionsChanged(const QList<quint64> &connIds);
     void primaryConnectionChanged(const quint64 connId);
-    void primaryConnectionTypeChanged(const QByteArray &type);
+    void primaryConnectionTypeChanged(const DNMSetting::SettingType &type);
     void connectivityChanged(const NMConnectivityState connState);
     void DeviceAdded(const quint64 deviceId);
     void DeviceRemoved(const quint64 deviceId);
