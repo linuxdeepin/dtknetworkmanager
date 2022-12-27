@@ -10,7 +10,8 @@ Build-Depends:
  qtbase5-dev,
  doxygen,
  libnm-dev,
- libglib2.0-dev
+ libglib2.0-dev,
+ graphviz
 Standards-Version: 4.5.0
 
 Package: libdtknetworkmanager
