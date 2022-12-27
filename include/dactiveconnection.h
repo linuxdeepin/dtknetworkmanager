@@ -27,7 +27,7 @@ public:
     Q_PROPERTY(quint64 DHCP6Config READ DHCP6Config NOTIFY DHCP6ConfigChanged)
     Q_PROPERTY(quint64 IP4Config READ IP4Config NOTIFY IP4ConfigChanged)
     Q_PROPERTY(quint64 IP6Config READ IP6Config NOTIFY IP6ConfigChanged)
-    Q_PROPERTY(QByteArray specificObject READ specificObject NOTIFY specificObjectChanged)
+    Q_PROPERTY(quint64 specificObject READ specificObject NOTIFY specificObjectChanged)
     Q_PROPERTY(QString connectionId READ connectionId NOTIFY connectionIdChanged)
     Q_PROPERTY(DNMSetting::SettingType connectionType READ connectionType NOTIFY connectionTypeChanged)
     Q_PROPERTY(QByteArray UUID READ UUID NOTIFY UUIDChanged)
@@ -40,7 +40,7 @@ public:
     quint64 DHCP6Config() const;
     quint64 IP4Config() const;
     quint64 IP6Config() const;
-    QByteArray specificObject() const;
+    quint64 specificObject() const;
     QString connectionId() const;
     DNMSetting::SettingType connectionType() const;
     QByteArray UUID() const;
@@ -54,7 +54,7 @@ signals:
     void DHCP6ConfigChanged(const quint64 &config);
     void IP4ConfigChanged(const quint64 &config);
     void IP6ConfigChanged(const quint64 &config);
-    void specificObjectChanged(const QByteArray &specObj);
+    void specificObjectChanged(const quint64 &specObj);
     void connectionIdChanged(const QString &id);
     void connectionTypeChanged(const DNMSetting::SettingType type);
     void UUIDChanged(const QByteArray &UUID);

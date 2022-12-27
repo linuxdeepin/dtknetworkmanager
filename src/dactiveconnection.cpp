@@ -49,7 +49,7 @@ DActiveConnection::DActiveConnection(const quint64 activeConnId, QObject *parent
         emit this->IP6ConfigChanged(getIdFromObjectPath(config));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::SpecificObjectChanged, this, [this](const QDBusObjectPath &specObj) {
-        emit this->specificObjectChanged(specObj.path().toUtf8());
+        emit this->specificObjectChanged(getIdFromObjectPath(specObj));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::IdChanged, this, &DActiveConnection::connectionIdChanged);
     connect(d->m_activeConn, &DActiveConnectionInterface::UuidChanged, this, [this](const QString &uuid) {
@@ -92,7 +92,7 @@ DActiveConnection::DActiveConnection(DActiveConnectionPrivate &other, QObject *p
         emit this->IP6ConfigChanged(getIdFromObjectPath(config));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::SpecificObjectChanged, this, [this](const QDBusObjectPath &specObj) {
-        emit this->specificObjectChanged(specObj.path().toUtf8());
+        emit this->specificObjectChanged(getIdFromObjectPath(specObj));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::IdChanged, this, &DActiveConnection::connectionIdChanged);
     connect(d->m_activeConn, &DActiveConnectionInterface::UuidChanged, this, [this](const QString &uuid) {
@@ -154,10 +154,10 @@ quint64 DActiveConnection::IP6Config() const
     return getIdFromObjectPath(d->m_activeConn->IP6Config());
 }
 
-QByteArray DActiveConnection::specificObject() const
+quint64 DActiveConnection::specificObject() const
 {
     Q_D(const DActiveConnection);
-    return d->m_activeConn->specificObject().path().toUtf8();
+    return getIdFromObjectPath(d->m_activeConn->specificObject());
 }
 
 QString DActiveConnection::connectionId() const

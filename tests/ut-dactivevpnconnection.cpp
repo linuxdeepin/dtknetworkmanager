@@ -72,7 +72,7 @@ TEST_F(TestDActiveVpnConnection, Ip6Config)
 
 TEST_F(TestDActiveVpnConnection, specificObject)
 {
-    EXPECT_EQ("/", m_avc->specificObject());
+    EXPECT_EQ(0, m_avc->specificObject());
 }
 
 TEST_F(TestDActiveVpnConnection, id)
