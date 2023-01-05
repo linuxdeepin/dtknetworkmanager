@@ -23,7 +23,7 @@ add_executable(${LIB_NAME}
     ${TEST_FILES}
 )
 
-target_include_directories(${LIB_NAME} PUBLIC
+target_include_directories(${LIB_NAME} PRIVATE
     ${PROJECT_SOURCE_DIR}/include
     ${PROJECT_SOURCE_DIR}/include/settings
     ${PROJECT_SOURCE_DIR}/src
@@ -35,7 +35,7 @@ target_link_libraries(${LIB_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::DBus
     Qt${QT_VERSION_MAJOR}::Network
-    ${DtkCore_LIBRARIES}
+    Dtk::Core
     PkgConfig::Gio
     PkgConfig::NetworkManager
     pthread
