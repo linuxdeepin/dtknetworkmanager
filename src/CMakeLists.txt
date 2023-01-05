@@ -18,14 +18,17 @@ add_library(${LIB_NAME} SHARED
 
 set(EXPORT_HEADERS ${COMMON_HEADER} ${SETTING_HEADER})
 
-target_include_directories(${LIB_NAME} PUBLIC
+target_include_directories(${LIB_NAME}
+PUBLIC
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/settings>
-    $<BUILD_INTERFACE:${DtkCore_INCLUDE_DIRS}>)
-
-target_include_directories(${LIB_NAME} INTERFACE
+INTERFACE
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
+
+target_link_directories(${LIB_NAME} INTERFACE
+$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+$<INSTALL_INTERFACE:${LIBRARY_INSTALL_DIR}>)
 
 target_compile_definitions(${LIB_NAME} PRIVATE VERSION="${CMAKE_PROJECT_VERSION}")
 
@@ -33,7 +36,7 @@ target_link_libraries(${LIB_NAME} PUBLIC
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::DBus
     Qt${QT_VERSION_MAJOR}::Network
-    ${DtkCore_LIBRARIES}
+    Dtk::Core
     PkgConfig::Gio
     PkgConfig::NetworkManager
 )
