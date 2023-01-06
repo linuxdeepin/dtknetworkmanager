@@ -29,7 +29,8 @@ set(CMAKE_SHARED_LINKER_FLAGS ${CMAKE_SHARED_LINKER_FLAGS} "-Wl,--as-needed")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(ConfigPackageLocation ${CMAKE_INSTALL_LIBDIR}/cmake/DtkNetworkManager)
-set(CMAKE_INSTALL_INCLUDEDIR ${CMAKE_INSTALL_PREFIX}/include/dtk/DNetworkManager)
+set(CMAKE_INSTALL_INCLUDEDIR include/dtk${PROJECT_VERSION_MAJOR}/DNetworkManager)
+set(LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
 # Install settings
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX /usr)
@@ -48,7 +49,7 @@ endif ()
 find_package(PkgConfig)
 pkg_search_module(NetworkManager REQUIRED IMPORTED_TARGET libnm>=1.4.0)
 pkg_search_module(Gio REQUIRED IMPORTED_TARGET gio-2.0)
-find_package(DtkCore REQUIRED)
+find_package(Dtk REQUIRED Core)
 find_package(QT NAMES Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core DBus Network)
 
