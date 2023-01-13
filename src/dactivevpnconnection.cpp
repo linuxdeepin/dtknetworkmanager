@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -23,7 +23,8 @@ DActiveVpnConnection::DActiveVpnConnection(const quint64 id, QObject *parent)
     Q_D(const DActiveVpnConnection);
 
     connect(d->m_vpn, &DActiveVpnConnectionInterface::VpnStateChanged, this, [this](const quint32 state, const quint32 reason) {
-        emit this->VpnStateChanged(static_cast<NMVpnConnectionState>(state), static_cast<NMActiveConnectionStateReason>(reason));
+        Q_EMIT this->VpnStateChanged(static_cast<NMVpnConnectionState>(state),
+                                     static_cast<NMActiveConnectionStateReason>(reason));
     });
 
     connect(d->m_vpn, &DActiveVpnConnectionInterface::BannerChanged, this, &DActiveVpnConnection::bannerChanged);

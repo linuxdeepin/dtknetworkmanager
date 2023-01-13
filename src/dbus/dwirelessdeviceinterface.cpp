@@ -18,12 +18,8 @@ DWirelessDeviceInterface::DWirelessDeviceInterface(const QByteArray &path, QObje
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
     const QString &Interface = QStringLiteral("org.freedesktop.NetworkManager.Device.Wireless");
     QDBusConnection Connection = QDBusConnection::systemBus();
-    Connection.connect(Service, path, Interface, "AccessPointAdded", this, SLOT([this](const QDBusObjectPath &ap) {
-                           emit this->AccessPointAdded(ap);
-                       }));
-    Connection.connect(Service, path, Interface, "AccessPointRemoved", this, SLOT([this](const QDBusObjectPath &ap) {
-                           emit this->AccessPointRemoved(ap);
-                       }));
+    Connection.connect(Service, path, Interface, "AccessPointAdded", this, SIGNAL(AccessPointAdded(const QDBusObjectPath &)));
+    Connection.connect(Service, path, Interface, "AccessPointRemoved", this, SIGNAL(AccessPointRemoved(const QDBusObjectPath &)));
 #endif
     m_wirelessInter = new DDBusInterface(Service, path, Interface, Connection, this);
     qDBusRegisterMetaType<Config>();

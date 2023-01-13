@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -22,10 +22,10 @@ DSettingsManager::DSettingsManager(QObject *parent)
 {
     Q_D(const DSettingsManager);
     connect(d->m_settings, &DSettingsManagerInterface::ConnectionRemoved, this, [this](const QDBusObjectPath &path) {
-        emit this->ConnectionRemoved(getIdFromObjectPath(path));
+        Q_EMIT this->ConnectionRemoved(getIdFromObjectPath(path));
     });
     connect(d->m_settings, &DSettingsManagerInterface::NewConnection, this, [this](const QDBusObjectPath &path) {
-        emit this->NewConnection(getIdFromObjectPath(path));
+        Q_EMIT this->NewConnection(getIdFromObjectPath(path));
     });
 }
 

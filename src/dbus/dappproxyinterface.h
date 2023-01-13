@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -34,7 +34,7 @@ public:
     QString user() const;
     quint32 port() const;
 
-public slots:
+public Q_SLOTS:
     QDBusPendingReply<void>
     set(const QString &type, const QString &ip, const quint32 port, const QString &user, const QString &password) const;
 

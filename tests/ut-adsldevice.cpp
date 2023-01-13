@@ -6,7 +6,6 @@
 #include "dadsldevice.h"
 #include "fakeDBus/adsldeviceservice.h"
 #include "fakeDBus/networkmanagerservice.h"
-#include <QDebug>
 
 DNETWORKMANAGER_USE_NAMESPACE
 

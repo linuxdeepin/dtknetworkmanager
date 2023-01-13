@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -24,11 +24,11 @@ DWiredDevice::DWiredDevice(const quint64 id, QObject *parent)
     connect(d->m_wired, &DWiredDeviceInterface::CarrierChanged, this, &DWiredDevice::carrierChanged);
 
     connect(d->m_wired, &DWiredDeviceInterface::HwAddressChanged, this, [this](const QString &addr) {
-        emit this->HwAddressChanged(addr.toUtf8());
+        Q_EMIT this->HwAddressChanged(addr.toUtf8());
     });
 
     connect(d->m_wired, &DWiredDeviceInterface::PermHwAddressChanged, this, [this](const QString &address) {
-        emit this->permHwAddressChanged(address.toUtf8());
+        Q_EMIT this->permHwAddressChanged(address.toUtf8());
     });
 
     connect(d->m_wired, &DWiredDeviceInterface::SpeedChanged, this, &DWiredDevice::speedChanged);

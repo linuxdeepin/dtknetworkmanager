@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -20,7 +20,7 @@ public:
     explicit DSecretAgentPrivate(const QString &id, DSecretAgent::Capabilities caps, DSecretAgent *parent = nullptr);
     virtual ~DSecretAgentPrivate();
 
-private slots:
+private Q_SLOTS:
     void registerAgent();
     void registerAgent(const DSecretAgent::Capabilities capabilities);
     void dbusInterfacesAdded(const QDBusObjectPath &path, const QVariantMap &interfaces);

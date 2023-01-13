@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -33,7 +33,7 @@ public:
     bool m_updateSettingTrigger{false};
     bool m_deleteSettingTrigger{false};
     bool m_settingsTrigger{false};
-public slots:
+public Q_SLOTS:
     Q_SCRIPTABLE void Update(SettingDesc) { m_updateSettingTrigger = true; }
 
     Q_SCRIPTABLE void Delete() { m_deleteSettingTrigger = true; }

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -31,15 +31,16 @@ public:
     QString filename() const;
     quint32 flags() const;
 
-public slots:
+public Q_SLOTS:
     QDBusPendingReply<void> UpdateSetting(const SettingDesc &prop) const;
     QDBusPendingReply<void> deleteSetting() const;
     QDBusPendingReply<SettingDesc> getSettigns() const;
 
-signals:
+Q_SIGNALS:
     void UnsavedChanged(const bool unsaved);
     void FilenameChanged(const QString &filename);
     void FlagsChanged(const quint32 flags);
+
     void Removed();
     void Updated();
 

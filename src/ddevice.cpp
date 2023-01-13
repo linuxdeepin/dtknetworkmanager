@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -31,16 +31,16 @@ DDevice::DDevice(const quint64 deviceId, QObject *parent)
         QList<quint64> ret;
         for (const auto &it : conns)
             ret.append(getIdFromObjectPath(it));
-        emit this->availableConnectionsChanged(ret);
+        Q_EMIT this->availableConnectionsChanged(ret);
     });
 
     connect(d->m_device,
             &DDeviceInterface::StateChanged,
             this,
             [this](const quint32 newSatate, const quint32 oldState, const quint32 reason) {
-                emit this->deviceStateChanged(static_cast<NMDeviceState>(newSatate),
-                                              static_cast<NMDeviceState>(oldState),
-                                              static_cast<NMDeviceStateReason>(reason));
+                Q_EMIT this->deviceStateChanged(static_cast<NMDeviceState>(newSatate),
+                                                static_cast<NMDeviceState>(oldState),
+                                                static_cast<NMDeviceStateReason>(reason));
             });
 
     connect(d->m_device, &DDeviceInterface::AutoconnectChanged, this, &DDevice::autoconnectChanged);
@@ -48,42 +48,42 @@ DDevice::DDevice(const quint64 deviceId, QObject *parent)
     connect(d->m_device, &DDeviceInterface::ManagedChanged, this, &DDevice::managedChanged);
 
     connect(d->m_device, &DDeviceInterface::ActiveConnectionChanged, this, [this](const QDBusObjectPath &conn) {
-        emit this->activeConnectionChanged(getIdFromObjectPath(conn));
+        Q_EMIT this->activeConnectionChanged(getIdFromObjectPath(conn));
     });
 
     connect(d->m_device, &DDeviceInterface::Dhcp4ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->DHCP4ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->DHCP4ConfigChanged(getIdFromObjectPath(config));
     });
 
     connect(d->m_device, &DDeviceInterface::Dhcp6ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->DHCP6ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->DHCP6ConfigChanged(getIdFromObjectPath(config));
     });
 
     connect(d->m_device, &DDeviceInterface::IP4ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->IPv4ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->IPv4ConfigChanged(getIdFromObjectPath(config));
     });
 
     connect(d->m_device, &DDeviceInterface::IP6ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->IPv6ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->IPv6ConfigChanged(getIdFromObjectPath(config));
     });
 
     connect(d->m_device, &DDeviceInterface::DriverChanged, this, [this](const QString &driver) {
-        emit this->driverChanged(driver.toUtf8());
+        Q_EMIT this->driverChanged(driver.toUtf8());
     });
 
     connect(d->m_device, &DDeviceInterface::InterfaceChanged, this, [this](const QString &ifc) {
-        emit this->interfaceChanged(ifc.toUtf8());
+        Q_EMIT this->interfaceChanged(ifc.toUtf8());
     });
 
     connect(
-        d->m_device, &DDeviceInterface::UdiChanged, this, [this](const QString &udi) { emit this->udiChanged(udi.toUtf8()); });
+        d->m_device, &DDeviceInterface::UdiChanged, this, [this](const QString &udi) { Q_EMIT this->udiChanged(udi.toUtf8()); });
 
     connect(d->m_device, &DDeviceInterface::DeviceTypeChanged, this, [this](const quint32 type) {
-        emit this->deviceTypeChanged(static_cast<NMDeviceType>(type));
+        Q_EMIT this->deviceTypeChanged(static_cast<NMDeviceType>(type));
     });
 
     connect(d->m_device, &DDeviceInterface::InterfaceFlagsChanged, this, [this](const quint32 flags) {
-        emit this->interfaceFlagsChanged(DeviceInterfaceFlags{flags});
+        Q_EMIT this->interfaceFlagsChanged(DeviceInterfaceFlags{flags});
     });
 
     connect(d->m_device, &DDeviceInterface::RefreshRateMsChanged, this, &DDevice::refreshRateMsChanged);
@@ -102,16 +102,16 @@ DDevice::DDevice(DDevicePrivate &other, QObject *parent)
         QList<quint64> ret;
         for (const auto &it : conns)
             ret.append(getIdFromObjectPath(it));
-        emit this->availableConnectionsChanged(ret);
+        Q_EMIT this->availableConnectionsChanged(ret);
     });
 
     connect(d->m_device,
             &DDeviceInterface::StateChanged,
             this,
             [this](const quint32 newSatate, const quint32 oldState, const quint32 reason) {
-                emit this->deviceStateChanged(static_cast<NMDeviceState>(newSatate),
-                                              static_cast<NMDeviceState>(oldState),
-                                              static_cast<NMDeviceStateReason>(reason));
+                Q_EMIT this->deviceStateChanged(static_cast<NMDeviceState>(newSatate),
+                                                static_cast<NMDeviceState>(oldState),
+                                                static_cast<NMDeviceStateReason>(reason));
             });
 
     connect(d->m_device, &DDeviceInterface::AutoconnectChanged, this, &DDevice::autoconnectChanged);
@@ -119,42 +119,42 @@ DDevice::DDevice(DDevicePrivate &other, QObject *parent)
     connect(d->m_device, &DDeviceInterface::ManagedChanged, this, &DDevice::managedChanged);
 
     connect(d->m_device, &DDeviceInterface::ActiveConnectionChanged, this, [this](const QDBusObjectPath &conn) {
-        emit this->activeConnectionChanged(getIdFromObjectPath(conn));
+        Q_EMIT this->activeConnectionChanged(getIdFromObjectPath(conn));
     });
 
     connect(d->m_device, &DDeviceInterface::Dhcp4ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->DHCP4ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->DHCP4ConfigChanged(getIdFromObjectPath(config));
     });
 
     connect(d->m_device, &DDeviceInterface::Dhcp6ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->DHCP6ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->DHCP6ConfigChanged(getIdFromObjectPath(config));
     });
 
     connect(d->m_device, &DDeviceInterface::IP4ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->IPv4ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->IPv4ConfigChanged(getIdFromObjectPath(config));
     });
 
     connect(d->m_device, &DDeviceInterface::IP6ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->IPv6ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->IPv6ConfigChanged(getIdFromObjectPath(config));
     });
 
     connect(d->m_device, &DDeviceInterface::DriverChanged, this, [this](const QString &driver) {
-        emit this->driverChanged(driver.toUtf8());
+        Q_EMIT this->driverChanged(driver.toUtf8());
     });
 
     connect(d->m_device, &DDeviceInterface::InterfaceChanged, this, [this](const QString &ifc) {
-        emit this->interfaceChanged(ifc.toUtf8());
+        Q_EMIT this->interfaceChanged(ifc.toUtf8());
     });
 
     connect(
-        d->m_device, &DDeviceInterface::UdiChanged, this, [this](const QString &udi) { emit this->udiChanged(udi.toUtf8()); });
+        d->m_device, &DDeviceInterface::UdiChanged, this, [this](const QString &udi) { Q_EMIT this->udiChanged(udi.toUtf8()); });
 
     connect(d->m_device, &DDeviceInterface::DeviceTypeChanged, this, [this](const quint32 type) {
-        emit this->deviceTypeChanged(static_cast<NMDeviceType>(type));
+        Q_EMIT this->deviceTypeChanged(static_cast<NMDeviceType>(type));
     });
 
     connect(d->m_device, &DDeviceInterface::InterfaceFlagsChanged, this, [this](const quint32 flags) {
-        emit this->interfaceFlagsChanged(static_cast<NMDeviceInterfaceFlags>(flags));
+        Q_EMIT this->interfaceFlagsChanged(static_cast<NMDeviceInterfaceFlags>(flags));
     });
 
     connect(d->m_device, &DDeviceInterface::RefreshRateMsChanged, this, &DDevice::refreshRateMsChanged);

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -17,7 +17,7 @@ public:
 
     bool m_requestIPConflictCheckTrigger{false};
 
-public slots:
+public Q_SLOTS:
 
     Q_SCRIPTABLE QString RequestIPConflictCheck(QString, QString)
     {

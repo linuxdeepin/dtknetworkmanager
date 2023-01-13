@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -19,7 +19,7 @@ public:
     bool m_registerWithCapabilitiesTrigger{false};
     bool m_unregisterTrigger{false};
 
-public slots:
+public Q_SLOTS:
     Q_SCRIPTABLE void Register(QByteArray) { m_registerTrigger = true; }
 
     Q_SCRIPTABLE void RegisterWithCapabilities(QByteArray, quint32) { m_registerWithCapabilitiesTrigger = true; }

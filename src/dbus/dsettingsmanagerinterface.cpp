@@ -19,12 +19,8 @@ DSettingsManagerInterface::DSettingsManagerInterface(QObject *parent)
     const QString &Interface = QStringLiteral("org.freedesktop.NetworkManager.Settings");
     const QString &Path = QStringLiteral("/org/freedesktop/NetworkManager/Settings");
     QDBusConnection Connection = QDBusConnection::systemBus();
-    Connection.connect(Service, Path, Interface, "ConnectionRemoved", this, SLOT([this](const QDBusObjectPath &parh) {
-                           emit this->ConnectionRemoved(path);
-                       }));
-    Connection.connect(Service, Path, Interface, "NewConnection", this, SLOT([this](const QDBusObjectPath &path) {
-                           emit this->NewConnection(path);
-                       }));
+    Connection.connect(Service, Path, Interface, "ConnectionRemoved", this, SIGNAL(ConnectionRemoved(const QDBusObjectPath &)));
+    Connection.connect(Service, Path, Interface, "NewConnection", this, SIGNAL(NewConnection(const QDBusObjectPath &)));
 #endif
     m_inter = new DDBusInterface(Service, Path, Interface, Connection, this);
 }

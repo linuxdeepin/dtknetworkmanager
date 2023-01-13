@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 -2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -41,11 +41,11 @@ public:
     NMWifiCap wirelessCapabilities() const;
     qint64 lastScan() const;
 
-public slots:
+public Q_SLOTS:
     DExpected<void> requestScan(const Config &options = {}) const;
     DExpected<QList<quint64>> getAllAccessPoints() const;
 
-signals:
+Q_SIGNALS:
     void accessPointsChanged(const QList<quint64> &aps);
     void HwAddressChanged(const QByteArray &address);
     void permHwAddressChanged(const QByteArray &address);

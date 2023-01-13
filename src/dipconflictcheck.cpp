@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -25,7 +25,7 @@ DIPConflictCheck::DIPConflictCheck(QObject *parent)
             &DIPConflictCheckInterface::IPConflict,
             this,
             [this](const QString &ip, const QString &smac, const QString &dmac) {
-                emit this->IPConflict(ip.toUtf8(), smac.toUtf8(), dmac.toUtf8());
+                Q_EMIT this->IPConflict(ip.toUtf8(), smac.toUtf8(), dmac.toUtf8());
             });
 }
 

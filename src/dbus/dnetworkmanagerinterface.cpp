@@ -20,15 +20,10 @@ DNetworkManagerInterface::DNetworkManagerInterface(QObject *parent)
     const QString &Path = QStringLiteral("/org/freedesktop/NetworkManager");
     const QString &Interface = QStringLiteral("org.freedesktop.NetworkManager");
     QDBusConnection Connection = QDBusConnection::systemBus();
-    Connection.connect(Service, Path, Interface, "DeviceAdded", this, SLOT([this](const QDBusObjectPath &device) {
-                           emit this->DeviceAdded(device);
-                       }));
-    Connection.connect(Service, Path, Interface, "DeviceRemoved", this, SLOT([this](const QDBusObjectPath &device) {
-                           emit this->DeviceRemoved(device);
-                       }));
-    Connection.connect(Service, Path, Interface, "CheckPermissions", this, SLOT([this]() { emit this->CheckPermissions(); }));
-    Connection.connect(
-        Service, Path, Interface, "StateChanged", this, SLOT([this](const quint32 state) { emit this->StateChanged(state); }));
+    Connection.connect(Service, Path, Interface, "DeviceAdded", this, SIGNAL(DeviceAdded(const QDBusObjectPath &)));
+    Connection.connect(Service, Path, Interface, "DeviceRemoved", this, SIGNAL(DeviceRemoved(const QDBusObjectPath &)));
+    Connection.connect(Service, Path, Interface, "CheckPermissions", this, SIGNAL(CheckPermissions()));
+    Connection.connect(Service, Path, Interface, "StateChanged", this, SIGNAL(StateChanged(quint32)));
 
 #endif
     m_inter = new DDBusInterface(Service, Path, Interface, Connection, this);

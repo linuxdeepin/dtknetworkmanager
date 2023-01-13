@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -11,6 +11,7 @@
 #include "dtundevice.h"
 #include "dactivevpnconnection.h"
 #include <QDBusMessage>
+#include <QDebug>
 
 DNETWORKMANAGER_BEGIN_NAMESPACE
 
@@ -42,33 +43,34 @@ DNetworkManager::DNetworkManager(QObject *parent)
         QList<quint64> ret;
         for (const auto &it : conn)
             ret.append(getIdFromObjectPath(it));
-        emit this->activeConnectionsChanged(ret);
+        Q_EMIT this->activeConnectionsChanged(ret);
     });
 
     connect(d->m_manager, &DNetworkManagerInterface::PrimaryConnectionChanged, this, [this](const QDBusObjectPath &conn) {
-        emit this->primaryConnectionChanged(getIdFromObjectPath(conn));
+        Q_EMIT this->primaryConnectionChanged(getIdFromObjectPath(conn));
     });
 
     connect(d->m_manager, &DNetworkManagerInterface::PrimaryConnectionTypeChanged, this, [this](const QString &type) {
-        emit this->primaryConnectionTypeChanged(DNMSetting::stringToType(type));
+        Q_EMIT this->primaryConnectionTypeChanged(DNMSetting::stringToType(type));
     });
 
     connect(d->m_manager, &DNetworkManagerInterface::ConnectivityChanged, this, [this](const quint32 con) {
-        emit this->connectivityChanged(static_cast<NMConnectivityState>(con));
+        Q_EMIT this->connectivityChanged(static_cast<NMConnectivityState>(con));
     });
 
     connect(d->m_manager, &DNetworkManagerInterface::DeviceAdded, this, [this](const QDBusObjectPath &device) {
-        emit this->DeviceAdded(getIdFromObjectPath(device));
+        qDebug() << "dnetworkmanager.cpp";
+        Q_EMIT this->DeviceAdded(getIdFromObjectPath(device));
     });
 
     connect(d->m_manager, &DNetworkManagerInterface::DeviceRemoved, this, [this](const QDBusObjectPath &device) {
-        emit this->DeviceRemoved(getIdFromObjectPath(device));
+        Q_EMIT this->DeviceRemoved(getIdFromObjectPath(device));
     });
 
     connect(d->m_manager, &DNetworkManagerInterface::CheckPermissions, this, &DNetworkManager::CheckPermissions);
 
     connect(d->m_manager, &DNetworkManagerInterface::StateChanged, this, [this](const quint32 state) {
-        emit this->StateChanged(static_cast<NMState>(state));
+        Q_EMIT this->StateChanged(static_cast<NMState>(state));
     });
 }
 

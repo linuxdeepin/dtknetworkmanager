@@ -20,9 +20,7 @@ DIPConflictCheckInterface::DIPConflictCheckInterface(QObject *parent)
     const QString &Path = QStringLiteral("/com/deepin/system/IPWatchD");
     QDBusConnection Connection = QDBusConnection::systemBus();
     Connection.connect(
-        Service, Path, Interface, "IPConflict", this, SLOT([this](const QString &ip, const QString &smac, const QString &dmac) {
-            emit this->IPConflict(ip, smac, dmac);
-        }));
+        Service, Path, Interface, "IPConflict", this, SIGNAL(IPConflict(const QString &, const QString &, const QString &)));
 #endif
     m_inter = new DDBusInterface(Service, Path, Interface, Connection, this);
 }

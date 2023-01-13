@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -23,7 +23,7 @@ public:
     explicit DSecretAgentInterface(QObject *parent = nullptr);
     ~DSecretAgentInterface() override = default;
 
-public slots:
+public Q_SLOTS:
     QDBusPendingReply<SettingDesc> getSecrets(const SettingDesc &connection,
                                               const QByteArray &connectionPath,
                                               const QByteArray &settingName,

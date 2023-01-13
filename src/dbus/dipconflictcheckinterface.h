@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -22,10 +22,10 @@ public:
     explicit DIPConflictCheckInterface(QObject *parent = nullptr);
     ~DIPConflictCheckInterface() override = default;
 
-public slots:
+public Q_SLOTS:
     QDBusPendingReply<QString> requestIPConflictCheck(const QByteArray &ip, const QByteArray &ifc) const;
 
-signals:
+Q_SIGNALS:
     void IPConflict(const QString &ip, const QString &smac, const QString &dmac);
 
 private:

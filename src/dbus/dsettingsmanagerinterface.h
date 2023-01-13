@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -21,12 +21,12 @@ public:
     explicit DSettingsManagerInterface(QObject *parent = nullptr);
     ~DSettingsManagerInterface() override = default;
 
-public slots:
+public Q_SLOTS:
     QDBusPendingReply<QList<QDBusObjectPath>> listConnections() const;
     QDBusPendingReply<QDBusObjectPath> getConnectionByUUID(const QByteArray &UUID) const;
     QDBusPendingReply<QDBusObjectPath> addConnection(const SettingDesc &conn) const;
 
-signals:
+Q_SIGNALS:
     void ConnectionRemoved(const QDBusObjectPath &path);
     void NewConnection(const QDBusObjectPath &path);
 
