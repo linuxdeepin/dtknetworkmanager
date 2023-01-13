@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -29,7 +29,7 @@ public:
     explicit DSecretAgent(const QString &id, Capabilities caps, QObject *parent = nullptr);
     ~DSecretAgent() override;
 
-public slots:
+public Q_SLOTS:
     virtual DExpected<SettingDesc> secrets(const SettingDesc &conn,
                                            const quint64 connId,
                                            const QString &settingName,

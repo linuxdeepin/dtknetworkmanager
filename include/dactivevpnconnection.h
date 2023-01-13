@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -24,7 +24,7 @@ public:
     NMVpnConnectionState vpnState() const;
     QString banner() const;
 
-signals:
+Q_SIGNALS:
     void VpnStateChanged(const NMVpnConnectionState state, const NMActiveConnectionStateReason reason);
     void bannerChanged(const QString &banner);
 

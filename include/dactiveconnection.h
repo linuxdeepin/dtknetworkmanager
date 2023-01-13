@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -47,7 +47,7 @@ public:
     QUuid UUID() const;
     NMActiveConnectionState connectionState() const;
 
-signals:
+Q_SIGNALS:
     void devicesChanged(const QList<quint64> &devices);
     void vpnChanged(const bool vpn);
     void connectionChanged(const quint64 &connection);

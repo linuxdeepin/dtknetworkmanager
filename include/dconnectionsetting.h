@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -32,12 +32,12 @@ public:
     QUrl filename() const;
     NMSCFlags flags() const;
 
-public slots:
+public Q_SLOTS:
     DExpected<void> updateSetting(const SettingDesc &settings) const;
     DExpected<void> deleteSetting() const;
     DExpected<SettingDesc> settings() const;
 
-signals:
+Q_SIGNALS:
     void unsavedChanged(const bool unsaved);
     void filenameChanged(const QUrl &filename);
     void flagsChanged(const NMSCFlags flags);

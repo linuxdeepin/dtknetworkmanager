@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -34,7 +34,7 @@ public:
     QByteArray user() const;
     quint32 port() const;
 
-public slots:
+public Q_SLOTS:
     DExpected<void>
     set(const ProxyType type, const QByteArray &ip, const quint32 port, const QByteArray &user, const QByteArray &password) const;
 

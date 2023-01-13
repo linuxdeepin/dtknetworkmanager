@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -43,13 +43,12 @@ public:
     quint32 bitrate() const { return m_bitrate; };
     QDBusObjectPath activeAccessPoint() const { return m_activeAccessPoint; };
     quint32 wirelessCapabilities() const { return m_wirelessCapabilities; };
-    qint64 lastScan() const {return m_lastScan;}
-
+    qint64 lastScan() const { return m_lastScan; }
 
     bool m_requestScanTrigger{false};
     bool m_getAllAccesspointTrigger{false};
 
-public slots:
+public Q_SLOTS:
 
     Q_SCRIPTABLE void RequestScan(const Config &) { m_requestScanTrigger = true; }
 

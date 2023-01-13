@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -33,11 +33,11 @@ DIPv6Config::DIPv6Config(const quint64 id, QObject *parent)
             }
             ret.append(QHostAddress(address));
         }
-        emit this->nameserversChanged(ret);
+        Q_EMIT this->nameserversChanged(ret);
     });
 
     connect(d->m_ipv6, &DIPv6ConfigInterface::GatewayChanged, this, [this](const QString &gateway) {
-        emit this->gatewayChanged(QHostAddress(gateway));
+        Q_EMIT this->gatewayChanged(QHostAddress(gateway));
     });
 }
 

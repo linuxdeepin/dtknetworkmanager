@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -29,7 +29,7 @@ public:
     QStringList S390Subchannels() const;
     bool carrier() const;
 
-signals:
+Q_SIGNALS:
     void HwAddressChanged(const QByteArray &address);
     void permHwAddressChanged(const QByteArray &address);
     void speedChanged(const quint32 speed);

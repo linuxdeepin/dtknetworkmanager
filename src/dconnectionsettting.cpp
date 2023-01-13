@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -29,11 +29,11 @@ DConnectionSetting::DConnectionSetting(const quint64 id, QObject *parent)
     connect(d->m_setting, &DConnectionSettingInterface::UnsavedChanged, this, &DConnectionSetting::unsavedChanged);
 
     connect(d->m_setting, &DConnectionSettingInterface::FilenameChanged, this, [this](const QString &filename) {
-        emit this->filenameChanged(filename);
+        Q_EMIT this->filenameChanged(filename);
     });
 
     connect(d->m_setting, &DConnectionSettingInterface::FlagsChanged, this, [this](const quint32 flags) {
-        emit this->flagsChanged(static_cast<NMSCFlags>(flags));
+        Q_EMIT this->flagsChanged(static_cast<NMSCFlags>(flags));
     });
 
     connect(d->m_setting, &DConnectionSettingInterface::Removed, this, &DConnectionSetting::Removed);

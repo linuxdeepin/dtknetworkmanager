@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -28,42 +28,42 @@ DWirelessDevice::DWirelessDevice(const quint64 id, QObject *parent)
         QList<quint64> ret;
         for (const auto &ap : aps)
             ret.append(getIdFromObjectPath(ap));
-        emit this->accessPointsChanged(ret);
+        Q_EMIT this->accessPointsChanged(ret);
     });
 
     connect(d->m_wireless, &DWirelessDeviceInterface::HwAddressChanged, this, [this](const QString &address) {
-        emit this->HwAddressChanged(address.toUtf8());
+        Q_EMIT this->HwAddressChanged(address.toUtf8());
     });
 
     connect(d->m_wireless, &DWirelessDeviceInterface::PermHwAddressChanged, this, [this](const QString &address) {
-        emit this->permHwAddressChanged(address.toUtf8());
+        Q_EMIT this->permHwAddressChanged(address.toUtf8());
     });
 
     connect(d->m_wireless, &DWirelessDeviceInterface::ModeChanged, this, [this](const quint32 mode) {
-        emit this->modeChanged(static_cast<NM80211Mode>(mode));
+        Q_EMIT this->modeChanged(static_cast<NM80211Mode>(mode));
     });
 
     connect(d->m_wireless, &DWirelessDeviceInterface::BitrateChanged, this, &DWirelessDevice::bitrateChanged);
 
     connect(d->m_wireless, &DWirelessDeviceInterface::ActiveAccessPointChanged, this, [this](const QDBusObjectPath &path) {
-        emit this->activeAccessPointChanged(getIdFromObjectPath(path));
+        Q_EMIT this->activeAccessPointChanged(getIdFromObjectPath(path));
     });
 
     connect(
         d->m_wireless, &DWirelessDeviceInterface::WirelessCapabilitiesChanged, this, [this](const quint32 wirelessCapabilities) {
-            emit this->wirelessCapabilitiesChanged(static_cast<NMWifiCap>(wirelessCapabilities));
+            Q_EMIT this->wirelessCapabilitiesChanged(static_cast<NMWifiCap>(wirelessCapabilities));
         });
 
     connect(d->m_wireless, &DWirelessDeviceInterface::LastScanChanged, this, [this](const qint64 time) {
-        emit this->lastScanChanged(time);
+        Q_EMIT this->lastScanChanged(time);
     });
 
     connect(d->m_wireless, &DWirelessDeviceInterface::AccessPointAdded, this, [this](const QDBusObjectPath &ap) {
-        emit this->AccessPointAdded(getIdFromObjectPath(ap));
+        Q_EMIT this->AccessPointAdded(getIdFromObjectPath(ap));
     });
 
     connect(d->m_wireless, &DWirelessDeviceInterface::AccessPointRemoved, this, [this](const QDBusObjectPath &ap) {
-        emit this->AccessPointRemoved(getIdFromObjectPath(ap));
+        Q_EMIT this->AccessPointRemoved(getIdFromObjectPath(ap));
     });
 }
 

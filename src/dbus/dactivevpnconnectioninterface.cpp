@@ -18,9 +18,7 @@ DActiveVpnConnectionInterface::DActiveVpnConnectionInterface(const QByteArray &p
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
     const QString &Interface = QStringLiteral("org.freedesktop.NetworkManager.VPN.Connection");
     QDBusConnection Connection = QDBusConnection::systemBus();
-    Connection.connect(Service, path, Interface, "VpnStateChanged", this, SLOT([this](const quint32 state, const quint32 reason) {
-                           emit this->VpnStateChanged(state, reason);
-                       }));
+    Connection.connect(Service, path, Interface, "VpnStateChanged", this, SIGNAL(VpnStateChanged(const quint32, const quint32)));
 #endif
     m_vpninter = new DDBusInterface(Service, path, Interface, Connection, this);
 }

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -22,7 +22,7 @@ public:
     explicit DSystemProxy(QObject *parent = nullptr);
     ~DSystemProxy() override;
 
-public slots:
+public Q_SLOTS:
     DExpected<QString> autoProxy() const;
     DExpected<SystemProxyAddr> proxy(const ProxyType method) const;
     DExpected<QString> proxyIgnoreHosts() const;

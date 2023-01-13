@@ -18,9 +18,7 @@ DActiveConnectionInterface::DActiveConnectionInterface(const QByteArray &path, Q
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
     const QString &Interface = QStringLiteral("org.freedesktop.NetworkManager.Connection.Active");
     QDBusConnection Connection = QDBusConnection::systemBus();
-    Connection.connect(Service, path, Interface, "StateChanged", this, SLOT([this](const quint32 state, const quint32 reason) {
-                           emit this->StateChanged(state, reason);
-                       }));
+    Connection.connect(Service, path, Interface, "StateChanged", this, SIGNAL(StateChanged(const quint32, const quint32)));
 #endif
     m_inter = new DDBusInterface(Service, path, Interface, Connection, this);
 }

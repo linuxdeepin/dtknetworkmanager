@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -36,11 +36,11 @@ public:
     quint32 wirelessCapabilities() const;
     qint64 lastScan() const;
 
-public slots:
+public Q_SLOTS:
     QDBusPendingReply<void> requestScan(const Config &options) const;
     QDBusPendingReply<QList<QDBusObjectPath>> getAllAccessPoints() const;
 
-signals:
+Q_SIGNALS:
     void AccessPointsChanged(const QList<QDBusObjectPath> &aps);
     void HwAddressChanged(const QString &address);
     void PermHwAddressChanged(const QString &address);

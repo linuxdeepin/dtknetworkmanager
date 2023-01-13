@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -45,7 +45,7 @@ public:
     quint32 state() const;
     quint32 connectivity() const;
 
-public slots:
+public Q_SLOTS:
     QDBusPendingReply<QList<QDBusObjectPath>> getDevices();
     QDBusPendingReply<QDBusObjectPath>
     activateConnection(const QByteArray &connection, const QByteArray &device, const QByteArray &specObj);
@@ -56,7 +56,7 @@ public slots:
     QDBusPendingReply<QMap<QString, QString>> getPermissions();
     QDBusPendingReply<quint32> checkConnectivity();
 
-signals:
+Q_SIGNALS:
     void NetworkingEnabledChanged(const bool enable);
     void WirelessEnabledChanged(const bool enable);
     void WirelessHardwareEnabledChanged(const bool enable);
@@ -64,6 +64,7 @@ signals:
     void PrimaryConnectionChanged(const QDBusObjectPath &path);
     void PrimaryConnectionTypeChanged(const QString &type);
     void ConnectivityChanged(const quint32 con);
+
     void DeviceAdded(const QDBusObjectPath &device);
     void DeviceRemoved(const QDBusObjectPath &device);
     void CheckPermissions();

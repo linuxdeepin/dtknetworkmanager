@@ -19,8 +19,8 @@ DConnectionSettingInterface::DConnectionSettingInterface(const QByteArray &path,
     const QString &Service = QStringLiteral("org.freedesktop.NetworkManager");
     const QString &Interface = QStringLiteral("org.freedesktop.NetworkManager.Settings.Connection");
     QDBusConnection Connection = QDBusConnection::systemBus();
-    Connection.connect(Service, path, Interface, "Updated", this, SLOT([this]() { emit this->Updated(); }));
-    Connection.connect(Service, path, Interface, "Removed", this, SLOT([this]() { emit this->Removed(); }));
+    Connection.connect(Service, path, Interface, "Updated", this, SIGNAL(Updated()));
+    Connection.connect(Service, path, Interface, "Removed", this, SIGNAL(Removed()));
 #endif
     m_inter = new DDBusInterface(Service, path, Interface, Connection, this);
     qRegisterMetaType<SettingDesc>("SettingDesc");

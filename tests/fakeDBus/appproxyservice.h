@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -34,7 +34,7 @@ public:
     quint32 port() const { return m_port; };
 
     bool m_SetTrigger{false};
-public slots:
+public Q_SLOTS:
     Q_SCRIPTABLE void Set(QString, QString, quint32, QString, QString) { m_SetTrigger = true; }
 
 private:

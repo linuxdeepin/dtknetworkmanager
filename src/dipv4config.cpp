@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -27,7 +27,7 @@ DIPv4Config::DIPv4Config(const quint64 id, QObject *parent)
     connect(d->m_ipv4, &DIPv4ConfigInterface::NameserverDataChanged, this, &DIPv4Config::nameserverDataChanged);
 
     connect(d->m_ipv4, &DIPv4ConfigInterface::GatewayChanged, this, [this](const QString &gateway) {
-        emit this->gatewayChanged(QHostAddress(gateway));
+        Q_EMIT this->gatewayChanged(QHostAddress(gateway));
     });
 }
 

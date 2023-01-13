@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -31,7 +31,7 @@ public:
     QList<QByteArray> nameservers() const;
     QString gateway() const;
 
-signals:
+Q_SIGNALS:
     void AddressDataChanged(const QList<Config> &addressData);
     void NameserversChanged(const QList<QByteArray> &nameservers);
     void GatewayChanged(const QString &gateway);

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -30,37 +30,37 @@ DActiveConnection::DActiveConnection(const quint64 activeConnId, QObject *parent
         QList<quint64> ret;
         for (const auto &it : devices)
             ret.append(getIdFromObjectPath(it));
-        emit this->devicesChanged(ret);
+        Q_EMIT this->devicesChanged(ret);
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::VpnChanged, this, &DActiveConnection::vpnChanged);
     connect(d->m_activeConn, &DActiveConnectionInterface::ConnectionChanged, this, [this](const QDBusObjectPath &connection) {
-        emit this->connectionChanged(getIdFromObjectPath(connection));
+        Q_EMIT this->connectionChanged(getIdFromObjectPath(connection));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::Dhcp4ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->DHCP4ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->DHCP4ConfigChanged(getIdFromObjectPath(config));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::Dhcp6ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->DHCP6ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->DHCP6ConfigChanged(getIdFromObjectPath(config));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::IP4ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->IP4ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->IP4ConfigChanged(getIdFromObjectPath(config));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::IP6ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->IP6ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->IP6ConfigChanged(getIdFromObjectPath(config));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::SpecificObjectChanged, this, [this](const QDBusObjectPath &specObj) {
-        emit this->specificObjectChanged(getIdFromObjectPath(specObj));
+        Q_EMIT this->specificObjectChanged(getIdFromObjectPath(specObj));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::IdChanged, this, &DActiveConnection::connectionIdChanged);
     connect(d->m_activeConn, &DActiveConnectionInterface::UuidChanged, this, [this](const QString &uuid) {
-        emit this->UUIDChanged(uuid.toUtf8());
+        Q_EMIT this->UUIDChanged(uuid.toUtf8());
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::TypeChanged, this, [this](const QString &type) {
-        emit this->connectionTypeChanged(DNMSetting::stringToType(type));
+        Q_EMIT this->connectionTypeChanged(DNMSetting::stringToType(type));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::StateChanged, this, [this](const quint32 state, const quint32 reason) {
-        emit this->connectionStateChanged(static_cast<NMActiveConnectionState>(state),
-                                          static_cast<NMActiveConnectionStateReason>(reason));
+        Q_EMIT this->connectionStateChanged(static_cast<NMActiveConnectionState>(state),
+                                            static_cast<NMActiveConnectionStateReason>(reason));
     });
 }
 
@@ -73,37 +73,37 @@ DActiveConnection::DActiveConnection(DActiveConnectionPrivate &other, QObject *p
         QList<quint64> ret;
         for (const auto &it : devices)
             ret.append(getIdFromObjectPath(it));
-        emit this->devicesChanged(ret);
+        Q_EMIT this->devicesChanged(ret);
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::VpnChanged, this, &DActiveConnection::vpnChanged);
     connect(d->m_activeConn, &DActiveConnectionInterface::ConnectionChanged, this, [this](const QDBusObjectPath &connection) {
-        emit this->connectionChanged(getIdFromObjectPath(connection));
+        Q_EMIT this->connectionChanged(getIdFromObjectPath(connection));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::Dhcp4ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->DHCP4ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->DHCP4ConfigChanged(getIdFromObjectPath(config));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::Dhcp6ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->DHCP6ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->DHCP6ConfigChanged(getIdFromObjectPath(config));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::IP4ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->IP4ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->IP4ConfigChanged(getIdFromObjectPath(config));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::IP6ConfigChanged, this, [this](const QDBusObjectPath &config) {
-        emit this->IP6ConfigChanged(getIdFromObjectPath(config));
+        Q_EMIT this->IP6ConfigChanged(getIdFromObjectPath(config));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::SpecificObjectChanged, this, [this](const QDBusObjectPath &specObj) {
-        emit this->specificObjectChanged(getIdFromObjectPath(specObj));
+        Q_EMIT this->specificObjectChanged(getIdFromObjectPath(specObj));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::IdChanged, this, &DActiveConnection::connectionIdChanged);
     connect(d->m_activeConn, &DActiveConnectionInterface::UuidChanged, this, [this](const QString &uuid) {
-        emit this->UUIDChanged(uuid);
+        Q_EMIT this->UUIDChanged(uuid);
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::TypeChanged, this, [this](const QString &type) {
-        emit this->connectionTypeChanged(DNMSetting::stringToType(type));
+        Q_EMIT this->connectionTypeChanged(DNMSetting::stringToType(type));
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::StateChanged, this, [this](const quint32 state, const quint32 reason) {
-        emit this->connectionStateChanged(static_cast<NMActiveConnectionState>(state),
-                                          static_cast<NMActiveConnectionStateReason>(reason));
+        Q_EMIT this->connectionStateChanged(static_cast<NMActiveConnectionState>(state),
+                                            static_cast<NMActiveConnectionStateReason>(reason));
     });
 }
 

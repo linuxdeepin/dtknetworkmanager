@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -28,16 +28,16 @@ DAccessPoint::DAccessPoint(const quint64 apId, QObject *parent)
     connect(d->m_ap, &DAccessPointInterface::StrengthChanged, this, &DAccessPoint::strength);
 
     connect(
-        d->m_ap, &DAccessPointInterface::FlagsChanged, this, [this](const quint32 flags) { emit this->flagsChanged({flags}); });
+        d->m_ap, &DAccessPointInterface::FlagsChanged, this, [this](const quint32 flags) { Q_EMIT this->flagsChanged({flags}); });
 
     connect(d->m_ap, &DAccessPointInterface::FrequencyChanged, this, &DAccessPoint::frequencyChanged);
 
     connect(d->m_ap, &DAccessPointInterface::RsnFlagsChanged, this, [this](const quint32 rsnFlags) {
-        emit this->rsnFlagsChanged({rsnFlags});
+        Q_EMIT this->rsnFlagsChanged({rsnFlags});
     });
 
     connect(d->m_ap, &DAccessPointInterface::WpaFlagsChanged, this, [this](const quint32 wpaFlags) {
-        emit this->wpaFlagsChanged({wpaFlags});
+        Q_EMIT this->wpaFlagsChanged({wpaFlags});
     });
 }
 

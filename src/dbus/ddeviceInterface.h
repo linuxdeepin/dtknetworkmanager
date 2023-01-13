@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -65,11 +65,11 @@ public:
     quint64 rxBytes() const;
     quint64 txBytes() const;
 
-public slots:
+public Q_SLOTS:
 
     QDBusPendingReply<void> disconnect() const;
 
-signals:
+Q_SIGNALS:
     void StateChanged(const quint32 newSatate, const quint32 oldState, const quint32 reason);
     void AvailableConnectionsChanged(const QList<QDBusObjectPath> &conns);
     void AutoconnectChanged(const bool enabled);

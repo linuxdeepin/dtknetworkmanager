@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -44,7 +44,7 @@ public:
     NMState state() const;
     NMConnectivityState connectivity() const;
 
-public slots:
+public Q_SLOTS:
 
     DExpected<QList<quint64>> getDeviceIdList() const;
     DExpected<quint64> activateConnection(const quint64 connId, const quint64 deviceId, const qint64 objId = 0) const;
@@ -56,7 +56,7 @@ public slots:
     DExpected<QSharedPointer<DDevice>> getDeviceObject(const quint64 id) const;
     DExpected<QSharedPointer<DActiveConnection>> getActiveConnectionObject(const quint64 id) const;
 
-signals:
+Q_SIGNALS:
 
     void networkingEnabledChanged(const bool enable);
     void wirelessEnabledChanged(const bool enable);

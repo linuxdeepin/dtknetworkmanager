@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -26,7 +26,7 @@ public:
 public:
     auto getConnection() { return m_inter->connection(); }
 
-public slots:
+public Q_SLOTS:
 
     QDBusPendingReply<void> registerAgent(const QString &identifier) const;
     QDBusPendingReply<void> registerWithCapabilities(const QString &identifier, const DSecretAgent::Capabilities caps) const;

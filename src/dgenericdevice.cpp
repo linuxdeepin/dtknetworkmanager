@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -21,7 +21,7 @@ DGenericDevice::DGenericDevice(const quint64 id, QObject *parent)
 {
     Q_D(const DGenericDevice);
     connect(d->m_generic, &DGenericDeviceInterface::HwAddressChanged, this, [this](const QString &addr) {
-        emit this->HwAddressChanged(addr.toUtf8());
+        Q_EMIT this->HwAddressChanged(addr.toUtf8());
     });
     connect(d->m_generic, &DGenericDeviceInterface::TypeDescriptionChanged, this, &DGenericDevice::typeDescriptionChanged);
 }

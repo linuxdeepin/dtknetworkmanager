@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -34,7 +34,7 @@ public:
     quint32 rsnFlags() const;
     quint32 wpaFlags() const;
 
-signals:
+Q_SIGNALS:
 
     void SsidChanged(const QString &ssid);
     void StrengthChanged(const quint8 strength);

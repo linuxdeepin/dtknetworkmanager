@@ -24,9 +24,7 @@ DDeviceInterface::DDeviceInterface(const QByteArray &path, QObject *parent)
                        deviceInterface,
                        "StateChanged",
                        this,
-                       SLOT([this](const quint32 newSatate, const quint32 oldState, const quint32 reason) {
-                           emit this->StateChanged(newSatate, oldState, reason);
-                       }));
+                       SIGNAL(StateChanged(const quint32 newSatate, const quint32 oldState, const quint32 reason)));
 #endif
     m_deviceInter = new DDBusInterface(Service, path, deviceInterface, Connection, this);
     m_statisticsInter = new DDBusInterface(Service, path, statisticsInterface, Connection, this);
