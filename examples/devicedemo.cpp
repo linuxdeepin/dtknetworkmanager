@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 #include "dnetworkmanager.h"
-#include "Devices"
+#include "DtkNetworkManagerDevices"
 
 #include <QDebug>
 #include <QCoreApplication>
