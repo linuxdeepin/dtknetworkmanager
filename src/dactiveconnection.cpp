@@ -53,7 +53,7 @@ DActiveConnection::DActiveConnection(const quint64 activeConnId, QObject *parent
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::IdChanged, this, &DActiveConnection::connectionIdChanged);
     connect(d->m_activeConn, &DActiveConnectionInterface::UuidChanged, this, [this](const QString &uuid) {
-        Q_EMIT this->UUIDChanged(uuid.toUtf8());
+        Q_EMIT this->UUIDChanged(QUuid{uuid.toUtf8()});
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::TypeChanged, this, [this](const QString &type) {
         Q_EMIT this->connectionTypeChanged(DNMSetting::stringToType(type));
@@ -96,7 +96,7 @@ DActiveConnection::DActiveConnection(DActiveConnectionPrivate &other, QObject *p
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::IdChanged, this, &DActiveConnection::connectionIdChanged);
     connect(d->m_activeConn, &DActiveConnectionInterface::UuidChanged, this, [this](const QString &uuid) {
-        Q_EMIT this->UUIDChanged(uuid);
+        Q_EMIT this->UUIDChanged(QUuid{uuid});
     });
     connect(d->m_activeConn, &DActiveConnectionInterface::TypeChanged, this, [this](const QString &type) {
         Q_EMIT this->connectionTypeChanged(DNMSetting::stringToType(type));
@@ -175,7 +175,7 @@ DNMSetting::SettingType DActiveConnection::connectionType() const
 QUuid DActiveConnection::UUID() const
 {
     Q_D(const DActiveConnection);
-    return d->m_activeConn->uuid();
+    return QUuid{d->m_activeConn->uuid()};
 }
 
 NMActiveConnectionState DActiveConnection::connectionState() const

@@ -1,20 +1,29 @@
-# SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+# SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
 #
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
 cmake_minimum_required(VERSION 3.13)
 
 # If do't define version number, specify the version number
-set (VERSION "1.0.0" CACHE STRING "define project version")
+set (DTK_VERSION "5.0.0" CACHE STRING "define project version")
 
 project(DtkNetworkManager
     LANGUAGES CXX
     HOMEPAGE_URL https://github.com/linuxdeepin/dtknetworkmanager
     DESCRIPTION "NetworkManager DBus interface binding for Qt"
-    VERSION ${VERSION}
+    VERSION ${DTK_VERSION}
 )
 
 set(LIB_NAME dtknetworkmanager)
+
+if(${PROJECT_VERSION_MAJOR} STREQUAL "5")
+    set(QT_VERSION_MAJOR "5")
+elseif(${PROJECT_VERSION_MAJOR} STREQUAL "6")
+    set(QT_VERSION_MAJOR "6")
+    set(DTK_VERSION_MAJOR "6")
+endif()
+
+set(DtkNetworkManager Dtk${DTK_VERSION_MAJOR}NetworkManager)
 
 # specify install dir
 include(GNUInstallDirs)
@@ -29,8 +38,9 @@ set(CMAKE_SHARED_LINKER_FLAGS ${CMAKE_SHARED_LINKER_FLAGS} "-Wl,--as-needed")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(ConfigPackageLocation ${CMAKE_INSTALL_LIBDIR}/cmake/DtkNetworkManager)
-set(CMAKE_INSTALL_INCLUDEDIR include/dtk${PROJECT_VERSION_MAJOR}/DNetworkManager)
-set(LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
+set(CMAKE_INSTALL_INCLUDEDIR ${CMAKE_INSTALL_INCLUDEDIR}/dtk${DTK_VERSION_MAJOR}/DNetworkManager)
+set(LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/${DtkNetworkManager} CACHE STRING "Install dir for cmake config files")
+set (CONFIG_CMAKE_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${DtkNetworkManager}" CACHE STRING "Install dir for cmake config files")
 # Install settings
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX /usr)
@@ -49,8 +59,7 @@ endif ()
 find_package(PkgConfig)
 pkg_search_module(NetworkManager REQUIRED IMPORTED_TARGET libnm>=1.4.0)
 pkg_search_module(Gio REQUIRED IMPORTED_TARGET gio-2.0)
-find_package(Dtk REQUIRED Core)
-find_package(QT NAMES Qt5 REQUIRED COMPONENTS Core)
+find_package(Dtk${DTK_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core DBus Network)
 
 add_subdirectory(src)
@@ -72,18 +81,18 @@ if (BUILD_EXAMPLES)
 endif()
 
 target_link_directories(${LIB_NAME} INTERFACE
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_LIBDIR}>
+    $<INSTALL_INTERFACE:${LIBRARY_INSTALL_DIR}>
 )
 
 write_basic_package_version_file(
-    DtkNetworkManagerConfigVersion.cmake
-    VERSION ${VERSION}
+    ${CMAKE_CURRENT_BINARY_DIR}/${DtkNetworkManager}ConfigVersion.cmake
+    VERSION ${DTK_VERSION}
     COMPATIBILITY SameMajorVersion
 )
 
 configure_package_config_file(misc/DtkNetworkManagerConfig.cmake.in
-    DtkNetworkManagerConfig.cmake
-    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/DtkNetworkManager
+    ${CMAKE_CURRENT_BINARY_DIR}/${DtkNetworkManager}Config.cmake
+    INSTALL_DESTINATION ${CONFIG_CMAKE_INSTALL_DIR}
     PATH_VARS CMAKE_INSTALL_INCLUDEDIR CMAKE_INSTALL_LIBDIR
 )
 
@@ -97,7 +106,7 @@ set(PC_REQUIRES "Qt${QT_VERSION_MAJOR}Core Qt${QT_VERSION_MAJOR}DBus Qt${QT_VERS
 configure_file(misc/${LIB_NAME}.pc.in ${LIB_NAME}.pc @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${LIB_NAME}.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/DtkNetworkManagerConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/DtkNetworkManagerConfigVersion.cmake DESTINATION ${ConfigPackageLocation})
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DtkNetworkManager}Config.cmake ${CMAKE_CURRENT_BINARY_DIR}/${DtkNetworkManager}ConfigVersion.cmake DESTINATION ${CONFIG_CMAKE_INSTALL_DIR})
 
 # config qmake moudule file
 set(DTK_MODULE ${LIB_NAME})
