@@ -47,7 +47,7 @@ DExpected<QList<quint64>> DSettingsManager::listConnections() const
 DExpected<quint64> DSettingsManager::getConnectionByUUID(const QUuid &UUID) const
 {
     Q_D(const DSettingsManager);
-    auto reply = d->m_settings->getConnectionByUUID(UUID.toByteArray());
+    auto reply = d->m_settings->getConnectionByUUID(UUID.toByteArray(QUuid::StringFormat::WithoutBraces));
     reply.waitForFinished();
     if (!reply.isValid())
         return DUnexpected{emplace_tag::USE_EMPLACE, reply.error().type(), reply.error().message()};
