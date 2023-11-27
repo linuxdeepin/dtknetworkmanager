@@ -106,7 +106,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${LIB_NAME}.pc DESTINATION ${LIBRARY_I
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DtkNetworkManager}Config.cmake ${CMAKE_CURRENT_BINARY_DIR}/${DtkNetworkManager}ConfigVersion.cmake DESTINATION ${CONFIG_CMAKE_INSTALL_DIR})
 
-# config qmake moudule file
+# config qmake module file
 set(DTK_MODULE ${LIB_NAME})
 set(DTK_DEPS "core dbus network dtkcore")
 set(DTK_CFG "v2 ltcg")
